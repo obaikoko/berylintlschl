@@ -1,0 +1,582 @@
+import Student from '../model/student.js';
+import Result from '../model/result.js';
+import asyncHandler from 'express-async-handler';
+import cloudinary from '../config/cloudinary.js';
+import generateToken from '../utils/generateToken.js';
+
+// Authenticate Student
+// @route POST api/student/auth
+// privacy Public
+const authStudent = asyncHandler(async (req, res) => {
+  const { studentId, password } = req.body;
+
+  if (!studentId || !password) {
+    res.status(400);
+    throw new Error('Invalid registration number or password');
+  }
+
+  const student = await Student.findOne({ studentId });
+  if (!student) {
+    res.status(400);
+    throw new Error('Student does not exist');
+  }
+  if (student && (await student.matchPassword(password))) {
+    res.status(200);
+    generateToken(res, student._id);
+    res.json({
+      _id: student._id,
+      firstName: student.firstName,
+      lastName: student.lastName,
+      studentId: student.studentId,
+      isStudent: student.isStudent,
+    });
+  } else {
+    res.status(400);
+    throw new Error('Invalid Email or Password');
+  }
+});
+
+// ADD  STUDENT
+// @route POST api/students/
+// @privacy Private ADMIN
+const RegisterStudent = asyncHandler(async (req, res) => {
+  const {
+    firstName,
+    lastName,
+    otherName,
+    dateOfBirth,
+    level,
+    subLevel,
+    gender,
+    yearAdmitted,
+    stateOfOrigin,
+    localGvt,
+    homeTown,
+    sponsorName,
+    sponsorRelationship,
+    sponsorPhoneNumber,
+    sponsorEmail,
+    // image,
+  } = req.body;
+  console.log(req.body);
+
+  // if (!image) {
+  //   res.status(400);
+  //   throw new Error('Please attach an image');
+  // }
+  if (!firstName || !lastName) {
+    res.status(400);
+    throw new Error('Please add all fields');
+  }
+
+  const firstNameRegex = new RegExp(`^${firstName}$`, 'i');
+  const lastNameRegex = new RegExp(`^${lastName}$`, 'i');
+  const studentExist = await Student.findOne({
+    firstName: firstNameRegex,
+    lastName: lastNameRegex,
+  });
+  if (studentExist) {
+    res.status(400);
+    throw new Error('Student already exists');
+  }
+
+  // Class level to code mapping
+  const classCodeMapping = {
+    'Grade 1': 'G1',
+    'Grade 2': 'G2',
+    'Grade 3': 'G3',
+    'Grade 4': 'G4',
+    'Grade 5': 'G5',
+    'Grade 6': 'G6',
+    'JSS 1': 'J1',
+    'JSS 2': 'J2',
+    'JSS 3': 'J3',
+    'SSS 1': 'S1',
+    'SSS 2': 'S2',
+    'SSS 3': 'S3',
+  };
+
+  // Use the current year
+  const currentYear = new Date().getFullYear();
+
+  // Get the class code
+  const classCode = classCodeMapping[level];
+
+  // Count the number of students already in the same class
+  const studentCountInClass = await Student.countDocuments({
+    level,
+  });
+
+  // Construct the registration number
+  const registrationNumber = `BIS/${currentYear}/${classCode}/${(
+    studentCountInClass + 1
+  )
+    .toString()
+    .padStart(3, '0')}`;
+
+  // const uploadedResponse = await cloudinary.uploader.upload(image, {
+  //   folder: 'Beryl',
+  // });
+
+  const student = await Student.create({
+    firstName,
+    lastName,
+    otherName,
+    dateOfBirth,
+    level,
+    subLevel,
+    gender,
+    yearAdmitted,
+    studentId: registrationNumber,
+    password: process.env.DEFAULTPASSWORD,
+    stateOfOrigin,
+    localGvt,
+    homeTown,
+    sponsorName,
+    sponsorRelationship,
+    sponsorPhoneNumber,
+    sponsorEmail,
+    // image: {
+    //   url: uploadedResponse.url,
+    //   publicId: uploadedResponse.public_id,
+    // },
+  });
+
+  if (student) {
+    res.status(200);
+    res.json(student);
+  }
+});
+
+// GET  STUDENT PROFILE
+// @route GET api/students/profile
+// @privacy Private
+const getStudentProfile = asyncHandler(async (req, res) => {
+  const student = await Student.findById(req.student._id);
+  if (student) {
+    res.status(200);
+    res.json({
+      _id: student._id,
+      firstName: student.firstName,
+      lastName: student.lastName,
+      otherName: student.otherName,
+      gender: student.gender,
+      level: student.level,
+      subLevel: student.subLevel,
+      dateOfBirth: student.dateOfBirth,
+      yearAdmitted: student.yearAdmitted,
+      stateOfOrigin: student.stateOfOrigin,
+      localGvt: student.localGvt,
+      homeTown: student.homeTown,
+      sponsorName: student.sponsorName,
+      sponsorRelationship: student.sponsorRelationship,
+      sponsorPhoneNumber: student.sponsorPhoneNumber,
+      sponsorEmail: student.sponsorEmail,
+      studentId: student.studentId,
+      isStudent: student.isStudent,
+      image: student.image,
+    });
+  }
+});
+
+const getStudentResults = asyncHandler(async (req, res) => {
+  const results = await Result.find({ studentId: req.student._id });
+  if (!req.student.isPaid) {
+    res.status(401);
+
+    throw new Error(
+      'Unable to access your result due to non payment of fees, Please proceed to the school administration and make your payment '
+    );
+  }
+
+  if (results) {
+    res.status(200);
+    res.json(results);
+  }
+});
+
+// GET ALL STUDENTS
+// @route GET api/students
+// @privacy Private ADMIN
+const getAllStudents = asyncHandler(async (req, res) => {
+  if (!req.user) {
+    res.status(401);
+    throw new Error('Unauthorized User');
+  }
+  const level = req.query.level;
+  const keyword = req.query.keyword
+    ? {
+        $or: [
+          { firstName: { $regex: req.query.keyword, $options: 'i' } },
+          { lastName: { $regex: req.query.keyword, $options: 'i' } },
+          { otherName: { $regex: req.query.keyword, $options: 'i' } },
+        ],
+      }
+    : {};
+
+  const query =
+    level && level !== 'All'
+      ? { ...keyword, level: { $regex: level, $options: 'i' } }
+      : keyword;
+
+  const pageSize = 20;
+  const page = Number(req.query.pageNumber) || 1;
+  const count = await Student.countDocuments(query);
+  const students = await Student.find(query)
+    .limit(pageSize)
+    .skip(pageSize * (page - 1));
+
+  if (!students) {
+    res.status(200);
+    res.json({ message: 'No student record found' });
+  } else {
+    res.status(200);
+    res.json({
+      students,
+      page,
+      totalPages: Math.ceil(count / pageSize),
+    });
+  }
+});
+
+// GET  STUDENT
+// @route GET api/students/:id
+// @privacy Private ADMIN
+const getStudent = asyncHandler(async (req, res) => {
+  if (!req.user) {
+    res.status(401);
+    throw new Error('Unauthorized User');
+  }
+  const student = await Student.findById(req.params.id);
+  if (!student) {
+    res.status(400);
+    throw new Error('Student not found!');
+  }
+  res.status(200);
+  res.json(student);
+});
+
+// @desc Update student
+// @route PUT api/students/:id
+// @privacy Private ADMIN
+const updateStudent = asyncHandler(async (req, res) => {
+  const {
+    firstName,
+    lastName,
+    otherName,
+    dateOfBirth,
+    level,
+    subLevel,
+    gender,
+    yearAdmitted,
+    stateOfOrigin,
+    localGvt,
+    homeTown,
+    sponsorName,
+    sponsorRelationship,
+    sponsorPhoneNumber,
+    sponsorEmail,
+    image,
+    password,
+    fees,
+  } = req.body;
+  
+
+  if (!req.user) {
+    res.status(401);
+    throw new Error('Unauthorized User');
+  }
+
+  const student = await Student.findById(req.params.id);
+
+  if (student) {
+    if (fees && fees === 'paid') {
+      student.isPaid = true;
+    } else if (fees && fees === 'notPaid') {
+      student.isPaid = false;
+    }
+    if (image) {
+      const existingImageId = student?.image?.publicId || '';
+
+      if (existingImageId) {
+        const newImageId = existingImageId.substring(
+          existingImageId.indexOf('Bendonalds') + 'Bendonalds/'.length
+        );
+
+        const uploadedResponse = await cloudinary.uploader.upload(image, {
+          folder: 'Bendonalds',
+          public_id: newImageId,
+        });
+
+        student.image = {
+          url: uploadedResponse.url,
+          publicId: uploadedResponse.public_id,
+        };
+      } else {
+        const uploadedResponse = await cloudinary.uploader.upload(image, {
+          folder: 'Bendonalds',
+        });
+
+        student.image = {
+          url: uploadedResponse.url,
+          publicId: uploadedResponse.public_id,
+        };
+      }
+    }
+
+    // Update student fields
+    student.firstName = firstName || student.firstName;
+    student.lastName = lastName || student.lastName;
+    student.otherName = otherName || student.otherName;
+    student.dateOfBirth = dateOfBirth || student.dateOfBirth;
+    student.level = level || student.level;
+    student.subLevel = subLevel || student.subLevel;
+    student.gender = gender || student.gender;
+    student.yearAdmitted = yearAdmitted || student.yearAdmitted;
+    student.stateOfOrigin = stateOfOrigin || student.stateOfOrigin;
+    student.localGvt = localGvt || student.localGvt;
+    student.homeTown = homeTown || student.homeTown;
+    student.sponsorName = sponsorName || student.sponsorName;
+    student.sponsorRelationship =
+      sponsorRelationship || student.sponsorRelationship;
+    student.sponsorPhoneNumber =
+      sponsorPhoneNumber || student.sponsorPhoneNumber;
+    student.sponsorEmail = sponsorEmail || student.sponsorEmail;
+
+    const updatedStudent = await student.save();
+
+    // Return the updated student details
+    res.status(200).json(updatedStudent);
+  } else {
+    res.status(400);
+    throw new Error('Student does not exist');
+  }
+});
+
+const deleteStudent = asyncHandler(async (req, res) => {
+  if (!req.user) {
+    res.status(401);
+    throw new Error('Unauthorized User');
+  }
+  const student = await Student.findById(req.params.id);
+  if (student) {
+    if (student.image.publicId) {
+      await cloudinary.uploader.destroy(student.image.publicId);
+    }
+    await Student.deleteOne({ _id: student._id });
+    res.status(200);
+    res.json('Student deleted successfully');
+  } else {
+    res.status(404);
+    throw new Error('Student not found!');
+  }
+});
+
+// @desc Get  staff data
+// @route Get api/students/data
+// @privacy Private ADMIN
+const studentsData = asyncHandler(async (req, res) => {
+  if (!req.user) {
+    res.status(401);
+    throw new Error('Unauthorized User');
+  }
+
+  const allStudent = await Student.find();
+
+  // Get all female students
+  const femaleStudents = allStudent.filter(
+    (student) => student.gender === 'Female'
+  );
+
+  // Get all male students
+  const maleStudents = allStudent.filter(
+    (student) => student.gender === 'Male'
+  );
+
+  // Grade 1 Male Students
+  const grade1MaleStudents = allStudent.filter(
+    (student) => student.level === 'Grade 1' && student.gender === 'Male'
+  );
+
+  // Grade 1 Female Students
+  const grade1FemaleStudents = allStudent.filter(
+    (student) => student.level === 'Grade 1' && student.gender === 'Female'
+  );
+
+  // Grade 2 Male Students
+  const grade2MaleStudents = allStudent.filter(
+    (student) => student.level === 'Grade 2' && student.gender === 'Male'
+  );
+
+  // Grade 2 Female Students
+  const grade2FemaleStudents = allStudent.filter(
+    (student) => student.level === 'Grade 2' && student.gender === 'Female'
+  );
+
+  // Grade 3 Male Students
+  const grade3MaleStudents = allStudent.filter(
+    (student) => student.level === 'Grade 3' && student.gender === 'Male'
+  );
+
+  // Grade 3 Female Students
+  const grade3FemaleStudents = allStudent.filter(
+    (student) => student.level === 'Grade 3' && student.gender === 'Female'
+  );
+
+  // Grade 4 Male Students
+  const grade4MaleStudents = allStudent.filter(
+    (student) => student.level === 'Grade 4' && student.gender === 'Male'
+  );
+
+  // Grade 4 Female Students
+  const grade4FemaleStudents = allStudent.filter(
+    (student) => student.level === 'Grade 4' && student.gender === 'Female'
+  );
+
+  // Grade 5 Male Students
+  const grade5MaleStudents = allStudent.filter(
+    (student) => student.level === 'Grade 5' && student.gender === 'Male'
+  );
+
+  // Grade 5 Female Students
+  const grade5FemaleStudents = allStudent.filter(
+    (student) => student.level === 'Grade 5' && student.gender === 'Female'
+  );
+
+  // JSS 1 male students
+  const jss1MaleStudents = allStudent.filter(
+    (student) => student.level === 'JSS 1' && student.gender === 'Male'
+  );
+
+  // JSS 1 female students
+  const jss1FemaleStudents = allStudent.filter(
+    (student) => student.level === 'JSS 1' && student.gender === 'Female'
+  );
+
+  // JSS 2 male students
+  const jss2MaleStudents = allStudent.filter(
+    (student) => student.level === 'JSS 2' && student.gender === 'Male'
+  );
+
+  // JSS 2 female students
+  const jss2FemaleStudents = allStudent.filter(
+    (student) => student.level === 'JSS 2' && student.gender === 'Female'
+  );
+
+  // JSS 3 male students
+  const jss3MaleStudents = allStudent.filter(
+    (student) => student.level === 'JSS 3' && student.gender === 'Male'
+  );
+
+  // JSS 3 female students
+  const jss3FemaleStudents = allStudent.filter(
+    (student) => student.level === 'JSS 3' && student.gender === 'Female'
+  );
+
+  // SSS 1 male students
+  const sss1MaleStudents = allStudent.filter(
+    (student) => student.level === 'SSS 1' && student.gender === 'Male'
+  );
+
+  // SSS 1 female students
+  const sss1FemaleStudents = allStudent.filter(
+    (student) => student.level === 'SSS 1' && student.gender === 'Female'
+  );
+
+  // SSS 2 male students
+  const sss2MaleStudents = allStudent.filter(
+    (student) => student.level === 'SSS 2' && student.gender === 'Male'
+  );
+
+  // SSS 2 female students
+  const sss2FemaleStudents = allStudent.filter(
+    (student) => student.level === 'SSS 2' && student.gender === 'Female'
+  );
+
+  // SSS 3 male students
+  const sss3MaleStudents = allStudent.filter(
+    (student) => student.level === 'SSS 3' && student.gender === 'Male'
+  );
+
+  // SSS 3 female students
+  const sss3FemaleStudents = allStudent.filter(
+    (student) => student.level === 'SSS 3' && student.gender === 'Female'
+  );
+
+  // Respond with the count of each group
+  res.json({
+    females: femaleStudents.length,
+    males: maleStudents.length,
+    grade1Males: grade1MaleStudents.length,
+    grade1Females: grade1FemaleStudents.length,
+    grade2Males: grade2MaleStudents.length,
+    grade2Females: grade2FemaleStudents.length,
+    grade3Males: grade3MaleStudents.length,
+    grade3Females: grade3FemaleStudents.length,
+    grade4Males: grade4MaleStudents.length,
+    grade4Females: grade4FemaleStudents.length,
+    grade5Males: grade5MaleStudents.length,
+    grade5Females: grade5FemaleStudents.length,
+    grade1Females: grade1FemaleStudents.length,
+    jss1Males: jss1MaleStudents.length,
+    jss1Females: jss1FemaleStudents.length,
+    jss2Males: jss2MaleStudents.length,
+    jss2Females: jss2FemaleStudents.length,
+    jss3Males: jss3MaleStudents.length,
+    jss3Females: jss3FemaleStudents.length,
+    sss1Males: sss1MaleStudents.length,
+    sss1Females: sss1FemaleStudents.length,
+    sss2Males: sss2MaleStudents.length,
+    sss2Females: sss2FemaleStudents.length,
+    sss3Males: sss3MaleStudents.length,
+    sss3Females: sss3FemaleStudents.length,
+    totalStudents: allStudent.length,
+  });
+});
+const graduateStudent = asyncHandler(async (req, res) => {
+  // Step 1: Define the class progression map
+  const classProgression = {
+    'Grade 1': 'Grade 2',
+    'Grade 2': 'Grade 3',
+    'Grade 3': 'Grade 4',
+    'Grade 4': 'Grade 5',
+    'Grade 5': 'JSS 1',
+    'JSS 1': 'JSS 2',
+    'JSS 2': 'JSS 3',
+    'JSS 3': 'SS 1',
+    'SS 1': 'SS 2',
+    'SS 2': 'SS 3',
+    'SS 3': 'Graduated',
+  };
+
+  // Step 2: Fetch all students
+  const students = await Student.find({});
+
+  // Step 3: Iterate over each student and graduate them
+  for (let student of students) {
+    const currentClass = student.level; // Use the correct field that stores the student's class level
+    const nextClass = classProgression[currentClass];
+
+    if (nextClass) {
+      student.level = nextClass; // Update student's class level with the correct field name
+      await student.save(); // Save the updated student back to the database
+    }
+  }
+
+  res
+    .status(200)
+    .json({ message: 'All students have been graduated to the next class.' });
+});
+
+export {
+  authStudent,
+  getAllStudents,
+  getStudent,
+  RegisterStudent,
+  updateStudent,
+  deleteStudent,
+  studentsData,
+  getStudentProfile,
+  getStudentResults,
+  graduateStudent,
+};

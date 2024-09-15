@@ -1,0 +1,46 @@
+
+.imgBg{
+    width: 100%;
+    height: 400px;
+    margin-top: 50px;
+    background-image: url('https://res.cloudinary.com/dzajrh9z7/image/upload/v1706941051/Bendonalds/IMG_20240124_075722_copy_1051x788_id5a2p.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.aboutTxt{
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    align-items: center;
+}
+.aboutTxt h1 {
+    color: #161643;
+    margin: 20px 0;
+}
+.aboutTxt p{
+    margin: 20px;
+    font-size: 20px;
+    line-height: 2rem;
+    text-align: center;
+}
+@media(max-width: 600px) {
+    .aboutTxt{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+   
+}
+.aboutTxt h1 {
+    color: #161643;
+    margin: 10px 0;
+    text-align: center;
+    font-size: 25px;
+}
+.aboutTxt p{
+    margin: 10px;
+    font-size: 18px;
+    line-height: 1.5rem;
+    text-align: center;
+}
+}

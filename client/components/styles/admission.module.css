@@ -1,0 +1,20 @@
+.imgBg{
+    /* margin-top: 200px; */
+   
+    height: 500px;
+}
+.img{
+    background-image: url('https://res.cloudinary.com/dzajrh9z7/image/upload/v1706941050/Bendonalds/Band_copy_1110x832_ly5v1a.jpg');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+}
+.admissionTxt{
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    text-align: center;
+}

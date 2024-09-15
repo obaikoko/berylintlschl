@@ -1,0 +1,98 @@
+.formContainer {
+  display: none;
+  margin: 0px 3px;
+
+}
+.showForm {
+  display: block;
+}
+.showForm h2 {
+  text-align: center;
+  color: #161643;
+}
+.form {
+  width: 100%;
+  /* height: 100%; */
+  padding: 10px;
+  border: 1px solid #161643;
+  border-radius: 10px;
+  height: 100%;
+
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  margin: 3px 0;
+  color: #161643;
+}
+.formGroup input {
+  background-color: rgba(0, 0, 0, 0.09);
+  width: 100%;
+  border: none;
+  padding: 5px;
+  border-radius: 10px;
+  margin: 5px 0;
+}
+.formGroup input:focus {
+  outline: 1px solid #161643;
+}
+.formGroup select {
+  background-color: rgba(0, 0, 0, 0.09);
+  width: 100%;
+  border: none;
+  padding: 5px;
+  border-radius: 10px;
+}
+.formGroup label {
+  cursor: pointer;
+}
+.container {
+  width: 100%;
+  /* background-color: red; */
+}
+.btn {
+  /* background-color: transparent; */
+  width: 100%;
+  color: #161643;
+  cursor: pointer;
+  border: none;
+  border-bottom: 1px solid #161643;
+  border-radius: 10px;
+  margin: 5px;
+  padding: 5px;
+}
+.btn:hover {
+  background-color: #161643;
+  color: #fff;
+
+  transition: color 0.5s;
+}
+.btn:active {
+  transform: scale(0.93);
+}
+.btn.btnDelete {
+  background-color: transparent;
+  color: red;
+}
+.btn.btnDelete:hover {
+  background-color: red;
+  color: #fff;
+}
+.btn.btnCancel {
+  color: #161643;
+}
+.btn.btnCancel:hover {
+  background-color: orange;
+  color: #fff;
+}
+.hideBtn {
+  display: none;
+}
+@media (max-width: 400px) {
+  .formContainer {
+    width: 100%;
+    padding: 10px;
+    margin: 5px auto;
+  }
+}
