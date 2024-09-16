@@ -1,19 +1,25 @@
 'use client';
-import React, { useState } from 'react';
+import React from 'react';
 import YouTube from 'react-youtube';
 
 const VideoPlayer = ({ videoId }) => {
   const opts = {
     height: '390',
-    width: '440',
+    width: '80%', // Make it responsive
     playerVars: {
       autoplay: 1,
     },
   };
 
   return (
-    <div className='mx-auto rounded bg-red-900 w-1/2 p-10'>
-      <YouTube videoId={videoId} opts={opts} />
+    <div className='mx-auto w-full md:w-3/4 lg:w-1/2 p-4 bg-gray-900 rounded-lg shadow-lg'>
+      <div className='relative pb-16x9'>
+        <YouTube
+          videoId={videoId}
+          opts={opts}
+          className='absolute inset-0 w-full h-full'
+        />
+      </div>
     </div>
   );
 };

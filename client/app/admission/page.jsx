@@ -21,7 +21,7 @@ const AdmissionPage = () => {
         </div>
       </div>
 
-      <div className='md:flex mx-auto '>
+      <div className='mx-auto '>
         <Onboarding />
         <AdmissionForm />
       </div>

@@ -1,8 +1,5 @@
 import { useState } from 'react';
-import {
-  useAddNextTermInfoMutation,
-  useGetNextTermInfoQuery,
-} from '@/src/features/nextTerm/nextTermApiSlcie';
+import { useAddNextTermInfoMutation } from '@/src/features/nextTerm/nextTermApiSlcie';
 
 import { toast } from 'react-toastify';
 
@@ -20,7 +17,6 @@ const UpdateNextTerm = () => {
   });
 
   const { nextTermFee, level, reOpeningDate, busFee, otherCharges } = formData;
-  const { data, refetch } = useGetNextTermInfoQuery();
   const [addNextTermInfo, { isLoading, isError }] =
     useAddNextTermInfoMutation();
 
@@ -48,7 +44,6 @@ const UpdateNextTerm = () => {
         level: '',
         otherCharges: '',
       });
-      refetch();
     } catch (err) {
       console.log(err?.data?.message || err.error);
       toast.error(err?.data?.message || err.error);
@@ -64,7 +59,7 @@ const UpdateNextTerm = () => {
         <button
           className={`${
             isOpen ? 'hidden' : 'block'
-          } bg-blue-950 text-white px-2 py-2 rounded mt-4 mx-2`}
+          } bg-blue-950 text-white px-2 py-2 rounded mt-4  w-full`}
           onClick={clickedUserForm}
         >
           UPLOAD NEXT TERM DETAILS

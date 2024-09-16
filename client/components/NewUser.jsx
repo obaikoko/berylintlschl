@@ -5,7 +5,7 @@ const NewUsers = () => {
   return (
     <section className='section1 p-2'>
       <h2 className='lg:text-4xl mb-3'> Welcome to Beryl International School </h2>
-      <p className='text-sm lg:mx-32'>
+      <p className='text-sm p-4 lg:mx-32'>
         <span className='text-slate-400 italic'>
           Shaping Future Leaders, Inspiring Excellence{' '}
         </span>{' '}

@@ -49,7 +49,7 @@ const AdmissionForm = () => {
   };
   return (
     <div className='mr-10 md:mt-40'>
-      <h1 className='text-3xl font-bold text-center mb-8'>Application Form</h1>
+      <h1 className='text-3xl font-bold text-center mb-8'>Admission Form</h1>
       <div className='bg-white p-8 rounded-lg shadow-lg max-w-xl mx-auto'>
         <form onSubmit={handleSubmit}>
           <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mb-6'>
@@ -194,7 +194,7 @@ const AdmissionForm = () => {
             type='submit'
             className='w-full bg-blue-950 text-white  py-3 rounded-md hover:bg-blue-800 transition-colors'
           >
-            {isLoading ? 'Processing...' : 'Submit Application'}
+            {isLoading ? 'Processing...' : 'Submit Form'}
           </button>
         </form>
       </div>

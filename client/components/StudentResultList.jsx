@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import Link from 'next/link';
 
-import style from '@/styles/studentList.module.css';
+import style from '../components/styles/studentList.module.css';
 
 import ReactToPrint from 'react-to-print';
 import { FaPrint } from 'react-icons/fa';

@@ -60,7 +60,7 @@ const GeneratePositions = () => {
         <button
           className={`${
             isResultForm ? 'hidden' : 'block'
-          } bg-blue-950 text-white px-2 py-2 rounded mt-4 mx-2`}
+          } bg-blue-950 text-white px-2 py-2 rounded mt-4 lg:ml-2 w-full`}
           onClick={clickedUserForm}
         >
           GENERATE POAITIONS

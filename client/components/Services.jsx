@@ -4,7 +4,7 @@ const Services = () => {
   return (
     <>
       <section className='section2 '>
-        <h1 className='text-2xl '>
+        <h1 className='text-2xl text-center my-4 '>
           Tailored Education for Every Stage of Growth
         </h1>
         <div className='section2-container'>
@@ -41,7 +41,9 @@ const Services = () => {
       </section>
       <section className='section3'>
         <h1 className='text-2xl'>Academic Excellence</h1>
-        <h2 className='italic text-cyan-700'>Building a Strong Academic Foundation</h2>
+        <h2 className='italic text-cyan-700'>
+          Building a Strong Academic Foundation
+        </h2>
         <p>
           Beryl International School’s curriculum is aligned with both national
           and international standards, ensuring that students receive a
@@ -56,19 +58,24 @@ const Services = () => {
           <li>Primary (Grade 1-5)</li>
           <li>Secondary</li>
         </ul>
-        <div className='card-container'>
-          <div className='card'>
-            <h1>100+</h1>
-            <p>Creche/Nursery</p>
+        <div className='card-container mx-auto'>
+          <div className='mb-3'>
+            <div className='card'>
+              <h1>100+</h1>
+              <p>Creche/Nursery</p>
+            </div>
           </div>
-          <div className='card'>
-            <h1>200+</h1>
-            <p>Grade Pupils</p>
+          <div className='mb-3'>
+            <div className='card'>
+              <h1>200+</h1>
+              <p>Grade Pupils</p>
+            </div>
           </div>
-
-          <div className='card'>
-            <h1>400+</h1>
-            <p>Secondary Students</p>
+          <div>
+            <div className='card'>
+              <h1>400+</h1>
+              <p>Secondary Students</p>
+            </div>
           </div>
         </div>
       </section>

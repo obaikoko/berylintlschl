@@ -23,9 +23,7 @@ body {
   line-height: 1.6;
   scroll-behavior: smooth;
 }
-.container {
-  /* margin: 100px 20px; */
-}
+
 .dark-header {
   background-color: #161643;
   height: 80px;
@@ -367,7 +365,6 @@ button.next:hover {
   width: 100%;
   display: flex;
   align-items: center;
-  margin: 100px auto;
   flex-direction: column;
 }
 .section2-container {
@@ -382,9 +379,7 @@ button.next:hover {
   margin: 10px;
   padding: 30px;
 }
-.section2 h1 {
-  margin-bottom: 70px;
-}
+
 .section2 h2 {
   margin-bottom: 20px;
 }
@@ -796,6 +791,9 @@ button.next:hover {
   }
   .section3 .card-container {
     flex-direction: column;
+  }
+  .section4-body{
+    
   }
 
   .section5-body {

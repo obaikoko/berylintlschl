@@ -1,7 +1,6 @@
 'use client';
 import Head from 'next/head';
 import style from '../../components/styles/dashboard.module.css';
-
 import SearchBox from '@/components/SearchBox';
 import { useStudentDataQuery } from '@/src/features/students/studentApiSlice';
 import Spinner from '@/components/Spinner';
@@ -13,16 +12,24 @@ import { useRouter } from 'next/navigation';
 import SecondaryData from '@/components/SecondaryData';
 import GradeData from '@/components/GradeData';
 import MailSender from '@/components/MailSender';
+import { useEffect, useState } from 'react';
 
 function dashboard() {
   const { data, isLoading, isError } = useStudentDataQuery();
+  const [isAdmin, setIsAdmin] = useState(false);
   const { user } = useSelector((state) => state.auth);
 
   const router = useRouter();
 
-  if (user && !user.isAdmin) {
-    router.push('/');
-  }
+  useEffect(() => {
+    if (user && user.isAdmin) {
+      setIsAdmin(true);
+    }
+    if (!isAdmin) {
+      router.push('/');
+    }
+  }, [user]);
+
   return (
     <div className={style.container}>
       <Head>
@@ -31,15 +38,13 @@ function dashboard() {
       <div className='bg-blue-950 h-20'></div>
       <SearchBox />
 
-      {isLoading ? (
-        <Spinner clip={true} size={150} />
-      ) : isError ? (
-        <h1>Unable to fetch data</h1>
-      ) : (
+      {isLoading && <Spinner clip={true} size={150} />}
+      {isError && <h1>Unable to fetch data</h1>}
+      {!isLoading && !isError && data && (
         <>
-          <div className='p-6 space-y-6'>
+          <div className='p-6 space-y-6 '>
             {/* Overview Cards */}
-            <div className='grid grid-cols-4 gap-6'>
+            <div className='grid md:grid-cols-4 gap-6'>
               <div className='bg-blue-500 text-white p-4 rounded-lg shadow'>
                 <h3 className='text-lg font-semibold'>Total Students</h3>
                 <p className='text-2xl'>{data.totalStudents}</p>
@@ -56,16 +61,16 @@ function dashboard() {
 
             <GradeData data={data} />
             <SecondaryData data={data} />
-            <MailSender />
+            <div className='mb-3 grid lg:grid-cols-2'>
+              <MailSender />
+              <GeneratePositions />
+              <UpdateNextTerm />
+              <UpdateEvent />
+            </div>
           </div>
         </>
       )}
 
-      <div className='mb-3 py-3 lg:w-1/2'>
-        <GeneratePositions />
-        <UpdateNextTerm />
-        <UpdateEvent />
-      </div>
     </div>
   );
 }

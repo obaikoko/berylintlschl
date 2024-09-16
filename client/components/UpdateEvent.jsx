@@ -1,16 +1,14 @@
+'use client'
 import { useEffect, useState } from 'react';
-import {
-  useAddEventMutation,
-  useGetEventsQuery,
-} from '@/src/features/events/eventApiSlice';
+import { useAddEventMutation } from '@/src/features/events/eventApiSlice';
 import Resizer from 'react-image-file-resizer';
 import { toast } from 'react-toastify';
-import style from './styles/updateResult.module.css';
-import { useRouter } from 'next/navigation';
+
+
 import Spinner from '@/components/Spinner';
 
-const UpdateEvent = ({ student }) => {
-  const router = useRouter();
+const UpdateEvent = () => {
+ 
   const [isOpen, setIsOpen] = useState(false);
   const [image, setImage] = useState(null);
 
@@ -21,7 +19,6 @@ const UpdateEvent = ({ student }) => {
   });
 
   const { title, description, date } = formData;
-  const { data, refetch } = useGetEventsQuery();
   const [addEvent, { isLoading, isError }] = useAddEventMutation();
 
   const onChange = (e) => {
@@ -47,7 +44,6 @@ const UpdateEvent = ({ student }) => {
         description: '',
         date: '',
       });
-      refetch();
     } catch (err) {
       console.log(err?.data?.message || err.error);
       toast.error(err?.data?.message || err.error);
@@ -92,7 +88,7 @@ const UpdateEvent = ({ student }) => {
         <button
           className={`${
             isOpen ? 'hidden' : 'block'
-          } bg-blue-950 text-white px-2 py-2 rounded mt-4 mx-2`}
+          } bg-blue-950 text-white px-2 py-2 rounded mt-4 lg:ml-2 w-full`}
           onClick={clickedUserForm}
         >
           UPLOAD EVENT

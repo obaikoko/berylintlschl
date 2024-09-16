@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+
 const SearchBox = () => {
   const router = useRouter();
   const [name, setName] = useState('');
@@ -17,38 +18,48 @@ const SearchBox = () => {
   };
 
   return (
-    <form onSubmit={handleSubmit} className='searchForm'>
-      <input
-        type='text'
-        id='name'
-        placeholder='Enter Name (First name, Last name, Other name)'
-        className='w-full px-4 py-3 rounded-lg bg-white text-gray-800 focus:outline-none focus:ring focus:ring-blue-500'
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-      />
+    <form
+      onSubmit={handleSubmit}
+      className='bg-blue-950 p-6 mt-0.5 shadow-md flex flex-col sm:flex-row items-center justify-between gap-4 text-white  mx-auto'
+    >
+      <div className='flex flex-col sm:flex-row items-center gap-4 w-full'>
+        <input
+          type='text'
+          id='name'
+          placeholder='Enter Name (First name, Last name, Other name)'
+          className='p-3 rounded-lg w-full sm:w-auto flex-1 text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-600'
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+        />
 
-      <select
-        id='property-type'
-        className='w-full px-4 py-3 rounded-lg bg-white text-gray-800 focus:outline-none focus:ring focus:ring-blue-500'
-        value={level}
-        onChange={(e) => setLevel(e.target.value)}
+        <select
+          id='property-type'
+          className='p-3 rounded-lg bg-white text-gray-900 w-full sm:w-auto flex-1 focus:outline-none focus:ring-2 focus:ring-blue-600'
+          value={level}
+          onChange={(e) => setLevel(e.target.value)}
+        >
+          <option value='All'>All</option>
+          <option value='Grade 1'>Grade 1</option>
+          <option value='Grade 2'>Grade 2</option>
+          <option value='Grade 3'>Grade 3</option>
+          <option value='Grade 4'>Grade 4</option>
+          <option value='Grade 5'>Grade 5</option>
+          <option value='JSS 1'>JSS 1</option>
+          <option value='JSS 2'>JSS 2</option>
+          <option value='JSS 3'>JSS 3</option>
+          <option value='SSS 1'>SSS 1</option>
+          <option value='SSS 2'>SSS 2</option>
+          <option value='SSS 3'>SSS 3</option>
+          <option value='Graduated'>Graduated</option>
+        </select>
+      </div>
+
+      <button
+        type='submit'
+        className='bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition duration-300 focus:outline-none focus:ring-2 focus:ring-blue-600'
       >
-        <option value='All'>All</option>
-        <option value='Grade 1'>Grade 1</option>
-        <option value='Grade 2'>Grade 2</option>
-        <option value='Grade 3'>Grade 3</option>
-        <option value='Grade 4'>Grade 4</option>
-        <option value='Grade 5'>Grade 5</option>
-        <option value='JSS 1'>JSS 1</option>
-        <option value='JSS 2'>JSS 2</option>
-        <option value='JSS 3'>JSS 3</option>
-        <option value='SSS 1'>SSS 1</option>
-        <option value='SSS 2'>SSS 2</option>
-        <option value='SSS 3'>SSS 3</option>
-        <option value='Graduated'>Graduated</option>
-      </select>
-
-      <button type='submit'>Search</button>
+        Search
+      </button>
     </form>
   );
 };
