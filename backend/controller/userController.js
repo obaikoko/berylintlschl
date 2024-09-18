@@ -182,7 +182,6 @@ const updateUser = asyncHandler(async (req, res) => {
 
 const sendMails = asyncHandler(async (req, res) => {
   const { subject, text } = req.body;
-  console.log(req.user);
 sendSingleMail
   if (!req.user.isAdmin) {
     res.status(401);
@@ -190,7 +189,7 @@ sendSingleMail
   }
   const students = await Student.find({});
   const sponsorEmail = students.map((student) => student.sponsorEmail);
-  // sendBulkMail({ emails: sponsorEmail, subject, text });
+  sendBulkMail({ emails: sponsorEmail, subject, text });
   res.status(200);
   res.json('Email sent successfully');
 });

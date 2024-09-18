@@ -11,7 +11,10 @@ import {
 
 const router = express.Router();
 
-router.route('/').get(protect, admin, getAllStaff).post(RegisterStaff);
+router
+  .route('/')
+  .get(protect, admin, getAllStaff)
+  .post(protect, admin, RegisterStaff);
 router.route('/data').get(protect, admin, staffData);
 
 router

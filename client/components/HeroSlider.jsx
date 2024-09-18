@@ -3,17 +3,17 @@ import React, { useState, useEffect } from 'react';
 
 const images = [
   {
-    url: '/images/slider/slide10.jpg',
+    url: '/images/building1.jpg',
     text1: 'Beryl we are the best',
     text2: 'We have proven track records',
   },
   {
-    url: '/images/slider/slide11.jpg',
+    url: '/images/building2.jpg',
     text1: 'Invest in your child',
     text2: 'The best form of investment is human investment',
   },
   {
-    url: '/images/slider/slide17.jpg',
+    url: '/images/bus3.jpg',
     text1: '2024 Graduads',
     text2: 'We Produce the best students',
   },

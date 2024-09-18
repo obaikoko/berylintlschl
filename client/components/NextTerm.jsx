@@ -37,11 +37,13 @@ const UpdateNextTerm = () => {
         busFee,
         otherCharges,
       }).unwrap();
-      toast.success(`updated Successfully`);
+      toast.success(res);
 
       setFormData({
-        nextTermFee: '',
         level: '',
+        reOpeningDate: '',
+        nextTermFee: '',
+        busFee: '',
         otherCharges: '',
       });
     } catch (err) {

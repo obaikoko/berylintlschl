@@ -13,7 +13,7 @@ import {
 const router = express.Router();
 
 router.route('/positions').post(protect, admin, generatePositions);
-router.route('/broadsheet').post(generateBroadsheet);
+router.route('/broadsheet').post(protect, generateBroadsheet);
 router
   .route('/:id')
   .post(protect, createResult)

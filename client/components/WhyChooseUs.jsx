@@ -9,9 +9,9 @@ const WhyChooseUs = () => {
           {/* Image */}
           <div className='lg:w-1/2'>
             <img
-              src='images/slider/students2.jpg'
+              src='images/creche1.jpg'
               alt='Students at Beryl International School'
-              className='w-full h-full object-cover'
+              className='w-full h-full object-cover rounded'
             />
           </div>
           {/* Text */}
@@ -38,7 +38,7 @@ const WhyChooseUs = () => {
           {/* Image */}
           <div className='lg:w-1/2'>
             <img
-              src='images/slider/students1.jpg'
+              src='images/class2.jpg'
               alt='Students at Beryl International School'
               className='w-full h-full object-cover'
             />

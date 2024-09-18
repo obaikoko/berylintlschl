@@ -16,11 +16,9 @@ const nextTermInfo = new mongoose.Schema(
     },
     busFee: {
       type: Number,
-      required: true,
     },
     otherCharges: {
       type: Number,
-      required: true,
     },
   },
   {

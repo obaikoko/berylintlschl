@@ -26,7 +26,7 @@ const createAdmission = asyncHandler(async (req, res) => {
     sendSingleMail({
       email,
       subject: 'Admission Request',
-      text: `Dear ${firstName}, your request request to register ${childName} into BERYL INTETNATIONAL SCHOOLS has been recieved and currently being processed`,
+      text: `Dear ${firstName}, your request to enroll ${childName} into BERYL INTETNATIONAL SCHOOL has been recieved and currently being processed`,
     });
 
     res.status(200);

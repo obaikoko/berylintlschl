@@ -32,6 +32,7 @@ const UpdateStudentBtn = ({ student }) => {
     sponsorEmail: student.sponsorEmail,
   });
 
+
   const {
     firstName,
     lastName,
@@ -972,23 +973,7 @@ const UpdateStudentBtn = ({ student }) => {
       toast.success('student updated successfully');
       refetch();
       setImage(null);
-      setFormData({
-        firstName: '',
-        lastName: '',
-        otherName: '',
-        level: '',
-        subLevel: '',
-        gender: '',
-        dateOfBirth: '',
-        yearAdmitted: '',
-        stateOfOrigin: '',
-        localGvt: '',
-        homeTown: '',
-        sponsorName: '',
-        sponsorRelationship: '',
-        sponsorPhoneNumber: '',
-        sponsorEmail: '',
-      });
+      
       setIsStudentForm(!isStudentForm);
     } catch (err) {
       toast.error(err?.data?.message || err.error);

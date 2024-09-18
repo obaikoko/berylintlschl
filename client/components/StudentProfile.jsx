@@ -1,6 +1,7 @@
 import style from './styles/profile.module.css';
 import { FaUserAlt } from 'react-icons/fa';
 const StudentProfile = ({ student }) => {
+  
   return (
     <div className='card'>
       <div className={style.profile}>
@@ -20,7 +21,8 @@ const StudentProfile = ({ student }) => {
           <strong>Gender:</strong> {student.gender}
         </p>
         <p>
-          <strong>Class:</strong> {student.level}{student.subLevel}
+          <strong>Class:</strong> {student.level}
+          {student.subLevel}
         </p>
         <p>
           <strong>Date of birth:</strong>{' '}
@@ -52,7 +54,19 @@ const StudentProfile = ({ student }) => {
         <p>
           <strong>Sponsor Email:</strong> {student.sponsorEmail}
         </p>
+        <p>
+          <strong>School Fees:</strong> {student.isPaid ? 'Paid' : 'Not Paid'}
+        </p>
       </div>
+
+      {student.isPaid ? (
+        ''
+      ) : (
+        <p className='text-rose-600'>
+          <strong>NOTE:</strong> Students who are yet to pay their fees wont
+          have access to their result.
+        </p>
+      )}
     </div>
   );
 };

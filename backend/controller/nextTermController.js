@@ -4,6 +4,11 @@ import NextTerm from '../model/nextTermInfo.js';
 const addNextTermInfo = asyncHandler(async (req, res) => {
   const { reOpeningDate, level, nextTermFee, busFee, otherCharges } = req.body;
 
+  if (!reOpeningDate || !level || !nextTermFee) {
+    res.status(400);
+    throw new Error('Please add all field');
+  }
+
   const nextTerm = await NextTerm.findOne({ level });
   if (nextTerm) {
     nextTerm.reOpeningDate = reOpeningDate || nextTerm.reOpeningDate;
@@ -13,22 +18,22 @@ const addNextTermInfo = asyncHandler(async (req, res) => {
     nextTerm.otherCharges = otherCharges || nextTerm.otherCharges;
     await nextTerm.save();
     res.status(200);
-    res.json(nextTerm);
+    res.json(`Next term resumption details updated successfully for ${level}`);
   } else {
     try {
-        const createNextTerm = await NextTerm.create({
-          reOpeningDate,
-          level,
-          nextTermFee,
-          busFee,
-          otherCharges,
-        });
+      const createNextTerm = await NextTerm.create({
+        reOpeningDate,
+        level,
+        nextTermFee,
+        busFee,
+        otherCharges,
+      });
+      res.status(201);
+      res.json(`Next term updates set successfully for ${level}`);
     } catch (error) {
-      res.status(500)
-      console.log(error)
+      res.status(500);
+      throw new Error('Somthing went wrong');
     }
-  
-    
   }
 });
 

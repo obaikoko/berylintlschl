@@ -19,7 +19,7 @@ const AboutPage = () => {
       {/* Hero Section */}
       <div className='relative'>
         <img
-          src='/images/slider/slide17.jpg'
+          src='/images/class3.jpg'
           className='w-full h-80 object-cover'
           alt='About Beryl International School'
         />
@@ -70,7 +70,7 @@ const AboutPage = () => {
               The Proprietress
             </h2>
             <img
-              src='/images/slider/proprietress.jpg'
+              src='/images/proprietress.jpg'
               alt='The Proprietress'
               className='w-full h-64 object-cover rounded-lg mb-6'
             />

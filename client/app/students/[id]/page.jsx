@@ -18,7 +18,7 @@ const StudentProfile = React.forwardRef(() => {
   const { id } = useParams();
   const componentRef = useRef();
   const { user } = useSelector((state) => state.auth);
-  const [studentId, setStudentId] = useState(null);
+  const [studentId, setStudentId] = useState('');
 
   useEffect(() => {
     if (id) {
@@ -46,7 +46,7 @@ const StudentProfile = React.forwardRef(() => {
             {user?.isStudent ? '' : <GenerateResult />}
             {user?.isAdmin && (
               <div>
-                <UpdateStudentBtn student={data} key={data.id} />
+                <UpdateStudentBtn student={data}  />
                 <ReactToPrint
                   trigger={() => (
                     <button className='border-black border-2 rounded mx-2 px-2'>
