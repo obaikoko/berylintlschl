@@ -10,7 +10,7 @@ import React, { useState, useEffect } from 'react';
 import BroadsheetTable from './BroadsheetTable';
 import Spinner from './Spinner';
 import { toast } from 'react-toastify';
-// import axios from 'axios';
+
 
 const broadsheet = () => {
   const componentRef = useRef();
@@ -39,30 +39,56 @@ const broadsheet = () => {
     return <Spinner clip={true} size={150} />;
   }
   return (
-    <div className='container mx-auto p-4 '>
-      <form onSubmit={onSubmit}>
-        <input
-          placeholder='Class'
+    <div className='p-4 '>
+      <form onSubmit={onSubmit} className='space-y-4 flex flex-col w-80'>
+        <select
           type='text'
           name='level'
           onChange={(e) => setLevel(e.target.value)}
           value={level}
-          className=' p-1 rounded mx-3'
-        />
-        <input
-          placeholder='sub Class'
+          className='bg-gray-300 rounded px-4 py-1'
+        >
+          <option value=''>Select Class</option>
+          <option value='Creche'>Creche</option>
+          <option value='Day care'>Day care</option>
+          <option value='Reception'>Reception</option>
+          <option value='Pre School'>Pre School</option>
+          <option value='Pre KG'>Pre KG</option>
+          <option value='KG'>KG</option>
+          <option value='Grade 1'>Grade 1</option>
+          <option value='Grade 2'>Grade 2</option>
+          <option value='Grade 3'>Grade 3</option>
+          <option value='Grade 4'>Grade 4</option>
+          <option value='Grade 5'>Grade 5</option>
+          <option value='JSS 1'>JSS 1</option>
+          <option value='JSS 2'>JSS 2</option>
+          <option value='JSS 3'>JSS 3</option>
+          <option value='SSS 1'>SSS 1</option>
+          <option value='SSS 2'>SSS 2</option>
+          <option value='SSS 3'>SSS 3</option>
+        </select>
+        <select
           type='text'
           name='subLevel'
           onChange={(e) => setsubLevel(e.target.value)}
           value={subLevel}
-          className=' p-1 rounded mx-3'
-        />
-        <button className='bg-blue-600 ml-2 rounded p-1 text-white'>
+          className='bg-gray-300 rounded px-4 py-1'
+        >
+          <option value=''>Select sub class</option>
+          <option value='A'>A</option>
+          <option value='B'>B</option>
+          <option value='C'>C</option>
+          <option value='D'>D</option>
+        </select>
+
+        <button className='bg-blue-600 ml-2 rounded p-1 text-white w-1/3 mb-2'>
           submit
         </button>
       </form>
       <div ref={componentRef}>
-        <h1 className='text-2xl font-bold text-center mb-4'>Broadsheet</h1>
+        <h1 className=' font-bold text-center mb-4 shadow-lg mt-5 text-4xl'>
+          Broadsheet
+        </h1>
         {isError ? (
           <h1>Unable to fetch</h1>
         ) : (

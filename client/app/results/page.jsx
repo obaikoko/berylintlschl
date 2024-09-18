@@ -6,18 +6,26 @@ import Pagination from '@/components/Pagination';
 import { debounce } from 'lodash';
 import SearchResults from '@/components/SearchResultsBox';
 import ResultList from '@/components/ResultList';
+import { useRouter } from 'next/navigation';
+import { useSelector } from 'react-redux';
+
 const Results = () => {
+  const router = useRouter();
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
   const { data, isLoading, isError } = useGetResultsQuery();
   const totalPages = data && data.totalPages;
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
+    if (!user) {
+      router.push('/');
+    }
     setLoading(isLoading);
     if (isError) {
       setLoading(false);
     }
-  }, [data, isError]);
+  }, [data, isError, user]);
 
   const handlePageChange = debounce((newPage) => {
     if (newPage !== page) {

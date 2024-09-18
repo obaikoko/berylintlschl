@@ -18,7 +18,7 @@ const LetterHead = ({ image }) => {
         )}
 
         <div className={style.mainHeader}>
-          <h1 className='text-4xl'>Beryl International Schools</h1>
+          <h1 className='md:text-4xl'>Beryl International Schools</h1>
           <h4 className='text-pink-600'>
             Plot 1, Block 1, Ikot Eneobong (Federal Housing Estate)
           </h4>
@@ -26,7 +26,7 @@ const LetterHead = ({ image }) => {
             Calabar Municipality, Cross River State
           </h4>
           <p>
-            <FaPhone className='inline-block mb-1 text-green-500' />{' '}
+            <FaPhone className='inline-block mb-3 text-green-500' />{' '}
             07060511978, 09073091617
           </p>
         </div>

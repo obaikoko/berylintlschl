@@ -38,29 +38,27 @@ const StudentProfile = React.forwardRef(() => {
       <div className='bg-blue-950 h-20'></div>
       {data && (
         <div className={style.container}>
-          <Link
-            href='/students'
-            className=' ml-10 text-blue-950 hover:text-blue-900 flex items-center'
-          >
-            <FaArrowLeft className='mr-2' /> Back to Students
-          </Link>
           <div ref={componentRef}>
             <LetterHead image={data?.image?.url} />
             <Profile student={data} />
           </div>
           <div className='mb-2'>
-            <ReactToPrint
-              trigger={() => (
-                <button className='border-black border-2 rounded mx-2 px-2'>
-                  <FaPrint className='inline-block mr-1 mb-1' />
-                  Print
-                </button>
-              )}
-              content={() => componentRef.current}
-            />
-            <UpdateStudentBtn student={data} key={data.id} />
-            <GenerateResult />
-            <DeleteStudentBtn student={data} />
+            {user?.isStudent ? '' : <GenerateResult />}
+            {user?.isAdmin && (
+              <div>
+                <UpdateStudentBtn student={data} key={data.id} />
+                <ReactToPrint
+                  trigger={() => (
+                    <button className='border-black border-2 rounded mx-2 px-2'>
+                      <FaPrint className='inline-block mr-1 mb-1' />
+                      Print
+                    </button>
+                  )}
+                  content={() => componentRef.current}
+                />
+                <DeleteStudentBtn student={data} />
+              </div>
+            )}
           </div>
         </div>
       )}

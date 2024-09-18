@@ -12,9 +12,13 @@ import NewUser from '@/components/NewUser';
 import Footer from '@/components/Footer';
 
 export const metadata = {
-  title: 'Home - Beryl School',
-  description: 'Beryl International School',
+  title: 'Home - Beryl International School',
+  description:
+    'Beryl International School is a high-quality educational institution offering nursery, primary, and secondary education in Calabar, Cross River State.',
+  keywords:
+    'Beryl International School, Calabar, education, nursery, primary school, secondary school, Cross River State',
 };
+
 export default function Home() {
   return (
     <>

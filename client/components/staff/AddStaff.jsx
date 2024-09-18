@@ -1011,7 +1011,7 @@ const addTeacher = () => {
         onClick={clickedStaffForm}
         className={`${
           isStaffForm ? 'hidden' : 'block'
-        } bg-blue-950 text-white px-4 py-2 rounded mt-4 mx-2`}
+        } bg-blue-950 text-white px-4 py-2 rounded mt-4 mx-auto w-10/12`}
       >
         Register Staff
       </button>

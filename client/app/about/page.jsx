@@ -4,6 +4,15 @@ import PhotoswipePage from '@/components/PhotoSwipe';
 import VideoPlayer from '@/components/VideoPlayer';
 import React from 'react';
 
+export const metadata = {
+  title: 'About Us - Beryl International School',
+  description:
+    'Learn more about Beryl International School, its mission, vision, values, and the excellent education provided to students in Calabar, Cross River State.',
+  keywords:
+    'About Beryl International School, Calabar school, school mission, school values, education in Calabar, Cross River State',
+};
+
+
 const AboutPage = () => {
   return (
     <div>
@@ -88,10 +97,7 @@ const AboutPage = () => {
         </div>
       </div>
 
-      
-    
-        {/* <VideoPlayer videoId={'OFNbPAh3rk8'} /> */}
-    
+      {/* <VideoPlayer videoId={'OFNbPAh3rk8'} /> */}
 
       {/* About and Footer Sections */}
       <About />

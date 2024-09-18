@@ -3,6 +3,14 @@ import Footer from '@/components/Footer';
 import Onboarding from '@/components/Onboarding';
 import React from 'react';
 
+export const metadata = {
+  title: 'Admission - Beryl International School',
+  description:
+    'Find out how to apply for admission to Beryl International School for nursery, primary, and secondary school in Calabar, Cross River State.',
+  keywords:
+    'Beryl International School admission, school enrollment, Calabar admissions, education in Cross River State, apply to Beryl International School',
+};
+
 const AdmissionPage = () => {
   return (
     <div>

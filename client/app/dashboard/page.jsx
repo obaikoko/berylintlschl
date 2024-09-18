@@ -16,16 +16,13 @@ import { useEffect, useState } from 'react';
 
 function dashboard() {
   const { data, isLoading, isError } = useStudentDataQuery();
-  const [isAdmin, setIsAdmin] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(true);
   const { user } = useSelector((state) => state.auth);
 
   const router = useRouter();
 
   useEffect(() => {
-    if (user && user.isAdmin) {
-      setIsAdmin(true);
-    }
-    if (!isAdmin) {
+    if (!user?.isAdmin) {
       router.push('/');
     }
   }, [user]);
@@ -70,7 +67,6 @@ function dashboard() {
           </div>
         </>
       )}
-
     </div>
   );
 }

@@ -1,6 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
 
+
+
 const About = () => {
   return (
     <section className='bg-gray-100 py-12 px-4'>

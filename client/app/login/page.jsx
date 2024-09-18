@@ -9,6 +9,7 @@ import Link from 'next/link';
 import Spinner from '@/components/Spinner';
 import { FaUserCircle } from 'react-icons/fa';
 
+
 function loginPage() {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({

@@ -16,7 +16,7 @@ const ResultList = ({ data }) => {
         <thead>
           <tr>
             <th>S/N</th>
-            <th className={style.smHide}>RESULT ID</th>
+            <th className='hidden md:block'>RESULT ID</th>
             <th>FULL NAME</th>
 
             <th className={style.smHide}>TERM</th>
@@ -36,7 +36,7 @@ const ResultList = ({ data }) => {
                     {index + 1}
                   </Link>
                 </td>
-                <td className={style.smHide}>
+                <td className='hidden md:block'>
                   <Link
                     className={`${style.link}`}
                     href={`/results/${rst._id}`}

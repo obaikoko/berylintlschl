@@ -17,7 +17,7 @@ const Footer = () => {
         <div>
           <h2 className='text-xl font-bold mb-4'>Contact Details</h2>
           <p className='mb-2'>Phone: +234-123-4567</p>
-          <p className='mb-2'>Email: admissions@berylschool.ng</p>
+          <p className='mb-2'>Email: berylintlschl@gmail.com</p>
           <p>Location: Ikot Eneobong, Calabar, Cross River State, Nigeria</p>
         </div>
 
@@ -37,12 +37,12 @@ const Footer = () => {
             </li>
             <li>
               <Link href='/events' className='hover:underline'>
-                News/Events
+                Events
               </Link>
             </li>
             <li>
-              <Link href='/application' className='hover:underline'>
-                Application
+              <Link href='/admission' className='hover:underline'>
+                Admission
               </Link>
             </li>
           </ul>
@@ -78,8 +78,7 @@ const Footer = () => {
 
       <div className='mt-8 border-t border-gray-700 pt-4 text-center'>
         <p className='text-gray-400'>
-          &copy; {currentYear} Beryl International School. Powered by Apex
-          Wealth Limited
+          &copy; {currentYear} Beryl International Schools. Powered by Beryl International Schools
         </p>
       </div>
     </footer>

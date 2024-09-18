@@ -9,6 +9,7 @@ import { useGetStudentsQuery } from '@/src/features/students/studentApiSlice';
 import { useSelector } from 'react-redux';
 import { debounce } from 'lodash';
 import SearchBox from '@/components/SearchBox';
+import { useRouter } from 'next/navigation';
 
 function register() {
   const [page, setPage] = useState(1);
@@ -16,13 +17,17 @@ function register() {
   const { data, isLoading, isError } = useGetStudentsQuery(page);
   const totalPages = data && data.totalPages;
   const { user } = useSelector((state) => state.auth);
+  const router = useRouter();
 
   useEffect(() => {
+    if (!user) {
+      router.push('/');
+    }
     setLoading(isLoading);
     if (isError) {
       setLoading(false);
     }
-  }, [data, isError]);
+  }, [data, isError, user]);
 
   const handlePageChange = debounce((newPage) => {
     if (newPage !== page) {
@@ -33,14 +38,17 @@ function register() {
 
   return (
     <>
-    <div className='bg-blue-950 h-20'></div>
+      <div className='bg-blue-950 h-20'></div>
       <Head>
         <title>Bendonalds</title>
       </Head>
-      <div className={style.registersContainer}>
-        <h1>Registration Page</h1>
+      <SearchBox/>
+      <div className='w-auto'>
+        <h1 className='text-4xl shadow-lg p-6 text-center '>
+          Registration Page
+        </h1>
 
-        <div className={style.registers}>
+        <div className=' mx-auto'>
           <AddStudent />
           <AddUser />
           <AddStaff />
