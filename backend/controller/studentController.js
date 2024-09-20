@@ -435,45 +435,42 @@ const resetPassword = asyncHandler(async (req, res) => {
   // Password validation regex
   const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
 
-    // Ensure token is a string
-    if (typeof token !== 'string') {
-      res.status(400);
-      throw new Error('Invalid token format');
-    }
+  // Ensure token is a string
+  if (typeof token !== 'string') {
+    res.status(400);
+    throw new Error('Invalid token format');
+  }
 
-    // Hash the token provided by the user
-    const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+  // Hash the token provided by the user
+  const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
 
-    // Find the user with the matching reset token and ensure it's not expired
-    const user = await Student.findOne({
-      resetPasswordToken: hashedToken,
-      resetPasswordExpires: { $gt: Date.now() },
-    });
+  // Find the user with the matching reset token and ensure it's not expired
+  const student = await Student.findOne({
+    resetPasswordToken: hashedToken,
+    resetPasswordExpires: { $gt: Date.now() },
+  });
 
-    if (!user) {
-      res.status(400);
-      throw new Error('Invalid or expired reset token');
-    }
+  if (!student) {
+    res.status(400);
+    throw new Error('Invalid or expired reset token');
+  }
 
-    // Check if the new password meets the strength criteria
-    if (!passwordRegex.test(newPassword)) {
-      res.status(400);
-      throw new Error(
-        'Password must be at least 8 characters long and include at least one uppercase letter, one number, and one special character.'
-      );
-    }
+  // Check if the new password meets the strength criteria
+  if (!passwordRegex.test(newPassword)) {
+    res.status(400);
+    throw new Error(
+      'Password must be at least 8 characters long and include at least one uppercase letter, one number, and one special character.'
+    );
+  }
 
-    // Update the user's password and clear the reset token fields
-    user.password = newPassword;
-    user.resetPasswordToken = undefined;
-    user.resetPasswordExpires = undefined;
+  // Update the user's password and clear the reset token fields
+  user.password = newPassword;
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpires = undefined;
 
-    await user.save();
-
-    res.status(200).json('Password has been reset successfully');
-
-    res.status(500).json('An error occurred. Please try again later.');
-  
+  await user.save();
+  res.status(200);
+  res.json('Password has been reset successfully');
 });
 
 // @desc Get  staff data

@@ -1,10 +1,9 @@
 'use client';
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { toast } from 'react-toastify';
 import Spinner from '@/components/Spinner';
 import { useResetPasswordMutation } from '@/src/features/auth/usersApiSlice';
 import { useRouter, useSearchParams } from 'next/navigation';
-// import
 
 function resetPassword() {
   const router = useRouter();
@@ -13,10 +12,32 @@ function resetPassword() {
     newPassword2: '',
   });
   const { newPassword, newPassword2 } = formData;
+
+  // Wrap this part in Suspense
+  return (
+    <Suspense fallback={<Spinner />}>
+      <PasswordForm
+        formData={formData}
+        setFormData={setFormData}
+        useResetPasswordMutation={useResetPasswordMutation}
+        useSearchParams={useSearchParams}
+        router={router}
+      />
+    </Suspense>
+  );
+}
+
+function PasswordForm({
+  formData,
+  setFormData,
+  useResetPasswordMutation,
+  useSearchParams,
+  router,
+}) {
+  const { newPassword, newPassword2 } = formData;
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
-
-  const [resetPassword, { isLoading, isError }] = useResetPasswordMutation();
+  const [resetPassword, { isLoading }] = useResetPasswordMutation();
 
   const handleInputChange = (e) => {
     setFormData((prevState) => ({
@@ -42,7 +63,8 @@ function resetPassword() {
   };
 
   return (
-    <>
+    <div>
+      {/* Rest of your JSX remains the same */}
       <div className='bg-blue-950 h-20'></div>
       <div className='min-h-screen flex flex-col justify-center bg-blue-100'>
         <div className='flex items-center justify-center'>
@@ -96,7 +118,7 @@ function resetPassword() {
           </form>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

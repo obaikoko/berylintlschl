@@ -1,11 +1,11 @@
 'use client';
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 import { toast } from 'react-toastify';
 import Spinner from '@/components/Spinner';
 import { useResetStudentPasswordMutation } from '@/src/features/students/studentApiSlice';
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
-// import
+
 
 function resetStudentPassword() {
   const router = useRouter();
@@ -14,11 +14,32 @@ function resetStudentPassword() {
     newPassword2: '',
   });
   const { newPassword, newPassword2 } = formData;
+
+  // Wrap this part in Suspense
+  return (
+    <Suspense fallback={<Spinner />}>
+      <PasswordForm
+        formData={formData}
+        setFormData={setFormData}
+        useResetStudentPasswordMutation={useResetStudentPasswordMutation}
+        useSearchParams={useSearchParams}
+        router={router}
+      />
+    </Suspense>
+  );
+}
+
+function PasswordForm({
+  formData,
+  setFormData,
+  useResetStudentPasswordMutation,
+  useSearchParams,
+  router,
+}) {
+  const { newPassword, newPassword2 } = formData;
   const searchParams = useSearchParams();
   const token = searchParams.get('token');
-
-  const [resetStudentPassword, { isLoading, isError }] =
-    useResetStudentPasswordMutation();
+  const [resetPassword, { isLoading }] = useResetStudentPasswordMutation();
 
   const handleInputChange = (e) => {
     setFormData((prevState) => ({
@@ -33,9 +54,9 @@ function resetStudentPassword() {
       toast.error('Passwords do not match!');
     } else {
       try {
-        const res = await resetStudentPassword({ newPassword, token }).unwrap();
+        const res = await resetPassword({ newPassword, token }).unwrap();
         toast.success(`${res}`);
-        router.push('/students/login');
+        router.push('/login');
       } catch (err) {
         console.log(err?.data?.message || err.error);
         toast.error(err?.data?.message || err.error);
@@ -44,7 +65,8 @@ function resetStudentPassword() {
   };
 
   return (
-    <>
+    <div>
+      {/* Rest of your JSX remains the same */}
       <div className='bg-blue-950 h-20'></div>
       <div className='min-h-screen flex flex-col justify-center bg-blue-100'>
         <div className='flex items-center justify-center'>
@@ -98,7 +120,7 @@ function resetStudentPassword() {
           </form>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 

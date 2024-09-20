@@ -237,7 +237,7 @@ const forgetPassword = asyncHandler(async (req, res) => {
   await user.save();
 
   // Create reset URL to send in email
-   const resetUrl = `${process.env.PUBLIC_DOMAIN}/users/reset-password?token=${resetToken}`;
+   const resetUrl = `${process.env.PUBLIC_DOMAIN}/reset-password?token=${resetToken}`;
 
   // Send the email
   await sendSingleMail({

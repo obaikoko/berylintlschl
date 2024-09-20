@@ -5,7 +5,7 @@ const SearchBox = () => {
   const router = useRouter();
   const [name, setName] = useState('');
   const [level, setLevel] = useState('All');
-  const query = `?keyword=${name}&level=${level}`;
+  
 
   const handleSubmit = (e) => {
     e.preventDefault();
