@@ -7,7 +7,7 @@ const LetterHead = ({ image }) => {
       <main className={style.main}>
         <div className={style.logo}>
           <img
-            src='https://res.cloudinary.com/dzajrh9z7/image/upload/v1721855840/Bendonalds/m5eqmos5mf6tq1pg7lrg.jpg'
+            src='https://res.cloudinary.com/dzajrh9z7/image/upload/v1726781636/beryl/epfme50v5t4l66i6fzx3.jpg'
             alt='logo'
           />
         </div>
