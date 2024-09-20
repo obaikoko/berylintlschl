@@ -3,6 +3,7 @@ import User from '../model/user.js';
 import generateToken from '../utils/generateToken.js';
 import Student from '../model/student.js';
 import { sendBulkMail, sendSingleMail } from '../utils/emailService.js';
+import crypto from 'crypto';
 
 // Authenticate Users
 // @route POST api/user/auth
@@ -182,7 +183,7 @@ const updateUser = asyncHandler(async (req, res) => {
 
 const sendMails = asyncHandler(async (req, res) => {
   const { subject, text } = req.body;
-sendSingleMail
+  sendSingleMail;
   if (!req.user.isAdmin) {
     res.status(401);
     throw new Error('Unauthorized Contact the adminitration');
@@ -207,10 +208,107 @@ const logoutUser = asyncHandler(async (req, res) => {
   res.json({ message: 'Logged out user' });
 });
 
+// @desc Send reset password link
+// @route POST api/users/forget-password
+// @privacy Public
+const forgetPassword = asyncHandler(async (req, res) => {
+  const { email } = req.body;
+
+  // Find user by email
+  const user = await User.findOne({ email });
+  if (!user) {
+    res.status(404);
+    throw new Error('User not found');
+  }
+
+  // Generate reset token
+  const resetToken = crypto.randomBytes(32).toString('hex');
+
+  // Hash the reset token before saving to the database
+  const hashedToken = crypto
+    .createHash('sha256')
+    .update(resetToken)
+    .digest('hex');
+
+  // Set reset token and expiration
+  user.resetPasswordToken = hashedToken;
+  user.resetPasswordExpires = Date.now() + 60 * 60 * 1000; // 1 hour from now
+
+  await user.save();
+
+  // Create reset URL to send in email
+   const resetUrl = `${process.env.PUBLIC_DOMAIN}/users/reset-password?token=${resetToken}`;
+
+  // Send the email
+  await sendSingleMail({
+    email,
+    subject: 'Password Reset',
+    text: `You requested a password reset. Please go to this link to reset your password: ${resetUrl}`,
+  });
+
+  res.status(200);
+  res.json('Password reset link has been sent to your email');
+});
+// @desc Reset password
+// @route PUT api/users/reset-password
+// @privacy Public
+const resetPassword = asyncHandler(async (req, res) => {
+  const { token } = req.query;
+  const { newPassword } = req.body;
+
+  // Password validation regex
+  const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
+
+  // Ensure token is a string
+  if (typeof token !== 'string') {
+    res.status(400);
+    throw new Error('Invalid token format');
+  }
+
+  // Hash the token provided by the user
+  const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+
+  // Find the user with the matching reset token and ensure it's not expired
+  const user = await User.findOne({
+    resetPasswordToken: hashedToken,
+    resetPasswordExpires: { $gt: Date.now() },
+  });
+
+  if (!user) {
+    res.status(400);
+    throw new Error('Invalid or expired reset token');
+  }
+
+  // Check if the new password meets the strength criteria
+  if (!passwordRegex.test(newPassword)) {
+    res.status(400);
+    throw new Error(
+      'Password must be at least 8 characters long and include at least one uppercase letter, one number, and one special character.'
+    );
+  }
+
+  // Update the user's password and clear the reset token fields
+  user.password = newPassword;
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpires = undefined;
+
+  await user.save();
+
+  res.status(200);
+  res.json('Password has been reset successfully');
+  sendSingleMail({
+    email: user.email,
+    subject: `Password reset successful`,
+    text: `You have successfully reset your password. </br> NOTE if you did not initiate this process quickly change your password or contact the admin.`,
+  });
+});
+
 export {
   authUser,
   registerUser,
   logoutUser,
+  forgetPassword,
+  resetPassword,
   getUserProfile,
   updateUserProfile,
   getUsers,

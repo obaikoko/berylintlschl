@@ -3,7 +3,11 @@ import React, { useState, useEffect } from 'react';
 
 const images = [
   {
-    url: '/images/building1.jpg',
+    url: '/images/class3.jpg',
+    text1: 'Beryl International School',
+  },
+  {
+    url: '/images/building3.jpg',
     text1: 'Beryl we are the best',
     text2: 'We have proven track records',
   },

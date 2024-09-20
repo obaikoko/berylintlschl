@@ -113,7 +113,7 @@ function loginPage() {
                 Are you a student?
               </Link>
               <Link
-                href='/resetPassword'
+                href='/forget-password'
                 className='text-blue-950 hover:underline mt-2'
               >
                 Forgotten password?

@@ -3,6 +3,9 @@ import Result from '../model/result.js';
 import asyncHandler from 'express-async-handler';
 import cloudinary from '../config/cloudinary.js';
 import generateToken from '../utils/generateToken.js';
+import crypto from 'crypto';
+import bcrypt from 'bcryptjs';
+import { sendSingleMail } from '../utils/emailService.js';
 
 // Authenticate Student
 // @route POST api/student/auth
@@ -56,14 +59,13 @@ const RegisterStudent = asyncHandler(async (req, res) => {
     sponsorRelationship,
     sponsorPhoneNumber,
     sponsorEmail,
-    // image,
+    image,
   } = req.body;
-  console.log(req.body);
 
-  // if (!image) {
-  //   res.status(400);
-  //   throw new Error('Please attach an image');
-  // }
+  if (!image) {
+    res.status(400);
+    throw new Error('Please attach an image');
+  }
   if (!firstName || !lastName) {
     res.status(400);
     throw new Error('Please add all fields');
@@ -114,9 +116,9 @@ const RegisterStudent = asyncHandler(async (req, res) => {
     .toString()
     .padStart(3, '0')}`;
 
-  // const uploadedResponse = await cloudinary.uploader.upload(image, {
-  //   folder: 'Beryl',
-  // });
+  const uploadedResponse = await cloudinary.uploader.upload(image, {
+    folder: 'beryl',
+  });
 
   const student = await Student.create({
     firstName,
@@ -136,10 +138,10 @@ const RegisterStudent = asyncHandler(async (req, res) => {
     sponsorRelationship,
     sponsorPhoneNumber,
     sponsorEmail,
-    // image: {
-    //   url: uploadedResponse.url,
-    //   publicId: uploadedResponse.public_id,
-    // },
+    image: {
+      url: uploadedResponse.url,
+      publicId: uploadedResponse.public_id,
+    },
   });
 
   if (student) {
@@ -280,7 +282,6 @@ const updateStudent = asyncHandler(async (req, res) => {
     password,
     fees,
   } = req.body;
-  
 
   if (!req.user) {
     res.status(401);
@@ -300,11 +301,11 @@ const updateStudent = asyncHandler(async (req, res) => {
 
       if (existingImageId) {
         const newImageId = existingImageId.substring(
-          existingImageId.indexOf('Bendonalds') + 'Bendonalds/'.length
+          existingImageId.indexOf('beryl') + 'beryl/'.length
         );
 
         const uploadedResponse = await cloudinary.uploader.upload(image, {
-          folder: 'Bendonalds',
+          folder: 'beryl',
           public_id: newImageId,
         });
 
@@ -314,7 +315,7 @@ const updateStudent = asyncHandler(async (req, res) => {
         };
       } else {
         const uploadedResponse = await cloudinary.uploader.upload(image, {
-          folder: 'Bendonalds',
+          folder: 'beryl',
         });
 
         student.image = {
@@ -353,6 +354,9 @@ const updateStudent = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc Delete student
+// @route DELETE api/students/:id
+// @privacy Private ADMIN
 const deleteStudent = asyncHandler(async (req, res) => {
   if (!req.user) {
     res.status(401);
@@ -370,6 +374,106 @@ const deleteStudent = asyncHandler(async (req, res) => {
     res.status(404);
     throw new Error('Student not found!');
   }
+});
+
+// @desc Send reset password link student
+// @route POST api/students/forget-password
+// @privacy Public
+const forgetPassword = asyncHandler(async (req, res) => {
+  const { studentId } = req.body;
+
+  try {
+    // Find user by email
+    const student = await Student.findOne({ studentId });
+    if (!student) {
+      res.status(404);
+      throw new Error('User not found');
+    }
+
+    // Generate reset token
+    const resetToken = crypto.randomBytes(32).toString('hex');
+
+    // Hash the reset token before saving to the database
+    const hashedToken = crypto
+      .createHash('sha256')
+      .update(resetToken)
+      .digest('hex');
+
+    // Set reset token and expiration
+    student.resetPasswordToken = hashedToken;
+    student.resetPasswordExpires = Date.now() + 60 * 60 * 1000; // 1 hour from now
+
+    await student.save();
+
+    // Create reset URL to send in email
+    const resetUrl = `${process.env.PUBLIC_DOMAIN}/students/reset-password?token=${resetToken}`;
+
+    // Send the email
+    await sendSingleMail({
+      email: student.sponsorEmail,
+      subject: 'Password Reset',
+      text: `You requested a password reset. Please go to this link to reset your password: ${resetUrl}`,
+    });
+
+    res.status(200);
+    res.json(
+      `Password reset link has been sent to your sponsor ${student.sponsorEmail}`
+    );
+  } catch (error) {
+    console.log(error);
+    res.status(500);
+    res.json('An error occurred. Please try again later.');
+  }
+});
+// @desc Reset password
+// @route PUT api/students/reset-password
+// @privacy Public
+const resetPassword = asyncHandler(async (req, res) => {
+  const { token } = req.query;
+  const { newPassword } = req.body;
+
+  // Password validation regex
+  const passwordRegex = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*\W).{8,}$/;
+
+    // Ensure token is a string
+    if (typeof token !== 'string') {
+      res.status(400);
+      throw new Error('Invalid token format');
+    }
+
+    // Hash the token provided by the user
+    const hashedToken = crypto.createHash('sha256').update(token).digest('hex');
+
+    // Find the user with the matching reset token and ensure it's not expired
+    const user = await Student.findOne({
+      resetPasswordToken: hashedToken,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      res.status(400);
+      throw new Error('Invalid or expired reset token');
+    }
+
+    // Check if the new password meets the strength criteria
+    if (!passwordRegex.test(newPassword)) {
+      res.status(400);
+      throw new Error(
+        'Password must be at least 8 characters long and include at least one uppercase letter, one number, and one special character.'
+      );
+    }
+
+    // Update the user's password and clear the reset token fields
+    user.password = newPassword;
+    user.resetPasswordToken = undefined;
+    user.resetPasswordExpires = undefined;
+
+    await user.save();
+
+    res.status(200).json('Password has been reset successfully');
+
+    res.status(500).json('An error occurred. Please try again later.');
+  
 });
 
 // @desc Get  staff data
@@ -575,6 +679,8 @@ export {
   RegisterStudent,
   updateStudent,
   deleteStudent,
+  forgetPassword,
+  resetPassword,
   studentsData,
   getStudentProfile,
   getStudentResults,

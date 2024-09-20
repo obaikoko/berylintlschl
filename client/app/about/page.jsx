@@ -12,7 +12,6 @@ export const metadata = {
     'About Beryl International School, Calabar school, school mission, school values, education in Calabar, Cross River State',
 };
 
-
 const AboutPage = () => {
   return (
     <div>

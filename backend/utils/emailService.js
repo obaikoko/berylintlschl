@@ -26,7 +26,7 @@ const sendSingleMail = async ({ email, subject, text }) => {
       html: `
         <div style="font-family: Arial, sans-serif; color: #333; padding: 20px; max-width: 600px; margin: 0 auto; border: 1px solid #e0e0e0; border-radius: 8px; background-color: #fafafa;">
           <div style="text-align: center;">
-            <img src="https://res.cloudinary.com/dzajrh9z7/image/upload/v1721855840/Bendonalds/m5eqmos5mf6tq1pg7lrg.jpg" alt="Beryl International Schools Logo" style="width: 150px; margin-bottom: 20px;">
+            <img src="https://res.cloudinary.com/dzajrh9z7/image/upload/v1726781636/beryl/epfme50v5t4l66i6fzx3.jpg" alt="Beryl International School Logo" style="width: 150px; margin-bottom: 20px;">
           </div>
           <h3 style="color: #004b87; text-align: center; font-size: 22px; margin-bottom: 20px;">Welcome to Beryl International Schools</h3>
           <p style="font-size: 14px; line-height: 1.6; color: #555;">${text}</p>

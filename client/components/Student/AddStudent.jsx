@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import { useRegisterStudentMutation } from '@/src/features/students/studentApiSlice';
+import { useGetStudentsQuery, useRegisterStudentMutation } from '@/src/features/students/studentApiSlice';
 import Resizer from 'react-image-file-resizer';
 import style from '../styles/register.module.css';
 import Spinner from '../Spinner';
@@ -31,6 +31,7 @@ const addStudent = () => {
 
   const [registerStudent, { isLoading, isError }] =
     useRegisterStudentMutation();
+  const { data, refetch } = useGetStudentsQuery();
 
   const {
     firstName,
@@ -966,28 +967,29 @@ const addStudent = () => {
           image,
         }).unwrap();
         if (res) {
+          refetch();
           toast.success(
             `${res.firstName} ${res.lastName} registered successfully`
           );
-          // setFormData({
-          //   firstName: '',
-          //   lastName: '',
-          //   otherName: '',
-          //   level: '',
-          //   subLevel: '',
-          //   gender: '',
-          //   dateOfBirth: '',
-          //   yearAdmitted: '',
-          //   stateOfOrigin: '',
-          //   localGvt: '',
-          //   homeTown: '',
-          //   sponsorName: '',
-          //   sponsorRelationship: '',
-          //   sponsorPhoneNumber: '',
-          //   sponsorEmail: '',
-          // });
+          setFormData({
+            firstName: '',
+            lastName: '',
+            otherName: '',
+            level: '',
+            subLevel: '',
+            gender: '',
+            dateOfBirth: '',
+            yearAdmitted: '',
+            stateOfOrigin: '',
+            localGvt: '',
+            homeTown: '',
+            sponsorName: '',
+            sponsorRelationship: '',
+            sponsorPhoneNumber: '',
+            sponsorEmail: '',
+          });
           setImage(null);
-          // router.push(`/students/${res._id}`);
+          router.push(`/students/${res._id}`);
         }
       } catch (err) {
         toast.error(err?.data?.message || err.error);
@@ -1026,9 +1028,7 @@ const addStudent = () => {
             />
           </div>
           <div className='flex flex-col '>
-            <label htmlFor='studentLastName'>
-              Last Name
-            </label>
+            <label htmlFor='studentLastName'>Last Name</label>
             <input
               type='text'
               name='lastName'
@@ -1039,9 +1039,7 @@ const addStudent = () => {
             />
           </div>
           <div className='flex flex-col '>
-            <label htmlFor='studentOtherName'>
-              otherName
-            </label>
+            <label htmlFor='studentOtherName'>otherName</label>
             <input
               type='text'
               name='otherName'
@@ -1053,9 +1051,7 @@ const addStudent = () => {
           </div>
 
           <div className='flex flex-col '>
-            <label htmlFor='selectStudentLevel'>
-              Class
-            </label>
+            <label htmlFor='selectStudentLevel'>Class</label>
             <select
               name='level'
               id='selectStudentLevel'
@@ -1083,9 +1079,7 @@ const addStudent = () => {
             </select>
           </div>
           <div className='flex flex-col '>
-            <label htmlFor='subLevel'>
-              Sub Class
-            </label>
+            <label htmlFor='subLevel'>Sub Class</label>
             <select
               name='subLevel'
               id='subLevel'
@@ -1100,9 +1094,7 @@ const addStudent = () => {
             </select>
           </div>
           <div className='flex flex-col '>
-            <label htmlFor='stdGender'>
-              Gender
-            </label>
+            <label htmlFor='stdGender'>Gender</label>
             <select
               name='gender'
               id='stdGender'
@@ -1116,9 +1108,7 @@ const addStudent = () => {
           </div>
 
           <div className='flex flex-col '>
-            <label htmlFor='studentdateOfBirth'>
-              Date Of Birth
-            </label>
+            <label htmlFor='studentdateOfBirth'>Date Of Birth</label>
             <input
               type='date'
               name='dateOfBirth'
@@ -1130,9 +1120,7 @@ const addStudent = () => {
             />
           </div>
           <div className='flex flex-col '>
-            <label htmlFor='studentYearAdmitted'>
-              Year Admitted
-            </label>
+            <label htmlFor='studentYearAdmitted'>Year Admitted</label>
             <input
               type='date'
               name='yearAdmitted'
@@ -1145,9 +1133,7 @@ const addStudent = () => {
           </div>
 
           <div className='flex flex-col '>
-            <label htmlFor='studentStateOfOrigin'>
-              State Of Origin
-            </label>
+            <label htmlFor='studentStateOfOrigin'>State Of Origin</label>
             <select
               name='stateOfOrigin'
               id='studentStateOfOrigin'
@@ -1195,9 +1181,7 @@ const addStudent = () => {
             </select>
           </div>
           <div className='flex flex-col '>
-            <label htmlFor='localGvt'>
-              Local Government
-            </label>
+            <label htmlFor='localGvt'>Local Government</label>
             <select
               name='localGvt'
               id='localGvt'
@@ -1206,9 +1190,7 @@ const addStudent = () => {
             ></select>
           </div>
           <div className='flex flex-col '>
-            <label htmlFor='stdHomeTown'>
-              Home Town
-            </label>
+            <label htmlFor='stdHomeTown'>Home Town</label>
             <input
               type='text'
               name='homeTown'
@@ -1219,9 +1201,7 @@ const addStudent = () => {
             />
           </div>
           <div className='flex flex-col '>
-            <label htmlFor='sponsorName'>
-              Sponsor Name
-            </label>
+            <label htmlFor='sponsorName'>Sponsor Name</label>
             <input
               type='text'
               name='sponsorName'
@@ -1256,9 +1236,7 @@ const addStudent = () => {
             </select>
           </div>
           <div className='flex flex-col '>
-            <label htmlFor='sponsorPhoneNumber'>
-              Sponsor Phone Number
-            </label>
+            <label htmlFor='sponsorPhoneNumber'>Sponsor Phone Number</label>
             <input
               type='number'
               name='sponsorPhoneNumber'
@@ -1270,9 +1248,7 @@ const addStudent = () => {
             />
           </div>
           <div className='flex flex-col '>
-            <label htmlFor='sponsorEmail'>
-              Sponsor Email Address
-            </label>
+            <label htmlFor='sponsorEmail'>Sponsor Email Address</label>
             <input
               type='email'
               name='sponsorEmail'
@@ -1284,16 +1260,13 @@ const addStudent = () => {
             />
           </div>
           <div className='flex flex-col '>
-            <label htmlFor='studentPassport'>
-              Upload Student Passport
-            </label>
+            <label htmlFor='studentPassport'>Upload Student Passport</label>
             <input type='file' accept='image/*' onChange={handleImageChange} />
           </div>
           {isLoading ? (
             <Spinner clip={true} size={25} />
           ) : (
             <>
-             
               <button
                 className='bg-blue-950 text-white px-2 py-1 rounded'
                 type='submit'

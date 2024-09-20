@@ -107,6 +107,12 @@ function loginPage() {
               <Link href='/login' className='text-blue-950 hover:underline'>
                 Not a student?
               </Link>
+              <Link
+                href='/students/forget-password'
+                className='text-blue-950 hover:underline'
+              >
+                Forget Password?
+              </Link>
             </div>
           </form>
         </div>

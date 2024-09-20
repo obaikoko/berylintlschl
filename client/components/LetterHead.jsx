@@ -26,7 +26,7 @@ const LetterHead = ({ image }) => {
             Calabar Municipality, Cross River State
           </h4>
           <p>
-            <FaPhone className='inline-block mb-3 text-green-500' />{' '}
+            <FaPhone className='inline-block mb-1 text-green-500' />{' '}
             07060511978, 09073091617
           </p>
         </div>

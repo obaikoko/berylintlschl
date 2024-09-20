@@ -67,6 +67,22 @@ export const studentsApiSlice = apiSlice.injectEndpoints({
       }),
       providesTags: ['Students'],
     }),
+
+    forgetStudentPassword: builder.mutation({
+      query: (data) => ({
+        url: `${STUDENTS_URL}/forget-password`,
+        method: 'POST',
+        body: data,
+      }),
+    }),
+    resetStudentPassword: builder.mutation({
+      query: (data) => ({
+        url: `${STUDENTS_URL}/reset-password?token=${data.token}`,
+        method: 'PUT',
+        body: data,
+      }),
+    }),
+
     studentData: builder.query({
       query: () => ({
         url: `${STUDENTS_URL}/data`,
@@ -86,5 +102,7 @@ export const {
   useRegisterStudentMutation,
   useUpdateStudentMutation,
   useDeleteStudentMutation,
+  useForgetStudentPasswordMutation,
+  useResetStudentPasswordMutation,
   useStudentDataQuery,
 } = studentsApiSlice;

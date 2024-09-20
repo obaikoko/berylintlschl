@@ -1,7 +1,6 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
-
 const userSchema = mongoose.Schema(
   {
     firstName: {
@@ -18,6 +17,12 @@ const userSchema = mongoose.Schema(
     password: {
       type: String,
       require: [true, 'please add a password'],
+    },
+    resetPasswordToken: {
+      type: String,
+    },
+    resetPasswordExpires: {
+      type: Date,
     },
     isAdmin: {
       type: Boolean,

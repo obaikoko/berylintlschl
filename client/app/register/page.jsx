@@ -13,9 +13,9 @@ import { useRouter } from 'next/navigation';
 
 function register() {
   const [page, setPage] = useState(1);
-  const [loading, setLoading] = useState(false);
-  const { data, isLoading, isError } = useGetStudentsQuery(page);
-  const totalPages = data && data.totalPages;
+
+  
+
   const { user } = useSelector((state) => state.auth);
   const router = useRouter();
 
@@ -23,11 +23,7 @@ function register() {
     if (!user) {
       router.push('/');
     }
-    setLoading(isLoading);
-    if (isError) {
-      setLoading(false);
-    }
-  }, [data, isError, user]);
+  }, [user]);
 
   const handlePageChange = debounce((newPage) => {
     if (newPage !== page) {
@@ -42,7 +38,7 @@ function register() {
       <Head>
         <title>Bendonalds</title>
       </Head>
-      <SearchBox/>
+      <SearchBox />
       <div className='w-auto'>
         <h1 className='text-4xl shadow-lg p-6 text-center '>
           Registration Page

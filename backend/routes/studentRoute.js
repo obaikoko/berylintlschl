@@ -10,7 +10,9 @@ import {
   authStudent,
   getStudentProfile,
   getStudentResults,
-  graduateStudent
+  graduateStudent,
+  forgetPassword,
+  resetPassword,
 } from '../controller/studentController.js';
 
 const router = express.Router();
@@ -23,7 +25,9 @@ router.route('/auth').post(authStudent);
 router.route('/profile').get(protect, getStudentProfile);
 router.route('/data').get(protect, admin, studentsData);
 router.route('/results').get(protect, getStudentResults);
-router.route('/graduate').post(protect, admin, graduateStudent)
+router.route('/graduate').post(protect, admin, graduateStudent);
+router.route('/forget-password').post(forgetPassword);
+router.route('/reset-password').put(resetPassword);
 
 router
   .route('/:id')

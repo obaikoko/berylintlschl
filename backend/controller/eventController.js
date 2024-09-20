@@ -26,7 +26,7 @@ const addEvent = asyncHandler(async (req, res) => {
   let uploadedResponse;
   try {
     uploadedResponse = await cloudinary.uploader.upload(image, {
-      folder: 'Bendonalds',
+      folder: 'beryl',
     });
   } catch (error) {
     console.log(error);

@@ -73,6 +73,12 @@ const studentSchema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    resetPasswordToken: {
+      type: String,
+    },
+    resetPasswordExpires: {
+      type: Date,
+    },
 
     user: {
       type: mongoose.Schema.Types.ObjectId,

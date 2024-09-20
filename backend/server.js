@@ -22,13 +22,8 @@ dotenv.config();
 const app = express();
 connectDB();
 
-// Get the directory name of the current module
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
 const corsOptions = {
   origin: 'http://localhost:3000',
-  // origin: 'https://school-project-frontend.vercel.app',
   credentials: true,
 };
 
@@ -37,8 +32,6 @@ app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Serve static files from the build directory
-app.use(express.static(path.join(__dirname, '.next')));
 app.use('/api/users', userRoute);
 app.use('/api/students', studentRoute);
 app.use('/api/application', studentAppRoute);
