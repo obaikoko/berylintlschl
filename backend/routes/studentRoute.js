@@ -6,7 +6,6 @@ import {
   RegisterStudent,
   updateStudent,
   deleteStudent,
-  studentsData,
   authStudent,
   getStudentProfile,
   getStudentResults,
@@ -14,6 +13,7 @@ import {
   forgetPassword,
   resetPassword,
 } from '../controller/studentController.js';
+import { userRateLimit } from '../middleware/rateLimeter.js';
 
 const router = express.Router();
 
@@ -21,13 +21,12 @@ router
   .route('/')
   .get(protect, getAllStudents)
   .post(protect, admin, RegisterStudent);
-router.route('/auth').post(authStudent);
+router.route('/auth').post(userRateLimit, authStudent);
 router.route('/profile').get(protect, getStudentProfile);
-router.route('/data').get(protect, admin, studentsData);
 router.route('/results').get(protect, getStudentResults);
-router.route('/graduate').post(protect, admin, graduateStudent);
-router.route('/forget-password').post(forgetPassword);
-router.route('/reset-password').put(resetPassword);
+router.route('/graduate').put(protect, admin, graduateStudent);
+router.route('/forget-password').post(userRateLimit, forgetPassword);
+router.route('/reset-password').put(userRateLimit, resetPassword);
 
 router
   .route('/:id')

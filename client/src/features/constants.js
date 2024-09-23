@@ -6,3 +6,4 @@ export const AWARDS_URL = '/api/awards';
 export const EVENTS_URL = '/api/events';
 export const ADMISSION_URL = '/api/admission';
 export const NEXTTERM_URL = '/api/nextTerm';
+export const DATA_URL = '/api/data';

@@ -1,14 +1,12 @@
-'use client'
+'use client';
 import { useEffect, useState } from 'react';
 import { useAddEventMutation } from '@/src/features/events/eventApiSlice';
 import Resizer from 'react-image-file-resizer';
 import { toast } from 'react-toastify';
 
-
 import Spinner from '@/components/Spinner';
 
 const UpdateEvent = () => {
- 
   const [isOpen, setIsOpen] = useState(false);
   const [image, setImage] = useState(null);
 
@@ -153,7 +151,7 @@ const UpdateEvent = () => {
                   className='bg-blue-950 text-white px-2 py-1 rounded'
                   type='submit'
                 >
-                  Generate
+                  Upload
                 </button>
                 <button
                   onClick={clickedUserForm}

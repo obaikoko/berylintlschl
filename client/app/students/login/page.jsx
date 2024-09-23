@@ -58,8 +58,9 @@ function loginPage() {
             onSubmit={handleSubmit}
           >
             <div className='flex flex-col items-center mb-6'>
+              <img src='/images/logo.png' alt='logo' className='w-20 h-20' />
               <h1 className='text-3xl font-bold text-blue-950 mb-4'>SIGN IN</h1>
-              <FaUserCircle className='text-5xl text-blue-950' />
+             
             </div>
 
             <div className='mb-4 w-full'>

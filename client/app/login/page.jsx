@@ -9,7 +9,6 @@ import Link from 'next/link';
 import Spinner from '@/components/Spinner';
 import { FaUserCircle } from 'react-icons/fa';
 
-
 function loginPage() {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
@@ -36,7 +35,6 @@ function loginPage() {
       toast.success(`Welcome ${res.firstName}`);
       router.push('/');
     } catch (err) {
-      console.log(err?.data?.message || err.error);
       toast.error(err?.data?.message || err.error);
     }
   };
@@ -51,17 +49,16 @@ function loginPage() {
 
   return (
     <>
-        <div className='bg-blue-950 h-20'></div>
+      <div className='bg-blue-950 h-20'></div>
       <div className='min-h-screen flex flex-col justify-center bg-blue-100'>
-
         <div className='flex items-center justify-center'>
           <form
             className='bg-white p-10 rounded-lg shadow-lg max-w-md w-full'
             onSubmit={handleSubmit}
           >
             <div className='flex flex-col items-center mb-6'>
+              <img src='/images/logo.png' alt='logo' className='w-20 h-20' />
               <h1 className='text-3xl font-bold text-blue-950 mb-4'>SIGN IN</h1>
-              <FaUserCircle className='text-5xl text-blue-950' />
             </div>
 
             <div className='mb-4 w-full'>
@@ -69,7 +66,7 @@ function loginPage() {
                 htmlFor='email'
                 className='block text-blue-950 font-bold mb-2'
               >
-                Username
+                Email
               </label>
               <input
                 type='email'

@@ -28,7 +28,6 @@ const AdmissionForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('yes');
 
     try {
       const res = await createAdmission({

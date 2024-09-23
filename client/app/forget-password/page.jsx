@@ -21,7 +21,6 @@ function forgetPassword() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(email);
 
     try {
       const res = await forgetPassword({ email }).unwrap();
@@ -43,6 +42,7 @@ function forgetPassword() {
           >
             <div className='flex flex-col items-center mb-6'>
               <img src='/images/logo.png' alt='logo' className='w-20 h-20' />
+              <h1 className='text-2xl my-3'>Forget Password</h1>
             </div>
 
             <div className='mb-4 w-full'>

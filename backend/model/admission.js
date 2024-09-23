@@ -8,22 +8,28 @@ const admissionSchema = new mongoose.Schema(
     },
     lastName: {
       type: String,
+      required: true,
     },
     email: {
       type: String,
+      required: true,
     },
     phone: {
       type: Number,
+      required: true,
     },
 
     childName: {
       type: String,
+      required: true,
     },
     childAge: {
       type: Number,
+      required: true,
     },
     level: {
       type: String,
+      required: true,
     },
   },
   {

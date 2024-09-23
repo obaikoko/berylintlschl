@@ -11,7 +11,6 @@ function resetPassword() {
     newPassword: '',
     newPassword2: '',
   });
-  const { newPassword, newPassword2 } = formData;
 
   // Wrap this part in Suspense
   return (
@@ -74,6 +73,7 @@ function PasswordForm({
           >
             <div className='flex flex-col items-center mb-6'>
               <img src='/images/logo.png' alt='logo' className='w-20 h-20' />
+              <h1 className='text-2xl my-3'>Reset Password</h1>
             </div>
 
             <div className='mb-4 w-full'>

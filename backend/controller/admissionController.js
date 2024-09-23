@@ -1,11 +1,18 @@
 import asyncHandler from 'express-async-handler';
 import Admission from '../model/admission.js';
 import { sendSingleMail } from '../utils/emailService.js';
+import { validationResult } from 'express-validator';
 
 const createAdmission = asyncHandler(async (req, res) => {
   const { firstName, lastName, email, phone, childName, childAge, level } =
     req.body;
-  
+
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    res.status(400);
+    throw new Error(errors.array()[0].msg);
+  }
 
   const admission = await Admission.create({
     firstName,

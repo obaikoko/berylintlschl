@@ -1,4 +1,3 @@
-import path from 'path';
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
@@ -7,15 +6,14 @@ import cors from 'cors';
 import connectDB from './config/db.js';
 import userRoute from './routes/userRoute.js';
 import studentRoute from './routes/studentRoute.js';
-import studentAppRoute from './routes/studentAppRoute.js';
 import staffRoute from './routes/staffRoute.js';
 import resultRoute from './routes/resultRoute.js';
-import awardRoute from './routes/awardRoute.js';
+import dataRoute from './routes/dataRoute.js';
+// import awardRoute from './routes/awardRoute.js';
 import eventRoute from './routes/eventRoute.js';
 import admissionRoute from './routes/admissionRoute.js';
 import nextTermRoute from './routes/nextTermRoute.js';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
-import { fileURLToPath } from 'url'; // Import the fileURLToPath function
 
 dotenv.config();
 
@@ -34,10 +32,10 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/api/users', userRoute);
 app.use('/api/students', studentRoute);
-app.use('/api/application', studentAppRoute);
 app.use('/api/staff', staffRoute);
 app.use('/api/results', resultRoute);
-app.use('/api/awards', awardRoute);
+app.use('/api/data', dataRoute);
+// app.use('/api/awards', awardRoute);
 app.use('/api/events', eventRoute);
 app.use('/api/admission', admissionRoute);
 app.use('/api/nextTerm', nextTermRoute);

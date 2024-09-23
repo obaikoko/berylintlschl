@@ -6,7 +6,6 @@ import { useResetStudentPasswordMutation } from '@/src/features/students/student
 import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 
-
 function resetStudentPassword() {
   const router = useRouter();
   const [formData, setFormData] = useState({
@@ -76,6 +75,7 @@ function PasswordForm({
           >
             <div className='flex flex-col items-center mb-6'>
               <img src='/images/logo.png' alt='logo' className='w-20 h-20' />
+              <h1 className='text-2xl my-3'>Reset Password</h1>
             </div>
 
             <div className='mb-4 w-full'>

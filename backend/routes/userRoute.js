@@ -14,6 +14,7 @@ import {
   forgetPassword,
   resetPassword,
 } from '../controller/userController.js';
+import { userRateLimit } from '../middleware/rateLimeter.js';
 
 const router = express.Router();
 
@@ -25,11 +26,11 @@ router
   .route('/profile')
   .get(protect, getUserProfile)
   .put(protect, updateUserProfile);
-router.post('/auth', authUser);
+router.post('/auth', userRateLimit, authUser);
 router.post('/mails', protect, admin, sendMails);
 router.post('/logout', logoutUser);
-router.route('/forget-password').post(forgetPassword);
-router.route('/reset-password').put(resetPassword);
+router.route('/forget-password').post(userRateLimit, forgetPassword);
+router.route('/reset-password').put(userRateLimit, resetPassword);
 router
   .route('/:id')
   .get(protect, admin, getUserById)

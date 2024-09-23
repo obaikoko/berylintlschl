@@ -67,6 +67,14 @@ export const studentsApiSlice = apiSlice.injectEndpoints({
       }),
       providesTags: ['Students'],
     }),
+    graduateStudents: builder.mutation({
+      query: () => ({
+        url: `${STUDENTS_URL}/graduate`,
+        method: 'PUT',
+        credentials: 'include',
+      }),
+      providesTags: ['Students'],
+    }),
 
     forgetStudentPassword: builder.mutation({
       query: (data) => ({
@@ -82,14 +90,6 @@ export const studentsApiSlice = apiSlice.injectEndpoints({
         body: data,
       }),
     }),
-
-    studentData: builder.query({
-      query: () => ({
-        url: `${STUDENTS_URL}/data`,
-        credentials: 'include',
-      }),
-      providesTags: ['Students'],
-    }),
   }),
 });
 
@@ -102,6 +102,7 @@ export const {
   useRegisterStudentMutation,
   useUpdateStudentMutation,
   useDeleteStudentMutation,
+  useGraduateStudentsMutation,
   useForgetStudentPasswordMutation,
   useResetStudentPasswordMutation,
   useStudentDataQuery,

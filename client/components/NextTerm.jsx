@@ -148,7 +148,7 @@ const UpdateNextTerm = () => {
                   className='bg-blue-950 text-white px-2 py-1 rounded'
                   type='submit'
                 >
-                  Generate
+                  Upload
                 </button>
                 <button
                   onClick={clickedUserForm}

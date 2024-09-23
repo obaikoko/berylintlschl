@@ -1,33 +1,51 @@
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useDeleteResultMutation } from '@/src/features/results/resultApiSlice';
 import { toast } from 'react-toastify';
 import Spinner from './Spinner';
+import ConfirmationModal from './ConfirmationModal'; // Import the reusable modal
 
 const DeleteResultBtn = ({ result }) => {
   const router = useRouter();
+  const [deleteResult, { isLoading }] = useDeleteResultMutation();
 
-  const [deleteResult, { isLoading, isError }] = useDeleteResultMutation();
+  const [showModal, setShowModal] = useState(false);
+  const [selectedResult, setSelectedResult] = useState(null);
 
-  const confirmDelete = async (id) => {
-    if (window.confirm('Are you sure you want to delete this record?')) {
-      try {
-        await deleteResult(id).unwrap();
-        toast.success('Record Deleted ');
-        router.push('/results');
-      } catch (err) {
-        toast.error(err?.data?.message || err.error);
-      }
+  const handleDelete = async () => {
+    try {
+      await deleteResult(selectedResult).unwrap();
+      toast.success('Record Deleted');
+      router.push('/results');
+    } catch (err) {
+      toast.error(err?.data?.message || err.error);
     }
+    setShowModal(false); // Close the modal after deletion
+  };
+
+  const confirmDelete = (resultId) => {
+    setSelectedResult(resultId); // Set the result to be deleted
+    setShowModal(true); // Show the confirmation modal
   };
 
   return (
-    <button
-      type='button'
-      className='bg-red-500 text-white px-4 py-2 rounded my-4 mx-2'
-      onClick={() => confirmDelete(result)}
-    >
-      {isLoading ? <Spinner clip={true} size={35} /> : 'Delete'}
-    </button>
+    <>
+      <button
+        type='button'
+        className='bg-red-500 text-white px-4 py-2 rounded my-4 mx-2'
+        onClick={() => confirmDelete(result)}
+      >
+        {isLoading ? <Spinner clip={true} size={35} /> : 'Delete'}
+      </button>
+
+      {/* Reusable Confirmation Modal */}
+      <ConfirmationModal
+        isOpen={showModal}
+        message='Are you sure you want to delete this record? This action is irreversible'
+        onConfirm={handleDelete} // Confirm action
+        onCancel={() => setShowModal(false)} // Cancel action
+      />
+    </>
   );
 };
 

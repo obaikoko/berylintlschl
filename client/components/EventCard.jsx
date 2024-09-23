@@ -1,4 +1,7 @@
-import { useDeleteEventMutation, useGetEventsQuery } from '@/src/features/events/eventApiSlice';
+import {
+  useDeleteEventMutation,
+  useGetEventsQuery,
+} from '@/src/features/events/eventApiSlice';
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
@@ -8,7 +11,7 @@ const EventCard = ({ event }) => {
   const { user } = useSelector((state) => state.auth);
   const [deleteEvent, { isLoading: loadingDelete, isError }] =
     useDeleteEventMutation();
-    const { data, isLoading, refetch } = useGetEventsQuery();
+  const { data, isLoading, refetch } = useGetEventsQuery();
 
   const handleDeleteEvent = async (id) => {
     if (window.confirm('Are you sure you want to remove event?')) {
@@ -29,12 +32,11 @@ const EventCard = ({ event }) => {
 
   if (isError) {
     <h1>Error Fetching Data...</h1>;
-   
   }
 
   return (
     <div>
-      <div className='bg-white shadow-md hover:shadow-xl transition-shadow duration-300 rounded-lg overflow-hidden w-full    mx-4 my-6'>
+      <div className='bg-white shadow-md hover:shadow-xl transition-shadow duration-300 rounded-lg overflow-hidden     mx-4 my-6'>
         <img
           src={event.image?.url}
           alt={event.title}
