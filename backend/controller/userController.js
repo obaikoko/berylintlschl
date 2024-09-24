@@ -161,20 +161,12 @@ const getUserById = asyncHandler(async (req, res) => {
 const updateUser = asyncHandler(async (req, res) => {
   const user = await User.findById(req.params.id);
 
+  
+
   if (user) {
-    user.firstName = req.body.firstName || user.firstName;
-    user.lastName = req.body.lastName || user.firstName;
-    user.email = req.body.email || user.email;
-    user.isAdmin = Boolean(req.body.isAdmin);
-
-    const updatedUser = await user.save();
-
-    res.json({
-      _id: updatedUser._id,
-      firstName: updatedUser.firstName,
-      lastName: updatedUser.lastName,
-      email: updatedUser.email,
-    });
+    user.isAdmin = req.body.isAdmin;
+    await user.save();
+    res.json(`${user.firstName} has been updated successfully`);
   } else {
     res.status(404);
     throw new Error('User not found');
@@ -237,7 +229,7 @@ const forgetPassword = asyncHandler(async (req, res) => {
   await user.save();
 
   // Create reset URL to send in email
-   const resetUrl = `${process.env.PUBLIC_DOMAIN}/reset-password?token=${resetToken}`;
+  const resetUrl = `${process.env.PUBLIC_DOMAIN}/reset-password?token=${resetToken}`;
 
   // Send the email
   await sendSingleMail({

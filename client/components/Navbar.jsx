@@ -119,6 +119,15 @@ const Navbar = () => {
                 <Link
                   onClick={menuBtnClicked}
                   className={style.navLink}
+                  href='/users'
+                >
+                  Users
+                </Link>
+              </li>
+              <li>
+                <Link
+                  onClick={menuBtnClicked}
+                  className={style.navLink}
                   href='/results'
                 >
                   Results
@@ -131,6 +140,15 @@ const Navbar = () => {
                   href='/broadsheet'
                 >
                   Broadsheet
+                </Link>
+              </li>
+              <li>
+                <Link
+                  onClick={menuBtnClicked}
+                  className={style.navLink}
+                  href='/events'
+                >
+                  Events
                 </Link>
               </li>
             </>

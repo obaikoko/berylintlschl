@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const getUserFromLocalStorage = () => {
   if (typeof window !== 'undefined') {
-    const user = localStorage.getItem('User');
+    const user = sessionStorage.getItem('User');
     return user ? JSON.parse(user) : null;
   }
   return null;
@@ -17,11 +17,11 @@ const authSlice = createSlice({
   reducers: {
     setCredentials: (state, action) => {
       state.user = action.payload;
-      localStorage.setItem('User', JSON.stringify(action.payload));
+      sessionStorage.setItem('User', JSON.stringify(action.payload));
     },
     logout: (state, action) => {
       state.user = null;
-      localStorage.removeItem('User');
+      sessionStorage.removeItem('User');
     },
   },
 });

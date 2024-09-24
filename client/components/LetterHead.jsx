@@ -13,7 +13,7 @@ const LetterHead = ({ image }) => {
         </div>
         {image && (
           <div className={style.profile}>
-            <img src={image} alt='profile' />
+            <img className='rounded' src={image} alt='profile' />
           </div>
         )}
 

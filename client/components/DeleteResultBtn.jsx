@@ -24,7 +24,7 @@ const DeleteResultBtn = ({ result }) => {
   };
 
   const confirmDelete = (resultId) => {
-    setSelectedResult(resultId); // Set the result to be deleted
+    setSelectedResult(resultId); 
     setShowModal(true); // Show the confirmation modal
   };
 
@@ -38,7 +38,7 @@ const DeleteResultBtn = ({ result }) => {
         {isLoading ? <Spinner clip={true} size={35} /> : 'Delete'}
       </button>
 
-      {/* Reusable Confirmation Modal */}
+      
       <ConfirmationModal
         isOpen={showModal}
         message='Are you sure you want to delete this record? This action is irreversible'
