@@ -13,6 +13,25 @@ export const admissionApiSlice = apiSlice.injectEndpoints({
       providesTags: ['Admission'],
       keepUnusedDataFor: 5,
     }),
+    getSingleAdmission: builder.query({
+      query: (admissionId) => ({
+        url: `${ADMISSION_URL}/${admissionId}`,
+        method: 'GET',
+        credentials: 'include',
+      }),
+      providesTags: ['Admission'],
+      keepUnusedDataFor: 5,
+    }),
+    getAllAdmission: builder.query({
+      query: () => ({
+        url: `${ADMISSION_URL}`,
+        method: 'GET',
+        credentials: 'include',
+      }),
+      providesTags: ['Admission'],
+      keepUnusedDataFor: 5,
+    }),
+
     deleteAdmission: builder.mutation({
       query: (admissionId) => ({
         url: `${ADMISSION_URL}/${admissionId}`,
@@ -25,5 +44,9 @@ export const admissionApiSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useCreateAdmissionMutation, useDeleteAdmissionMutation } =
-  admissionApiSlice;
+export const {
+  useCreateAdmissionMutation,
+  useGetSingleAdmissionQuery,
+  useGetAllAdmissionQuery,
+  useDeleteAdmissionMutation,
+} = admissionApiSlice;

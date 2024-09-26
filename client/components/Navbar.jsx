@@ -62,20 +62,30 @@ const Navbar = () => {
         <ul>
           {/* mobile menu only */}
 
-          <li className={style.mobileOnly}>
-            <Link onClick={menuBtnClicked} href='/' className={style.navLink}>
-              Home
-            </Link>
-          </li>
-          <li className={style.mobileOnly}>
-            <Link
-              onClick={menuBtnClicked}
-              className={style.navLink}
-              href='/about'
-            >
-              About
-            </Link>
-          </li>
+          {isLoggedIn ? (
+            ''
+          ) : (
+            <>
+              <li className={style.mobileOnly}>
+                <Link
+                  onClick={menuBtnClicked}
+                  href='/'
+                  className={style.navLink}
+                >
+                  Home
+                </Link>
+              </li>
+              <li className={style.mobileOnly}>
+                <Link
+                  onClick={menuBtnClicked}
+                  className={style.navLink}
+                  href='/about'
+                >
+                  About
+                </Link>
+              </li>
+            </>
+          )}
 
           {isLoggedIn && isLoggedIn.isAdmin ? (
             <>
@@ -222,6 +232,15 @@ const Navbar = () => {
                   href='/admission'
                 >
                   Admission
+                </Link>
+              </li>
+              <li>
+                <Link
+                  onClick={menuBtnClicked}
+                  className={style.navLink}
+                  href='/gallery'
+                >
+                  Gallery
                 </Link>
               </li>
 

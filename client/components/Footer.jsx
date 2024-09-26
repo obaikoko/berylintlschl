@@ -45,6 +45,11 @@ const Footer = () => {
                 Admission
               </Link>
             </li>
+            <li>
+              <Link href='/gallery' className='hover:underline'>
+                Gallery
+              </Link>
+            </li>
           </ul>
         </div>
 

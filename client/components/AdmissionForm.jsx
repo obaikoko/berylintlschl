@@ -11,11 +11,20 @@ const AdmissionForm = () => {
     email: '',
     phone: '',
     childName: '',
-    childAge: '',
+    dateOfBirth: '',
+    gender: '',
     level: '',
   });
-  const { firstName, lastName, email, phone, childName, childAge, level } =
-    formData;
+  const {
+    firstName,
+    lastName,
+    email,
+    phone,
+    childName,
+    gender,
+    dateOfBirth,
+    level,
+  } = formData;
 
   const [createAdmission, { isLoading, isError }] =
     useCreateAdmissionMutation();
@@ -36,7 +45,8 @@ const AdmissionForm = () => {
         email,
         phone,
         childName,
-        childAge,
+        gender,
+        dateOfBirth,
         level,
       }).unwrap();
       if (res) {
@@ -141,20 +151,40 @@ const AdmissionForm = () => {
               required
             />
           </div>
+          <div className='mb-6'>
+            <label
+              htmlFor='childName'
+              className='block text-blue-950 font-bold mb-2'
+            >
+              Child's Gender
+            </label>
+            <select
+              name='gender'
+              id='gender'
+              value={gender}
+              onChange={handleChange}
+              className='w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-950'
+              required
+            >
+              <option value=''>Select gender</option>
+              <option value='Male'>Male</option>
+              <option value='Female'>Female</option>
+            </select>
+          </div>
 
           <div className='grid grid-cols-1 md:grid-cols-2 gap-6 mb-6'>
             <div>
               <label
-                htmlFor='childAge'
+                htmlFor='dateOfBirth'
                 className='block text-blue-950 font-bold mb-2'
               >
-                Child's Age
+                Date Of Birth
               </label>
               <input
-                type='number'
-                name='childAge'
-                id='childAge'
-                value={childAge}
+                type='date'
+                name='dateOfBirth'
+                id='dateOfBirth'
+                value={dateOfBirth}
                 onChange={handleChange}
                 className='w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-950'
                 required
@@ -177,14 +207,14 @@ const AdmissionForm = () => {
               >
                 <option value=''>Select Class</option>
                 <option value='creche'>Creche/Nursery</option>
-                <option value='grade1'>Grade 1</option>
-                <option value='grade2'>Grade 2</option>
-                <option value='grade3'>Grade 3</option>
-                <option value='grade4'>Grade 4</option>
-                <option value='grade5'>Grade 5</option>
-                <option value='jss1'>JSS 1</option>
-                <option value='jss2'>JSS 2</option>
-                <option value='sss1'>SSS 1</option>
+                <option value='Grade 1'>Grade 1</option>
+                <option value='Grade 2'>Grade 2</option>
+                <option value='Grade 3'>Grade 3</option>
+                <option value='Grade 4'>Grade 4</option>
+                <option value='Grade 5'>Grade 5</option>
+                <option value='JSS 1'>JSS 1</option>
+                <option value='JSS 2'>JSS 2</option>
+                <option value='SSS 1'>SSS 1</option>
               </select>
             </div>
           </div>

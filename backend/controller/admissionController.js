@@ -4,8 +4,16 @@ import { sendSingleMail } from '../utils/emailService.js';
 import { validationResult } from 'express-validator';
 
 const createAdmission = asyncHandler(async (req, res) => {
-  const { firstName, lastName, email, phone, childName, childAge, level } =
-    req.body;
+  const {
+    firstName,
+    lastName,
+    email,
+    phone,
+    childName,
+    dateOfBirth,
+    gender,
+    level,
+  } = req.body;
 
   const errors = validationResult(req);
 
@@ -20,7 +28,8 @@ const createAdmission = asyncHandler(async (req, res) => {
     email,
     phone,
     childName,
-    childAge,
+    dateOfBirth,
+    gender,
     level,
   });
 
@@ -28,7 +37,7 @@ const createAdmission = asyncHandler(async (req, res) => {
     sendSingleMail({
       email: 'jesseobinna7@gmail.com',
       subject: 'Admission Request',
-      text: `${firstName} ${lastName} has requested ${childName}, ${childAge} years old to be enrolled into ${level} `,
+      text: `${firstName} ${lastName} has requested ${childName}, ${dateOfBirth} years old to be enrolled into ${level} `,
     });
     sendSingleMail({
       email,
@@ -41,4 +50,25 @@ const createAdmission = asyncHandler(async (req, res) => {
   }
 });
 
-export { createAdmission };
+const getAllRequest = asyncHandler(async (req, res) => {
+  const admission = await Admission.find({});
+  if (admission) {
+    res.status(200);
+    res.json(admission);
+  } else {
+    res.status(404);
+    throw new Error('Not Found!');
+  }
+});
+const getSingleRequest = asyncHandler(async (req, res) => {
+  const admission = await Admission.findById(req.params.id);
+  if (admission) {
+    res.status(200);
+    res.json(admission);
+  } else {
+    res.status(404);
+    throw new Error('Not Found!');
+  }
+});
+
+export { createAdmission, getAllRequest, getSingleRequest };

@@ -23,7 +23,7 @@ const AboutPage = () => {
           alt='About Beryl International School'
         />
         <div className='absolute inset-0 bg-black bg-opacity-40 flex justify-center items-center'>
-          <h1 className='text-white text-4xl font-bold'>
+          <h1 className='text-white md:text-4xl p-2 font-bold'>
             About Beryl International School
           </h1>
         </div>
@@ -62,37 +62,59 @@ const AboutPage = () => {
           </p>
         </div>
 
-        {/* Image and Proprietress Section */}
+        {/* Head of Administration Section */}
         <div className='md:w-1/2 px-6 mt-10 md:mt-0'>
           <div className='bg-white shadow-lg rounded-lg p-6'>
             <h2 className='text-2xl font-semibold text-center mb-6'>
-              The Proprietress
+              Head of Administration
             </h2>
             <img
               src='/images/proprietress.jpg'
-              alt='The Proprietress'
+              alt='Mrs. Edith Iwuji Nneka - Head of Administration'
               className='w-full h-64 object-cover rounded-lg mb-6'
             />
             <p className='text-lg mb-6'>
-              The Proprietress of Beryl International School is a visionary
-              leader committed to shaping the future of education. With years of
-              experience in both academic and administrative roles, she brings a
-              deep passion for fostering excellence in learning.
+              Mrs. Edith Iwuji Nneka, the Head of Administration at Beryl
+              International School, is a seasoned educational leader with a deep
+              commitment to creating an environment where students thrive both
+              academically and personally. With her extensive experience in
+              academic and administrative roles, she ensures the smooth running
+              of the school’s operations and promotes the school's core values
+              of excellence, integrity, and respect.
             </p>
             <p className='text-lg mb-6'>
-              Her approach to education is centered on nurturing the whole
-              child, focusing not only on academic success but also on
-              emotional, social, and moral growth. She is dedicated to creating
-              a supportive and inclusive environment where every student can
-              thrive.
-            </p>
-            <p className='text-lg'>
-              Driven by her commitment to lifelong learning, she continuously
-              seeks ways to improve the educational experience at Beryl
-              International School. Her leadership style ensures that the school
-              remains at the forefront of educational innovation.
+              Mrs. Nneka believes in fostering a nurturing environment where
+              students can grow intellectually, emotionally, and socially. Her
+              leadership and passion for education continue to drive the
+              school's mission of inspiring future leaders.
             </p>
           </div>
+        </div>
+      </div>
+
+      {/* Administrator Section */}
+      <div className='max-w-7xl mx-auto px-4 py-12'>
+        <div className='bg-white shadow-lg rounded-lg p-6'>
+          <h2 className='text-2xl font-semibold text-center mb-6'>
+            Administrator
+          </h2>
+          <img
+            src='/images/admin2.jpg'
+            alt='Mr. Collins Ogoigbe - Administrator'
+            className='w-full h-64 object-cover rounded-lg mb-6'
+          />
+          <p className='text-lg mb-6'>
+            Mr. Collins Ogoigbe, the Administrator at Beryl International
+            School, plays a pivotal role in ensuring the effective management of
+            the school. With a focus on operational excellence and student
+            welfare, he supports the administrative team in delivering a
+            top-quality educational experience.
+          </p>
+          <p className='text-lg mb-6'>
+            Mr. Ogoigbe's dedication to organizational leadership and innovation
+            helps to create a positive, well-structured learning environment for
+            all students and staff.
+          </p>
         </div>
       </div>
 

@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import {
@@ -981,74 +981,66 @@ const UpdateStaffBtn = ({ staff }) => {
   };
 
   return (
-    <>
+    <div className='container mx-auto'>
       <button
         onClick={clickedStaffBtn}
-        className={
-          isStaffForm ? `${style.btn} ${style.hideBtn}` : `${style.btn}`
-        }
+        className={`${
+          isStaffForm ? 'hidden' : 'block'
+        } bg-blue-950 text-white px-4 py-2 rounded mt-4 mx-2`}
       >
         update {staff.firstName}'s profile
       </button>
 
       <div
-        className={
-          isStaffForm
-            ? `${style.formContainer} ${style.showForm} `
-            : `${style.formContainer}`
-        }
+        className={`${
+          isStaffForm ? 'block' : 'hidden'
+        } bg-gray-100 p-6 rounded shadow-lg `}
       >
-        <div className={style.form}>
-          <form onSubmit={onSubmit}>
-            <h2>Update {staff.firstName}'s profile</h2>
-            <div className={style.formGroup}>
-              <label htmlFor='firstName' className='form-label'>
-                Fisrt Name
-              </label>
+        <form onSubmit={onSubmit} className='space-y-4'>
+          <h2 className='text-lg font-bold'>
+            Update {staff.firstName}'s profile
+          </h2>
+          <div className='grid md:grid-cols-2 lg:grid-cols-3'>
+            <div className='flex flex-col mx-2 '>
+              <label htmlFor='firstName'>Fisrt Name</label>
               <input
                 type='text'
                 name='firstName'
                 id='firstName'
                 value={firstName}
                 onChange={handleInputChange}
-                className='form-control'
+                className='bg-gray-300 rounded px-4 py-1'
               />
             </div>
-            <div className={style.formGroup}>
-              <label htmlFor='lastName' className='form-label'>
-                Last Name
-              </label>
+            <div className='flex flex-col mx-2 '>
+              <label htmlFor='lastName'>Last Name</label>
               <input
                 type='text'
                 name='lastName'
                 id='lastName'
                 value={lastName}
                 onChange={handleInputChange}
-                className='form-control'
+                className='bg-gray-300 rounded px-4 py-1'
               />
             </div>
-            <div className={style.formGroup}>
-              <label htmlFor='otherName' className='form-label'>
-                Other Name
-              </label>
+            <div className='flex flex-col mx-2 '>
+              <label htmlFor='otherName'>Other Name</label>
               <input
                 type='text'
                 name='otherName'
                 id='otherName'
                 value={otherName}
                 onChange={handleInputChange}
-                className='form-control'
+                className='bg-gray-300 rounded px-4 py-1'
               />
             </div>
 
-            <div className={style.formGroup}>
-              <label htmlFor='qualification' className='form-label'>
-                Qualification
-              </label>
+            <div className='flex flex-col mx-2 '>
+              <label htmlFor='qualification'>Qualification</label>
               <select
                 name='qualification'
                 id='qualification'
-                className='form-select'
+                className='bg-gray-300 rounded px-4 py-1'
                 onChange={handleInputChange}
               >
                 <option value=''>Select Highest Qualification</option>
@@ -1063,14 +1055,12 @@ const UpdateStaffBtn = ({ staff }) => {
                 <option value='Others'>Others </option>
               </select>
             </div>
-            <div className={style.formGroup}>
-              <label htmlFor='category' className='form-label'>
-                Staff Category
-              </label>
+            <div className='flex flex-col mx-2 '>
+              <label htmlFor='category'>Staff Category</label>
               <select
                 name='category'
                 id='category'
-                className='form-select'
+                className='bg-gray-300 rounded px-4 py-1'
                 onChange={handleCategoryChange}
               >
                 <option value=''></option>
@@ -1078,25 +1068,21 @@ const UpdateStaffBtn = ({ staff }) => {
                 <option value='Non Tutorial'>Non Tutorial</option>
               </select>
             </div>
-            <div className={style.formGroup}>
-              <label htmlFor='role' className='form-label'>
-                Subject Handled or Role
-              </label>
+            <div className='flex flex-col mx-2 '>
+              <label htmlFor='role'>Subject Handled or Role</label>
               <select
                 name='role'
                 id='role'
-                className='form-select'
+                className='bg-gray-300 rounded px-4 py-1'
                 onChange={handleInputChange}
               ></select>
             </div>
-            <div className={style.formGroup}>
-              <label htmlFor='gender' className='form-label'>
-                Gender
-              </label>
+            <div className='flex flex-col mx-2 '>
+              <label htmlFor='gender'>Gender</label>
               <select
                 name='gender'
                 id='gender'
-                className='form-select'
+                className='bg-gray-300 rounded px-4 py-1'
                 onChange={handleInputChange}
               >
                 <option value=''></option>
@@ -1104,14 +1090,12 @@ const UpdateStaffBtn = ({ staff }) => {
                 <option value='Female'>Female</option>
               </select>
             </div>
-            <div className={style.formGroup}>
-              <label htmlFor='maritalStatus' className='form-label'>
-                Marital Status
-              </label>
+            <div className='flex flex-col mx-2 '>
+              <label htmlFor='maritalStatus'>Marital Status</label>
               <select
                 name='maritalStatus'
                 id='maritalStatus'
-                className='form-select'
+                className='bg-gray-300 rounded px-4 py-1'
                 onChange={handleInputChange}
               >
                 <option value=''></option>
@@ -1120,10 +1104,8 @@ const UpdateStaffBtn = ({ staff }) => {
               </select>
             </div>
 
-            <div className={style.formGroup}>
-              <label htmlFor='dateOfBirth' className='form-label'>
-                Date of birth
-              </label>
+            <div className='flex flex-col mx-2 '>
+              <label htmlFor='dateOfBirth'>Date of birth</label>
               <input
                 type='date'
                 name='dateOfBirth'
@@ -1131,13 +1113,11 @@ const UpdateStaffBtn = ({ staff }) => {
                 id='dateOfBirth'
                 value={dateOfBirth}
                 onChange={handleInputChange}
-                className='form-control'
+                className='bg-gray-300 rounded px-4 py-1'
               />
             </div>
-            <div className={style.formGroup}>
-              <label htmlFor='yearAdmitted' className='form-label'>
-                Session Admitted
-              </label>
+            <div className='flex flex-col mx-2 '>
+              <label htmlFor='yearAdmitted'>Session Admitted</label>
               <input
                 type='date'
                 name='yearAdmitted'
@@ -1145,18 +1125,16 @@ const UpdateStaffBtn = ({ staff }) => {
                 id='yearAdmitted'
                 value={yearAdmitted}
                 onChange={handleInputChange}
-                className='form-control'
+                className='bg-gray-300 rounded px-4 py-1'
               />
             </div>
 
-            <div className={style.formGroup}>
-              <label htmlFor='stateOfOrigin' className='form-label'>
-                State of origin
-              </label>
+            <div className='flex flex-col mx-2 '>
+              <label htmlFor='stateOfOrigin'>State of origin</label>
               <select
                 name='stateOfOrigin'
                 id='stateOfOrigin'
-                className='form-select'
+                className='bg-gray-300 rounded px-4 py-1'
                 onChange={handleStateChange}
               >
                 <option value=''></option>
@@ -1198,49 +1176,41 @@ const UpdateStaffBtn = ({ staff }) => {
                 <option value='Zamfara'>Zamfara</option>
               </select>
             </div>
-            <div className={style.formGroup}>
-              <label htmlFor='staffLocalGvt' className='form-label'>
-                Local Government
-              </label>
+            <div className='flex flex-col mx-2 '>
+              <label htmlFor='staffLocalGvt'>Local Government</label>
               <select
                 name='localGvt'
                 id='staffLocalGvt'
-                className='form-select'
+                className='bg-gray-300 rounded px-4 py-1'
                 onChange={handleInputChange}
               ></select>
             </div>
-            <div className={style.formGroup}>
-              <label htmlFor='homeTown' className='form-label'>
-                Home Town
-              </label>
+            <div className='flex flex-col mx-2 '>
+              <label htmlFor='homeTown'>Home Town</label>
               <input
                 type='text'
                 name='homeTown'
                 id='homeTown'
                 value={homeTown}
                 onChange={handleInputChange}
-                className='form-control'
+                className='bg-gray-300 rounded px-4 py-1'
               />
             </div>
-            <div className={style.formGroup}>
-              <label htmlFor='residence' className='form-label'>
-                Residential Address
-              </label>
+            <div className='flex flex-col mx-2 '>
+              <label htmlFor='residence'>Residential Address</label>
               <input
                 type='text'
                 name='residence'
                 id='residence'
                 value={residence}
                 onChange={handleInputChange}
-                className='form-control'
+                className='bg-gray-300 rounded px-4 py-1'
               />
             </div>
-            <div className={style.formGroup}>
-              <label htmlFor='phone' className='form-label'>
-                Phone Number
-              </label>
+            <div className='flex flex-col mx-2 '>
+              <label htmlFor='phone'>Phone Number</label>
               <input
-                className='form-control'
+                className='bg-gray-300 rounded px-4 py-1'
                 type='number'
                 name='phone'
                 id='phone'
@@ -1248,12 +1218,10 @@ const UpdateStaffBtn = ({ staff }) => {
                 onChange={handleInputChange}
               />
             </div>
-            <div className={style.formGroup}>
-              <label htmlFor='email' className='form-label'>
-                Email Address
-              </label>
+            <div className='flex flex-col mx-2 '>
+              <label htmlFor='email'>Email Address</label>
               <input
-                className='form-control'
+                className='bg-gray-300 rounded px-4 py-1'
                 type='email'
                 name='email'
                 id='email'
@@ -1261,26 +1229,29 @@ const UpdateStaffBtn = ({ staff }) => {
                 onChange={handleInputChange}
               />
             </div>
-            {isLoading ? (
-              <Spinner clip={true} size={15} />
-            ) : (
-              <>
-                <button className={style.btn} type='submit'>
-                  update
-                </button>
-                <button
-                  onClick={clickedStaffBtn}
-                  className={`${style.btn} ${style.btnCancel} `}
-                  type='button'
-                >
-                  Close
-                </button>
-              </>
-            )}
-          </form>
-        </div>
+          </div>
+          {isLoading ? (
+            <Spinner clip={true} size={25} />
+          ) : (
+            <>
+              <button
+                className='bg-blue-950 text-white px-2 py-1 rounded'
+                type='submit'
+              >
+                submit
+              </button>
+              <button
+                onClick={clickedStaffBtn}
+                className='bg-orange-500 text-white px-2 py-1 rounded ml-4'
+                type='button'
+              >
+                Close
+              </button>
+            </>
+          )}
+        </form>
       </div>
-    </>
+    </div>
   );
 };
 

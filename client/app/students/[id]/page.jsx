@@ -3,7 +3,6 @@ import React, { useRef, useState, useEffect } from 'react';
 import DeleteStudentBtn from '@/components/Student/DeleteStudentBtn';
 import Spinner from '@/components/Spinner';
 import UpdateStudentBtn from '@/components/Student/UpdateStudentBtn';
-import { useRouter } from 'next/navigation';
 import { useParams } from 'next/navigation';
 import style from '../../../components/styles/profile.module.css';
 import ReactToPrint from 'react-to-print';
@@ -46,7 +45,7 @@ const StudentProfile = React.forwardRef(() => {
             {user?.isStudent ? '' : <GenerateResult />}
             {user?.isAdmin && (
               <div>
-                <UpdateStudentBtn student={data}  />
+                <UpdateStudentBtn student={data} />
                 <ReactToPrint
                   trigger={() => (
                     <button className='border-black border-2 rounded mx-2 px-2'>

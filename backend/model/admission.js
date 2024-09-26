@@ -23,8 +23,12 @@ const admissionSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    childAge: {
-      type: Number,
+    gender: {
+      type: String,
+      required: true,
+    },
+    dateOfBirth: {
+      type: Date,
       required: true,
     },
     level: {
