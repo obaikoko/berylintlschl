@@ -59,13 +59,13 @@ const RegisterStudent = asyncHandler(async (req, res) => {
     sponsorRelationship,
     sponsorPhoneNumber,
     sponsorEmail,
-    image,
+    // image,
   } = req.body;
 
-  if (!image) {
-    res.status(400);
-    throw new Error('Please attach an image');
-  }
+  // if (!image) {
+  //   res.status(400);
+  //   throw new Error('Please attach an image');
+  // }
   if (!firstName || !lastName) {
     res.status(400);
     throw new Error('Please add all fields');
@@ -84,6 +84,12 @@ const RegisterStudent = asyncHandler(async (req, res) => {
 
   // Class level to code mapping
   const classCodeMapping = {
+    'Creche': 'CR',
+    'Day Care': 'DC',
+    'Reception': 'RP',
+    'Pre School': 'PS',
+    'Pre KG': 'PKG',
+    'KG': 'KG',
     'Grade 1': 'G1',
     'Grade 2': 'G2',
     'Grade 3': 'G3',
@@ -116,9 +122,9 @@ const RegisterStudent = asyncHandler(async (req, res) => {
     .toString()
     .padStart(3, '0')}`;
 
-  const uploadedResponse = await cloudinary.uploader.upload(image, {
-    folder: 'beryl',
-  });
+  // const uploadedResponse = await cloudinary.uploader.upload(image, {
+  //   folder: 'beryl',
+  // });
 
   const student = await Student.create({
     firstName,
@@ -138,10 +144,10 @@ const RegisterStudent = asyncHandler(async (req, res) => {
     sponsorRelationship,
     sponsorPhoneNumber,
     sponsorEmail,
-    image: {
-      url: uploadedResponse.url,
-      publicId: uploadedResponse.public_id,
-    },
+    // image: {
+    //   url: uploadedResponse.url,
+    //   publicId: uploadedResponse.public_id,
+    // },
   });
 
   if (student) {

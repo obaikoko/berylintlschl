@@ -4,6 +4,8 @@ import { useParams, useRouter } from 'next/navigation';
 import { useGetSingleAdmissionQuery } from '@/src/features/admission/admissionApiSlice';
 import { useSelector } from 'react-redux';
 import Spinner from '@/components/Spinner';
+import DeleteAdmissionBtn from '@/components/DeleteAdmissionBtn';
+import AdmissionMail from '@/components/AdmissionMail';
 
 const AdmissionPage = () => {
   const { id } = useParams();
@@ -113,6 +115,8 @@ const AdmissionPage = () => {
                   </p>
                 </div>
               </div>
+              <AdmissionMail admissionId={data._id} />
+              <DeleteAdmissionBtn admission={data} />
             </>
           )}
         </div>

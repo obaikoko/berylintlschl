@@ -19,7 +19,7 @@ const Services = () => {
             </p>
           </div>
           <div className='card'>
-            <h2>
+            <h2 className='text-cyan-700'>
               Primary School <br /> (Grades 1-5)
             </h2>
             <p className='text-sm'>
@@ -29,7 +29,7 @@ const Services = () => {
             </p>
           </div>
           <div className='card'>
-            <h2>
+            <h2 className='text-cyan-700'>
               Secondary School <br /> (JSS 1 - SSS 3)
             </h2>
             <p className='text-sm'>

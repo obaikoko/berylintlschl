@@ -39,49 +39,77 @@ const createResult = asyncHandler(async (req, res) => {
   }
   const addSubjects = subjectResults({ level });
 
-  const result = await Result.create({
-    studentId: id,
-    level,
-    subLevel: student.subLevel,
-    firstName: student.firstName,
-    lastName: student.lastName,
-    otherName: student.otherName,
-    image: student.image.url,
-    session,
-    term,
-    position: '',
-    totalScore: '',
-    averageScore: '',
-    subjectResults: addSubjects,
-    affectiveAssessment: [
-      { aCategory: 'Neatness' },
-      { aCategory: 'Obedience' },
-      { aCategory: 'Punctuality' },
-      { aCategory: 'Politeness' },
-      { aCategory: 'Honesty' },
-      { aCategory: 'SelfControl' },
-      { aCategory: 'Socialbility' },
-      { aCategory: 'Leadership' },
-      { aCategory: 'Initiative' },
-      { aCategory: 'Responsibility' },
-    ],
-    psychomotor: [
-      { pCategory: 'Handwriting' },
-      { pCategory: 'Drawing' },
-      { pCategory: 'Sport' },
-      { pCategory: 'Speaking' },
-      { pCategory: 'Music' },
-      { pCategory: 'Craft' },
-      { pCategory: 'ComputerPractice' },
-      { pCategory: 'WorkshopPractice' },
-      { pCategory: 'LabPractice' },
-    ],
-    teacherRemark: '',
-    principalRemark: '',
-  });
+  if (
+    level === 'Creche' ||
+    level === 'Day Care' ||
+    level === 'Reception' ||
+    level === 'Pre School' ||
+    level === 'Pre KG' ||
+    level === 'KG'
+  ) {
+    const result = await Result.create({
+      studentId: id,
+      level,
+      subLevel: student.subLevel,
+      firstName: student.firstName,
+      lastName: student.lastName,
+      otherName: student.otherName,
+      image: student.image.url,
+      session,
+      term,
+      subjectResults: addSubjects,
+      teacherRemark: '',
+      principalRemark: '',
+    });
 
-  if (result) {
-    res.status(200).json(result);
+    if (result) {
+      res.status(200).json(result);
+    }
+  } else {
+    const result = await Result.create({
+      studentId: id,
+      level,
+      subLevel: student.subLevel,
+      firstName: student.firstName,
+      lastName: student.lastName,
+      otherName: student.otherName,
+      image: student.image.url,
+      session,
+      term,
+      position: '',
+      totalScore: '',
+      averageScore: '',
+      subjectResults: addSubjects,
+      affectiveAssessment: [
+        { aCategory: 'Neatness' },
+        { aCategory: 'Obedience' },
+        { aCategory: 'Punctuality' },
+        { aCategory: 'Politeness' },
+        { aCategory: 'Honesty' },
+        { aCategory: 'SelfControl' },
+        { aCategory: 'Socialbility' },
+        { aCategory: 'Leadership' },
+        { aCategory: 'Initiative' },
+        { aCategory: 'Responsibility' },
+      ],
+      psychomotor: [
+        { pCategory: 'Handwriting' },
+        { pCategory: 'Drawing' },
+        { pCategory: 'Sport' },
+        { pCategory: 'Speaking' },
+        { pCategory: 'Music' },
+        { pCategory: 'Craft' },
+        { pCategory: 'ComputerPractice' },
+        { pCategory: 'WorkshopPractice' },
+        { pCategory: 'LabPractice' },
+      ],
+      teacherRemark: '',
+      principalRemark: '',
+    });
+
+    if (result) {
+      res.status(200).json(result);
+    }
   }
 });
 
@@ -151,6 +179,7 @@ const updateResult = asyncHandler(async (req, res) => {
     subject,
     test,
     exam,
+    grade,
     affectiveAssessments, // For affective assessments if needed
     psychomotorAssessments, // Expect an array of objects [{ pCategory, grade }]
     teacherRemark,
@@ -176,25 +205,34 @@ const updateResult = asyncHandler(async (req, res) => {
         res.status(404);
         throw new Error('Subject not found in results');
       }
+      if (
+        result.level === 'Creche' ||
+        result.level === 'Day Care' ||
+        result.level === 'Reception' ||
+        result.level === 'Pre School' ||
+        result.level === 'Pre KG' ||
+        result.level === 'KG'
+      ) {
+        const newGrade = (subjectResult.grade = grade || subjectResult.grade);
+      } else {
+        const newTestScore = (subjectResult.testScore =
+          testScore || subjectResult.testScore);
+        const newExamScore = (subjectResult.examScore =
+          examScore || subjectResult.examScore);
+        subjectResult.totalScore = newTestScore + newExamScore;
+        subjectResult.grade = getGrade(subjectResult.totalScore);
+      }
 
-      const newTestScore = (subjectResult.testScore =
-        testScore || subjectResult.testScore);
-      const newExamScore = (subjectResult.examScore =
-        examScore || subjectResult.examScore);
-      subjectResult.totalScore = newTestScore + newExamScore;
-      subjectResult.grade = getGrade(subjectResult.totalScore);
+      // Calculate the new total score and average if required
+      const totalScore = result.subjectResults.reduce(
+        (acc, sub) => acc + sub.totalScore,
+        0
+      );
+      const averageScore = totalScore / result.subjectResults.length;
+
+      result.totalScore = totalScore;
+      result.averageScore = averageScore;
     }
-
-    // Calculate the new total score and average if required
-    const totalScore = result.subjectResults.reduce(
-      (acc, sub) => acc + sub.totalScore,
-      0
-    );
-    const averageScore = totalScore / result.subjectResults.length;
-
-    result.totalScore = totalScore;
-    result.averageScore = averageScore;
-
     if (affectiveAssessments && affectiveAssessments.length > 0) {
       affectiveAssessments.forEach((assessment) => {
         const affectiveAssessment = result.affectiveAssessment.find(
@@ -233,7 +271,8 @@ const updateResult = asyncHandler(async (req, res) => {
 
     await result.save();
 
-    res.status(200).send(result);
+    res.status(200);
+    res.json(result);
   } catch (error) {
     res.status(500).send({ message: error.message });
   }

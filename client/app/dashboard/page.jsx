@@ -21,6 +21,7 @@ import ConfirmationModal from '@/components/ConfirmationModal';
 import MailSender from '@/components/MailSender';
 import { useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
+import PrePrimaryData from '@/components/PrePrimaryData';
 
 function dashboard() {
   const [showModal, setShowModal] = useState(false);
@@ -100,7 +101,7 @@ function dashboard() {
                 <p className='text-2xl'>{staff?.nonTutorialStaff}</p>
               </div>
             </div>
-
+            <PrePrimaryData data={data} />
             <GradeData data={data} />
             <SecondaryData data={data} />
             <div className='mb-3 grid lg:grid-cols-2'>

@@ -12,13 +12,14 @@ const images = [
     text2: 'We have proven track records',
   },
   {
-    url: '/images/building2.jpg',
+    url: '/images/bus3.jpg',
+
     text1: 'Invest in your child',
     text2: 'The best form of investment is human investment',
   },
   {
-    url: '/images/bus3.jpg',
-    text1: '2024 Graduads',
+    url: '/images/building2.jpg',
+    text1: '2024 Graduands',
     text2: 'We Produce the best students',
   },
 ];

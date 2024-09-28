@@ -16,9 +16,12 @@ const Footer = () => {
         {/* Contact Details */}
         <div>
           <h2 className='text-xl font-bold mb-4'>Contact Details</h2>
-          <p className='mb-2'>Phone: +234-123-4567</p>
+          <p className='mb-2'>Phone: 07060511978, 09073091617</p>
           <p className='mb-2'>Email: berylintlschl@gmail.com</p>
-          <p>Location: Ikot Eneobong, Calabar, Cross River State, Nigeria</p>
+          <p>
+            Location: Plot 1, Block 1, Ikot Eneobong (Federal Housing Estate)
+            Calabar Municipality, Cross River State
+          </p>
         </div>
 
         {/* Quick Links */}
@@ -83,7 +86,8 @@ const Footer = () => {
 
       <div className='mt-8 border-t border-gray-700 pt-4 text-center'>
         <p className='text-gray-400'>
-          &copy; {currentYear} Beryl International Schools. Powered by Beryl International Schools
+          &copy; {currentYear} Beryl International Schools. Powered by Beryl
+          International Schools
         </p>
       </div>
     </footer>

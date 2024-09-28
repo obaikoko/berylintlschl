@@ -14,11 +14,12 @@ const UpdateResultScore = ({ level }) => {
   const [formData, setFormData] = useState({
     test: '',
     exam: '',
+    grade: '',
     subject: '',
   });
 
-  const { test, exam, subject, password } = formData;
-  const { data, refetch } = useGetResultQuery(resultId);
+  const { test, exam, grade, subject } = formData;
+  const { refetch } = useGetResultQuery(resultId);
   const [result, { isLoading }] = useUpdateResultMutation();
 
   useEffect(() => {
@@ -40,6 +41,7 @@ const UpdateResultScore = ({ level }) => {
         test,
         exam,
         subject,
+        grade,
       }).unwrap();
       if (res) {
         refetch();
@@ -48,6 +50,7 @@ const UpdateResultScore = ({ level }) => {
       setFormData({
         test: '',
         exam: '',
+        grade: '',
         // subject: '',
       });
     } catch (err) {
@@ -78,7 +81,44 @@ const UpdateResultScore = ({ level }) => {
             <h2 className='text-lg font-bold'>Update Scores</h2>
             <div className='flex flex-col '>
               <label htmlFor='subject'>Select Subject</label>
-              {level === 'JSS 1' || level === 'JSS 2' || level === 'JSS3' ? (
+              {level === 'Creche' ||
+              level === 'Day Care' ||
+              level === 'Reception' ||
+              level === 'Pre School' ||
+              level === 'Pre KG' ||
+              level === 'KG' ? (
+                <select
+                  className='bg-gray-300 rounded px-4 py-1 '
+                  name='subject'
+                  id='subject'
+                  onChange={onChange}
+                >
+                  <option value=''>Select Grade</option>
+
+                  <option value='Language Practices'>Language Practices</option>
+                  <option value='Independence'>Independence</option>
+                  <option value='Control Of Movement'>
+                    Control Of Movement
+                  </option>
+                  <option value='Object Identification'>
+                    Object Identification
+                  </option>
+                  <option value='Oral Number Work'>Oral Number Work</option>
+                  <option value='Scribbling'>Scribbling</option>
+                  <option value='Sociability'>Sociability</option>
+                  <option value='Responsibility'>Responsibility</option>
+                  <option value='Creative Art'>Creative Art</option>
+
+                  <option value='Nursery Rhymes/Poems'>
+                    Nursery Rhymes/Poems
+                  </option>
+                  <option value='Drawing And Colouring'>
+                    Drawing And Colouring
+                  </option>
+                  <option value='Singing'>Singing</option>
+                  <option value='Games'>Games</option>
+                </select>
+              ) : level === 'JSS 1' || level === 'JSS 2' || level === 'JSS3' ? (
                 <select
                   className='bg-gray-300 rounded px-4 py-1 '
                   name='subject'
@@ -152,35 +192,62 @@ const UpdateResultScore = ({ level }) => {
                 </select>
               )}
             </div>
-            <div className='flex flex-col '>
-              <label htmlFor='test'>Test Score</label>
-              <input
-                className='bg-gray-300 rounded px-4 py-1 '
-                type='number'
-                placeholder='Maximun 30'
-                name='test'
-                id='test'
-                value={test}
-                onChange={onChange}
-              />
-            </div>
-            <div className='flex flex-col '>
-              <label htmlFor='exam'>Exam Score</label>
-              <input
-                className='bg-gray-300 rounded px-4 py-1 '
-                type='number'
-                name='exam'
-                placeholder='Maximun 70'
-                id='exam'
-                value={exam}
-                onChange={onChange}
-              />
-            </div>
+            {level === 'Creche' ||
+            level === 'Day Care' ||
+            level === 'Reception' ||
+            level === 'Pre School' ||
+            level === 'Pre KG' ||
+            level === 'KG' ? (
+              <>
+                <select
+                  className='bg-gray-300 rounded px-4 py-1 '
+                  name='grade'
+                  id='grade'
+                  onChange={onChange}
+                >
+                  <option value=''>Select Subject Grade</option>
+                  <option value='A'>A</option>
+                  <option value='B'>B</option>
+                  <option value='C'>C</option>
+                  <option value='D'>D</option>
+                  <option value='E'>E</option>
+                  <option value='F'>F</option>
+                </select>
+              </>
+            ) : (
+              <>
+                <div className='flex flex-col '>
+                  <label htmlFor='test'>Test Score</label>
+                  <input
+                    className='bg-gray-300 rounded px-4 py-1 '
+                    type='number'
+                    placeholder='Maximun 30'
+                    name='test'
+                    id='test'
+                    value={test}
+                    onChange={onChange}
+                  />
+                </div>
+                <div className='flex flex-col '>
+                  <label htmlFor='exam'>Exam Score</label>
+                  <input
+                    className='bg-gray-300 rounded px-4 py-1 '
+                    type='number'
+                    name='exam'
+                    placeholder='Maximun 70'
+                    id='exam'
+                    value={exam}
+                    onChange={onChange}
+                  />
+                </div>
+              </>
+            )}
 
             {isLoading ? (
               <Spinner clip={true} />
             ) : (
               <>
+                <br />
                 <button
                   className='bg-blue-950 text-white px-2 py-1 rounded'
                   type='submit'

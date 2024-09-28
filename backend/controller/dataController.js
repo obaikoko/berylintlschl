@@ -30,6 +30,54 @@ const studentsData = asyncHandler(async (req, res) => {
     (student) => student.gender === 'Male'
   );
 
+  // Creche  Male Students
+  const crecheMaleStudents = allStudent.filter(
+    (student) => student.level === 'Creche' && student.gender === 'Male'
+  );
+  // Creche Female Students
+  const crecheFemaleStudents = allStudent.filter(
+    (student) => student.level === 'Creche' && student.gender === 'Female'
+  );
+  // Day Care  Male Students
+  const dayCareMaleStudents = allStudent.filter(
+    (student) => student.level === 'Day Care' && student.gender === 'Male'
+  );
+  // Day Care Female Students
+  const dayCareFemaleStudents = allStudent.filter(
+    (student) => student.level === 'Day Care' && student.gender === 'Female'
+  );
+  // Reception Male Students
+  const receptionMaleStudents = allStudent.filter(
+    (student) => student.level === 'Reception' && student.gender === 'Male'
+  );
+  // Reception Female Students
+  const receptionFemaleStudents = allStudent.filter(
+    (student) => student.level === 'Reception' && student.gender === 'Female'
+  );
+  // Pre School Male Students
+  const preSchoolMaleStudents = allStudent.filter(
+    (student) => student.level === 'Pre School' && student.gender === 'Male'
+  );
+  // Pre School Female Students
+  const preSchoolFemaleStudents = allStudent.filter(
+    (student) => student.level === 'Pre School' && student.gender === 'Female'
+  );
+  // Pre Kg Male Students
+  const preKgMaleStudents = allStudent.filter(
+    (student) => student.level === 'Pre KG' && student.gender === 'Male'
+  );
+  // Pre Kg Female Students
+  const preKgFemaleStudents = allStudent.filter(
+    (student) => student.level === 'Pre KG' && student.gender === 'Female'
+  );
+  //  Kg Male Students
+  const KgMaleStudents = allStudent.filter(
+    (student) => student.level === 'KG' && student.gender === 'Male'
+  );
+  //  Kg Female Students
+  const KgFemaleStudents = allStudent.filter(
+    (student) => student.level === 'KG' && student.gender === 'Female'
+  );
   // Grade 1 Male Students
   const grade1MaleStudents = allStudent.filter(
     (student) => student.level === 'Grade 1' && student.gender === 'Male'
@@ -144,6 +192,18 @@ const studentsData = asyncHandler(async (req, res) => {
   res.json({
     females: femaleStudents.length,
     males: maleStudents.length,
+    crecheMales: crecheMaleStudents.length,
+    crecheFemales: crecheFemaleStudents.length,
+    dayCareMales: dayCareMaleStudents.length,
+    dayCareFemale: dayCareFemaleStudents.length,
+    receptionMales: receptionMaleStudents.length,
+    receptionFemale: receptionFemaleStudents.length,
+    preSchoolMales: preSchoolMaleStudents.length,
+    preSchoolFemale: preSchoolFemaleStudents.length,
+    preKgMales: preKgMaleStudents.length,
+    preKgFemale: preKgFemaleStudents.length,
+    KgMales: KgMaleStudents.length,
+    KgFemale: KgFemaleStudents.length,
     grade1Males: grade1MaleStudents.length,
     grade1Females: grade1FemaleStudents.length,
     grade2Males: grade2MaleStudents.length,

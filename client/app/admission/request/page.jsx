@@ -5,10 +5,10 @@ import { useGetAllAdmissionQuery } from '@/src/features/admission/admissionApiSl
 import Spinner from '@/components/Spinner';
 
 const AdmissionListPage = () => {
-  const { data, isloading, isError } = useGetAllAdmissionQuery();
+  const { data, isLoading, isError } = useGetAllAdmissionQuery();
   
 
-  if (isloading) {
+  if (isLoading) {
     return <Spinner clip={true} size={150} />;
   }
   return (

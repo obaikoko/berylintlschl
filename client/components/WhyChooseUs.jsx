@@ -21,7 +21,7 @@ const WhyChooseUs = () => {
             </h1>
             <p className='text-lg text-gray-700 mb-2'>
               <span className='italic text-cyan-800'>
-                “Beryl International School has been an incredible choice for
+                “Beryl International School Calabar has been an incredible choice for
                 our children. The teachers are dedicated, and the environment is
                 warm and supportive. We’ve seen remarkable progress in our kids,
                 both academically and personally.”
@@ -65,7 +65,7 @@ const WhyChooseUs = () => {
             Why Choose Us
           </h1>
           <p className='text-lg italic text-cyan-700 text-center max-w-3xl mx-auto'>
-            Why Beryl International School is the Best Choice for Your Child
+            Why Beryl International School Calabar is the Best Choice for Your Child
           </p>
         </div>
       </section>

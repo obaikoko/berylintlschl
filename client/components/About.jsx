@@ -16,11 +16,11 @@ const About = () => {
       <div className='max-w-6xl mx-auto'>
         <div className='bg-white shadow-lg rounded-lg p-6'>
           <h1 className='text-2xl font-semibold text-gray-800 mb-6'>
-            Beryl International School helps every child reach their full
+            Beryl International School Calabar helps every child reach their full
             potential
           </h1>
           <p className='text-gray-700 leading-relaxed mb-6'>
-            At Beryl International School, learning goes beyond the classroom.
+            At Beryl International School Calabar, learning goes beyond the classroom.
             We offer a vibrant school life filled with extracurricular
             activities such as sports, music, art, and leadership programs.
             Students are encouraged to explore their interests, develop new

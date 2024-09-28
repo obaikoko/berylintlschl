@@ -74,6 +74,21 @@ const subjectResults = ({ level }) => {
       { subject: 'Efik' },
       { subject: 'History' },
     ]);
+  } else {
+    return (subjectResults = [
+      { subject: 'Language Practices' },
+      { subject: 'Independence' },
+      { subject: 'Control Of Movement' },
+      { subject: 'Object Identification' },
+      { subject: 'Oral Number Work' },
+      { subject: 'Scribbling' },
+      { subject: 'Responsibility' },
+      { subject: 'Sociability' },
+      { subject: 'Nursery Rhymes/Poems' },
+      { subject: 'Drawing And Colouring' },
+      { subject: 'Singing' },
+      { subject: 'Games' },
+    ]);
   }
 };
 export default subjectResults;

@@ -40,7 +40,11 @@ const subjectResultSchema = new mongoose.Schema({
     max: 100,
     default: 0,
   },
-  grade: String,
+  grade: {
+    type: String,
+    required: true,
+    default: '-'
+  },
 });
 
 const resultSchema = new mongoose.Schema({

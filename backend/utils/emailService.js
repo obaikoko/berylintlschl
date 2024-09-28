@@ -28,7 +28,7 @@ const sendSingleMail = async ({ email, subject, text }) => {
           <div style="text-align: center;">
             <img src="https://res.cloudinary.com/dzajrh9z7/image/upload/v1726781636/beryl/epfme50v5t4l66i6fzx3.jpg" alt="Beryl International School Logo" style="width: 150px; margin-bottom: 20px;">
           </div>
-          <h3 style="color: #004b87; text-align: center; font-size: 22px; margin-bottom: 20px;">Welcome to Beryl International Schools</h3>
+          <h3 style="color: #004b87; text-align: center; font-size: 22px; margin-bottom: 20px;">Welcome Back</h3>
           <p style="font-size: 14px; line-height: 1.6; color: #555;">${text}</p>
           <p style="font-size: 14px; line-height: 1.6; color: #555;">Best regards,</p>
           <p style="font-weight: bold; color: #004b87;">The Beryl International Schools Team</p>
@@ -55,16 +55,14 @@ const sendBulkMail = async ({ emails, subject, text }) => {
     // Loop through each recipient and send email
     for (const email of emails) {
       await sendSingleMail({ email, subject, text });
-       console.log(`Email sent to: ${email}`);
+      console.log(`Email sent to: ${email}`);
     }
-console.log('All emails sent successfully!');
+    console.log('All emails sent successfully!');
     return true;
   } catch (error) {
     console.error('Error sending bulk emails:', error);
     throw new Error('Bulk email sending failed.');
   }
 };
-
-
 
 export { sendSingleMail, sendBulkMail };

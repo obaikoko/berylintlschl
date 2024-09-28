@@ -12,7 +12,7 @@ import NewUser from '@/components/NewUser';
 import Footer from '@/components/Footer';
 
 export const metadata = {
-  title: 'Home - Beryl International School',
+  title: 'Home - Beryl International School Calabar',
   description:
     'Beryl International School is a high-quality educational institution offering nursery, primary, and secondary education in Calabar, Cross River State.',
   keywords:

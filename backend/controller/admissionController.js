@@ -71,4 +71,35 @@ const getSingleRequest = asyncHandler(async (req, res) => {
   }
 });
 
-export { createAdmission, getAllRequest, getSingleRequest };
+const sendMail = asyncHandler(async (req, res) => {
+  const { subject, text } = req.body;
+  const admission = await Admission.findById(req.params.id);
+  if (!admission) {
+    res.status(404);
+    throw new Error('Not found!');
+  }
+  try {
+    sendSingleMail({ email: admission.email, subject, text });
+    res.status(200);
+    res.json('Email sent successfully');
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+// @desc Delete admission
+// @route DELETE api/admissions/:id
+// @privacy Private ADMIN
+const deleteAdmission = asyncHandler(async (req, res) => {
+  const admission = await Admission.findById(req.params.id);
+  if (admission) {
+    await admission.deleteOne({ _id: admission._id });
+    res.status(200);
+    res.json('admission request deleted successfully');
+  } else {
+    res.status(404);
+    throw new Error('admission not found!');
+  }
+});
+
+export { createAdmission, getAllRequest, getSingleRequest, deleteAdmission, sendMail };

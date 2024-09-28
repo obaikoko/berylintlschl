@@ -18,7 +18,7 @@ const LetterHead = ({ image }) => {
         )}
 
         <div className={style.mainHeader}>
-          <h1 className='md:text-4xl'>Beryl International Schools</h1>
+          <h1 className='md:text-4xl'>Beryl International School Calabar</h1>
           <h4 className='text-pink-600'>
             Plot 1, Block 1, Ikot Eneobong (Federal Housing Estate)
           </h4>

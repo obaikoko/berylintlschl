@@ -1048,7 +1048,7 @@ const UpdateStudentBtn = ({ student }) => {
               >
                 <option value=''>Select Class</option>
                 <option value='Creche'>Creche</option>
-                <option value='Day care'>Day care</option>
+                <option value='Day Care'>Day Care</option>
                 <option value='Reception'>Reception</option>
                 <option value='Pre School'>Pre School</option>
                 <option value='Pre KG'>Pre KG</option>

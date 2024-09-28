@@ -28,6 +28,85 @@ const StudentResult = () => {
   if (isLoading) {
     return <Spinner clip={true} size={150} />;
   }
+  if (
+    data?.level === 'Creche' ||
+    data?.level === 'Day Care' ||
+    data?.level === 'Reception' ||
+    data?.level === 'Pre School' ||
+    data?.level === 'Pre KG' ||
+    data?.level === 'KG'
+  ) {
+    return (
+      <div>
+        <div className='bg-blue-950 h-20'></div>
+        <div className={style.container}>
+          {isError && 'Unable to fetch...'}
+          {data && (
+            <>
+              <div ref={componentRef} className={style.print}>
+                <LetterHead />
+                <div className={style.header}>
+                  <div className={style.headerContent}>
+                    <p className='text-sm'>
+                      <strong>STUDENT NAME:</strong>
+                      {data?.firstName} {data?.otherName} {data?.lastName}{' '}
+                    </p>
+                    <p className='text-sm'>
+                      <strong>SESSION:</strong>
+                      {data?.session} {data?.term} Term
+                    </p>
+                  </div>
+                  <div className={style.headerContent}>
+                    <p className='text-sm'>
+                      <strong>CLASS:</strong>
+                      {data?.level}
+                      {data.subLevel}
+                    </p>
+                  </div>
+                </div>
+                <ResultTable data={data} />
+                <p className='text-sm'>
+                  {' '}
+                  <strong> Teachers's Remark: </strong> {data?.teacherRemark}
+                </p>
+                <p className='text-sm'>
+                  <strong> Headmistress Remark:</strong> {data?.principalRemark}
+                </p>
+                <p className='text-sm'>
+                  {' '}
+                  <strong> Account Details:</strong>
+                </p>{' '}
+                <small>
+                  ACCOUNT NAME: BERYL INTERNATIONAL SCHOOLS <br /> ACCOUNT
+                  NUMBER: xxxxxxxxx <br /> BANK NAME: BANK NAME
+                </small>
+              </div>
+              <ReactToPrint
+                trigger={() => (
+                  <button className={style.btnPrint}>
+                    <FaPrint /> Print
+                  </button>
+                )}
+                content={() => componentRef.current}
+              />
+              {user && user.isStudent ? (
+                <></>
+              ) : (
+                <>
+                  <h2>Update Result</h2>
+                  <UpdateResultScore level={data?.level} />
+                  <UpdateAffectiveAssement />
+                  <UpdatePsychomotor />
+                  <UpdateRemark />
+                  <DeleteResultBtn result={data._id} />
+                </>
+              )}
+            </>
+          )}
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div>

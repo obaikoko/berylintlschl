@@ -187,6 +187,8 @@ const sendMails = asyncHandler(async (req, res) => {
   res.json('Email sent successfully');
 });
 
+
+
 // Updates Logout User
 // @route POST api/users/profile/:id
 // privacy Private
