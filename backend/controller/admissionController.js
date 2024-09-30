@@ -102,4 +102,10 @@ const deleteAdmission = asyncHandler(async (req, res) => {
   }
 });
 
-export { createAdmission, getAllRequest, getSingleRequest, deleteAdmission, sendMail };
+export {
+  createAdmission,
+  getAllRequest,
+  getSingleRequest,
+  deleteAdmission,
+  sendMail,
+};

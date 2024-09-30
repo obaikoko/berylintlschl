@@ -92,7 +92,13 @@ const UpdateNextTerm = () => {
                 id='level'
                 onChange={onChange}
               >
-                <option value=''>Select class</option>
+                <option value=''>Select Class</option>
+                <option value='Creche'>Creche</option>
+                <option value='Day care'>Day care</option>
+                <option value='Reception'>Reception</option>
+                <option value='Pre School'>Pre School</option>
+                <option value='Pre KG'>Pre KG</option>
+                <option value='KG'>KG</option>
                 <option value='Grade 1'>Grade 1</option>
                 <option value='Grade 2'>Grade 2</option>
                 <option value='Grade 3'>Grade 3</option>

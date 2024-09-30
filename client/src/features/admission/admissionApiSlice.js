@@ -32,7 +32,7 @@ export const admissionApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: 5,
     }),
 
-    sendMail: builder.mutation({
+    sendAdmissionMail: builder.mutation({
       query: (data) => ({
         url: `${ADMISSION_URL}/${data.admissionId}`,
         method: 'POST',
@@ -59,6 +59,6 @@ export const {
   useCreateAdmissionMutation,
   useGetSingleAdmissionQuery,
   useGetAllAdmissionQuery,
-  useSendMailMutation,
+  useSendAdmissionMailMutation,
   useDeleteAdmissionMutation,
 } = admissionApiSlice;

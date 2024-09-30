@@ -75,6 +75,14 @@ export const studentsApiSlice = apiSlice.injectEndpoints({
       }),
       providesTags: ['Students'],
     }),
+    reserStudentsFee: builder.mutation({
+      query: () => ({
+        url: `${STUDENTS_URL}/fees`,
+        method: 'POST',
+        credentials: 'include',
+      }),
+      providesTags: ['Students'],
+    }),
 
     forgetStudentPassword: builder.mutation({
       query: (data) => ({
@@ -106,4 +114,5 @@ export const {
   useForgetStudentPasswordMutation,
   useResetStudentPasswordMutation,
   useStudentDataQuery,
+  useReserStudentsFeeMutation,
 } = studentsApiSlice;

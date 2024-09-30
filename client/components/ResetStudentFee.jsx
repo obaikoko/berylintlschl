@@ -1,16 +1,16 @@
 'use client';
 import React, { useState } from 'react';
 import ConfirmationModal from './ConfirmationModal';
-import { useGraduateStudentsMutation } from '@/src/features/students/studentApiSlice';
+import { useReserStudentsFeeMutation } from '@/src/features/students/studentApiSlice';
 import Spinner from './Spinner';
 import { toast } from 'react-toastify';
 
-const GraduateStudents = () => {
+const ResetStudentFee = () => {
   const [showModal, setShowModal] = useState(false);
-  const [graduateStudent, { isLoading }] = useGraduateStudentsMutation();
+  const [resetFees, { isLoading }] = useReserStudentsFeeMutation();
   const handleGraduateStudents = async () => {
     try {
-      const res = await graduateStudent().unwrap();
+      const res = await resetFees().unwrap();
       toast.success(res);
       setShowModal(false); // Close the modal after deletion
     } catch (err) {
@@ -24,14 +24,14 @@ const GraduateStudents = () => {
   return (
     <div>
       <button
-        className='bg-red-600 my-2 w-40 text-white p-3 rounded'
+        className='bg-orange-400 my-2 w-40 text-white p-3 rounded'
         onClick={confirmGraduateStudents}
       >
-        {isLoading ? <Spinner clip={true} size={25} /> : 'Graduate students'}
+        {isLoading ? <Spinner clip={true} size={25} /> : 'Reset Fee'}
       </button>
       <ConfirmationModal
         isOpen={showModal}
-        message='Are you sure you want to move all students to their next classes? This action is irreversible'
+        message='Are you sure you want to reset all students payment status to not paid? This action is irreversible'
         onConfirm={handleGraduateStudents} // Confirm action
         onCancel={() => setShowModal(false)} // Cancel action
       />
@@ -39,4 +39,4 @@ const GraduateStudents = () => {
   );
 };
 
-export default GraduateStudents;
+export default ResetStudentFee;

@@ -84,12 +84,12 @@ const RegisterStudent = asyncHandler(async (req, res) => {
 
   // Class level to code mapping
   const classCodeMapping = {
-    'Creche': 'CR',
+    Creche: 'CR',
     'Day Care': 'DC',
-    'Reception': 'RP',
+    Reception: 'RP',
     'Pre School': 'PS',
     'Pre KG': 'PKG',
-    'KG': 'KG',
+    KG: 'KG',
     'Grade 1': 'G1',
     'Grade 2': 'G2',
     'Grade 3': 'G3',
@@ -360,6 +360,12 @@ const updateStudent = asyncHandler(async (req, res) => {
   }
 });
 
+const resetStudentFees = asyncHandler(async (req, res) => {
+  await Student.updateMany({}, { isPaid: false });
+
+  res.status(200).json('All student payment status has been set to not paid');
+});
+
 // @desc Delete student
 // @route DELETE api/students/:id
 // @privacy Private ADMIN
@@ -523,4 +529,5 @@ export {
   getStudentProfile,
   getStudentResults,
   graduateStudent,
+  resetStudentFees,
 };

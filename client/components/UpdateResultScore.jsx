@@ -50,7 +50,7 @@ const UpdateResultScore = ({ level }) => {
       setFormData({
         test: '',
         exam: '',
-        grade: '',
+        // grade: '',
         // subject: '',
       });
     } catch (err) {

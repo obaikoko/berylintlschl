@@ -6,6 +6,7 @@ import {
   FaLinkedin,
   FaTwitter,
   FaWhatsapp,
+  FaYoutube,
 } from 'react-icons/fa';
 
 const Footer = () => {
@@ -78,6 +79,14 @@ const Footer = () => {
             <li>
               <Link href='' className='flex items-center hover:underline'>
                 <FaWhatsapp className='inline-block mr-2 text-2xl' /> WhatsApp
+              </Link>
+            </li>
+            <li>
+              <Link
+                href='https://www.youtube.com/@berylinternationalschools9663'
+                className='flex items-center hover:underline'
+              >
+                <FaYoutube className='inline-block mr-2 text-2xl' /> Youtube
               </Link>
             </li>
           </ul>

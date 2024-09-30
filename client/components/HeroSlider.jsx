@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 const images = [
   {
     url: '/images/class3.jpg',
-    text1: 'Beryl International School',
+    text1: 'Beryl International Schools',
   },
   {
     url: '/images/building3.jpg',
@@ -19,7 +19,7 @@ const images = [
   },
   {
     url: '/images/building2.jpg',
-    text1: '2024 Graduands',
+    text1: 'A cross section of Beryl Students',
     text2: 'We Produce the best students',
   },
 ];

@@ -39,13 +39,13 @@ function loginPage() {
     }
   };
 
-  if (isLoading) {
-    return (
-      <>
-        <Spinner clip={true} size={150} />
-      </>
-    );
-  }
+  // if (isLoading) {
+  //   return (
+  //     <>
+
+  //     </>
+  //   );
+  // }
 
   return (
     <>
@@ -99,7 +99,7 @@ function loginPage() {
               type='submit'
               className='w-full bg-blue-950 text-white py-2 rounded-md hover:bg-blue-900 transition-colors'
             >
-              Login
+              {isLoading ? 'Authenticating...' : 'Login'}
             </button>
 
             <div className='mt-6 flex flex-col items-center'>

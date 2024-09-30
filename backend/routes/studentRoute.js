@@ -12,6 +12,7 @@ import {
   graduateStudent,
   forgetPassword,
   resetPassword,
+  resetStudentFees,
 } from '../controller/studentController.js';
 import { userRateLimit } from '../middleware/rateLimeter.js';
 
@@ -21,6 +22,7 @@ router
   .route('/')
   .get(protect, getAllStudents)
   .post(protect, admin, RegisterStudent);
+router.route('/fees').post(protect, admin, resetStudentFees);
 router.route('/auth').post(userRateLimit, authStudent);
 router.route('/profile').get(protect, getStudentProfile);
 router.route('/results').get(protect, getStudentResults);

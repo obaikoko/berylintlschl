@@ -38,9 +38,7 @@ const Navbar = () => {
     try {
       await logoutApi().unwrap();
       dispatch(logout());
-      // setIsLoggedIn('')
     } catch (error) {
-      toast.error(error);
       console.log(error);
     }
     setIsOpen(!open);

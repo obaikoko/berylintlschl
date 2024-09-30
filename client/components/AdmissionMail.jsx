@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-import { useSendMailMutation } from '@/src/features/admission/admissionApiSlice';
+import { useSendAdmissionMailMutation } from '@/src/features/admission/admissionApiSlice';
 import { toast } from 'react-toastify';
 
 import { useRouter } from 'next/navigation';
@@ -17,7 +17,7 @@ const AdmissionMail = ({ admissionId }) => {
   });
 
   const { subject, text } = formData;
-  const [sendMail, { isLoading, isError }] = useSendMailMutation();
+  const [sendMail, { isLoading, isError }] = useSendAdmissionMailMutation();
 
   const onChange = (e) => {
     setFormData((prev) => ({
