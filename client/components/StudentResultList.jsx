@@ -39,7 +39,13 @@ const StudentResultList = ({ data }) => {
 
                     <td>
                       {rst.position ? (
-                        <Link href={`/results/${rst._id}`}> View</Link>
+                        <Link
+                          className='text-black'
+                          href={`/results/${rst._id}`}
+                        >
+                          {' '}
+                          View
+                        </Link>
                       ) : (
                         'Processing'
                       )}

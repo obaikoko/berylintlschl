@@ -32,20 +32,21 @@ function loginPage() {
     try {
       const res = await login({ email, password }).unwrap();
       dispatch(setCredentials({ ...res }));
-      toast.success(`Welcome ${res.firstName}`);
-      router.push('/');
+    
+      
+      toast.success(`Welcome ${res.firstName} ${res.lastName}`);
+      if (res.isAdmin) {
+        router.push('/dashboard');
+      } else {
+        router.push('/results');
+      }
+      
     } catch (err) {
       toast.error(err?.data?.message || err.error);
     }
   };
 
-  // if (isLoading) {
-  //   return (
-  //     <>
-
-  //     </>
-  //   );
-  // }
+  
 
   return (
     <>

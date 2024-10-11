@@ -1,6 +1,8 @@
 import style from './styles/profile.module.css';
 import { FaUserAlt } from 'react-icons/fa';
 const StudentProfile = ({ student }) => {
+  console.log(student);
+  
   
   return (
     <div className='card'>

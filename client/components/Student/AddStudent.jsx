@@ -1,7 +1,10 @@
 'use client';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
-import { useGetStudentsQuery, useRegisterStudentMutation } from '@/src/features/students/studentApiSlice';
+import {
+  useGetStudentsQuery,
+  useRegisterStudentMutation,
+} from '@/src/features/students/studentApiSlice';
 import Resizer from 'react-image-file-resizer';
 import style from '../styles/register.module.css';
 import Spinner from '../Spinner';
@@ -1025,6 +1028,7 @@ const addStudent = () => {
               id='studentFirstName'
               value={firstName}
               onChange={handleInputChange}
+              required
             />
           </div>
           <div className='flex flex-col '>
@@ -1036,6 +1040,7 @@ const addStudent = () => {
               value={lastName}
               onChange={handleInputChange}
               className='bg-gray-300 rounded px-4 py-1'
+              required
             />
           </div>
           <div className='flex flex-col '>
@@ -1047,6 +1052,7 @@ const addStudent = () => {
               value={otherName}
               onChange={handleInputChange}
               className='bg-gray-300 rounded px-4 py-1'
+              required
             />
           </div>
 
@@ -1057,6 +1063,7 @@ const addStudent = () => {
               id='selectStudentLevel'
               className='bg-gray-300 rounded px-4 py-1'
               onChange={handleInputChange}
+              required
             >
               <option value=''>Select Class</option>
               <option value='Creche'>Creche</option>
@@ -1100,6 +1107,7 @@ const addStudent = () => {
               id='stdGender'
               className='bg-gray-300 rounded px-4 py-1'
               onChange={handleInputChange}
+              required
             >
               <option value=''>Select Gender</option>
               <option value='Male'>Male</option>
@@ -1117,6 +1125,7 @@ const addStudent = () => {
               value={dateOfBirth}
               onChange={handleInputChange}
               className='bg-gray-300 rounded px-4 py-1'
+              required
             />
           </div>
           <div className='flex flex-col '>
@@ -1138,8 +1147,8 @@ const addStudent = () => {
               name='stateOfOrigin'
               id='studentStateOfOrigin'
               className='bg-gray-300 rounded px-4 py-1'
-              // onChange={handleInputChange}
               onChange={handleStateChange}
+              required
             >
               <option value=''></option>
               <option value='Abia'>Abia</option>
@@ -1187,6 +1196,7 @@ const addStudent = () => {
               id='localGvt'
               className='bg-gray-300 rounded px-4 py-1'
               onChange={handleInputChange}
+              required
             ></select>
           </div>
           <div className='flex flex-col '>

@@ -140,6 +140,7 @@ const getResults = asyncHandler(async (req, res) => {
   const page = Number(req.query.pageNumber) || 1;
   const count = await Result.countDocuments(query);
   const result = await Result.find(query)
+    .sort({ createdAt: -1 })
     .limit(pageSize)
     .skip(pageSize * (page - 1));
   if (result) {

@@ -1,3 +1,4 @@
+'use client'
 import { useState } from 'react';
 import { useRegisterMutation } from '@/src/features/auth/usersApiSlice';
 import { toast } from 'react-toastify';

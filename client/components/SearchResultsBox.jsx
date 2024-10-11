@@ -1,12 +1,10 @@
-'use client'
+'use client';
 import { useState } from 'react';
-import './styles/globals.css';
 import { useRouter } from 'next/navigation';
 const SearchResultsBox = () => {
   const router = useRouter();
   const [name, setName] = useState('');
   const [level, setLevel] = useState('All');
-  const query = `?keyword=${name}&level=${level}`;
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,6 +18,7 @@ const SearchResultsBox = () => {
 
   return (
     <div>
+      <h1 className='bg-blue-950 text-white text-4xl text-center'>RESULTS</h1>
       <form
         onSubmit={handleSubmit}
         className='bg-blue-950 p-6 mt-0.5 shadow-md flex flex-col sm:flex-row items-center justify-between gap-4 text-white  mx-auto'

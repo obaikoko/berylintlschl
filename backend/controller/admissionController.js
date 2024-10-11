@@ -37,7 +37,7 @@ const createAdmission = asyncHandler(async (req, res) => {
     sendSingleMail({
       email: 'jesseobinna7@gmail.com',
       subject: 'Admission Request',
-      text: `${firstName} ${lastName} has requested ${childName}, ${dateOfBirth} years old to be enrolled into ${level} `,
+      text: `${firstName} ${lastName} has requested ${childName},  with date of birth ${dateOfBirth} to be enrolled into ${level} `,
     });
     sendSingleMail({
       email,
@@ -51,7 +51,7 @@ const createAdmission = asyncHandler(async (req, res) => {
 });
 
 const getAllRequest = asyncHandler(async (req, res) => {
-  const admission = await Admission.find({});
+  const admission = await Admission.find({}).sort({ createdAt: -1 });
   if (admission) {
     res.status(200);
     res.json(admission);

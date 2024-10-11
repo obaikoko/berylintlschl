@@ -128,7 +128,7 @@ const StudentResult = () => {
                   </p>
                   <p className='text-sm'>
                     <strong>STUDENT'S TOTAL SCORE:</strong>
-                    {data?.totalScore} out of {data.subjectResults.length * 100}
+                    {data?.totalScore} out of {data?.subjectResults?.length * 100}
                   </p>
                 </div>
                 <div className={style.headerContent}>

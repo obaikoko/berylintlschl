@@ -4,33 +4,35 @@ import { useState, useEffect } from 'react';
 import AddStudent from '@/components/Student/AddStudent';
 import AddStaff from '@/components/staff/AddStaff';
 import AddUser from '@/components/user/registerUser';
-import style from '../../components/styles/register.module.css';
-import { useGetStudentsQuery } from '@/src/features/students/studentApiSlice';
+// import style from '../../components/styles/register.module.css';
+// import { useGetStudentsQuery } from '@/src/features/students/studentApiSlice';
 import { useSelector } from 'react-redux';
-import { debounce } from 'lodash';
+// import { debounce } from 'lodash';
 import SearchBox from '@/components/SearchBox';
 import { useRouter } from 'next/navigation';
+import Spinner from '@/components/Spinner';
 
 function register() {
   const [page, setPage] = useState(1);
-
-  
-
   const { user } = useSelector((state) => state.auth);
+  const [isAdmin, setIsAdmin] = useState(false);
+
   const router = useRouter();
 
   useEffect(() => {
     if (!user) {
       router.push('/');
+    } else {
+      setIsAdmin(user.isAdmin);
     }
   }, [user]);
 
-  const handlePageChange = debounce((newPage) => {
-    if (newPage !== page) {
-      setLoading(true);
-      setPage(newPage);
-    }
-  }, 300);
+  // const handlePageChange = debounce((newPage) => {
+  //   if (newPage !== page) {
+  //     setLoading(true);
+  //     setPage(newPage);
+  //   }
+  // }, 300);
 
   return (
     <>
@@ -45,9 +47,15 @@ function register() {
         </h1>
 
         <div className=' mx-auto'>
-          <AddStudent />
-          <AddUser />
-          <AddStaff />
+          {isAdmin ? (
+            <>
+              <AddStudent />
+              <AddUser />
+              <AddStaff />
+            </>
+          ) : (
+            <AddStudent />
+          )}
         </div>
       </div>
     </>

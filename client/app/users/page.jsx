@@ -1,6 +1,5 @@
 'use client';
 
-import React from 'react';
 import {
   useGetUsersQuery,
   useUpdateUserMutation,
@@ -10,9 +9,21 @@ import Spinner from '@/components/Spinner';
 import { toast } from 'react-toastify';
 import DeleteUserBtn from '@/components/DeleteUserBtn';
 import UpdateUserBtn from '@/components/UpdateUserBtn';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { useRouter } from 'next/navigation';
 
 const UserListPage = () => {
+  const router = useRouter();
   const { data: users, isLoading, isError } = useGetUsersQuery();
+
+  const { user } = useSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (!user?.isAdmin) {
+      router.push('/');
+    }
+  }, [user]);
 
   if (isLoading) {
     return <Spinner clip={true} size={150} />;

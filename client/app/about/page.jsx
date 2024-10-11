@@ -1,9 +1,5 @@
 import About from '@/components/About';
 import Footer from '@/components/Footer';
-import PhotoswipePage from '@/components/PhotoSwipe';
-import VideoPlayer from '@/components/VideoPlayer';
-import Link from 'next/link';
-import React from 'react';
 
 export const metadata = {
   title: 'About Us - Beryl International Schools',

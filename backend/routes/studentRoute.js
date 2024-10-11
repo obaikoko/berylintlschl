@@ -18,10 +18,7 @@ import { userRateLimit } from '../middleware/rateLimeter.js';
 
 const router = express.Router();
 
-router
-  .route('/')
-  .get(protect, getAllStudents)
-  .post(protect, admin, RegisterStudent);
+router.route('/').get(protect, getAllStudents).post(protect, RegisterStudent);
 router.route('/fees').post(protect, admin, resetStudentFees);
 router.route('/auth').post(userRateLimit, authStudent);
 router.route('/profile').get(protect, getStudentProfile);

@@ -59,14 +59,14 @@ const RegisterStudent = asyncHandler(async (req, res) => {
     sponsorRelationship,
     sponsorPhoneNumber,
     sponsorEmail,
-    // image,
+    image,
   } = req.body;
 
-  // if (!image) {
-  //   res.status(400);
-  //   throw new Error('Please attach an image');
-  // }
-  if (!firstName || !lastName) {
+  if (!image) {
+    res.status(400);
+    throw new Error('Please attach an image');
+  }
+  if (!firstName || !lastName || !level || !gender) {
     res.status(400);
     throw new Error('Please add all fields');
   }
@@ -122,9 +122,9 @@ const RegisterStudent = asyncHandler(async (req, res) => {
     .toString()
     .padStart(3, '0')}`;
 
-  // const uploadedResponse = await cloudinary.uploader.upload(image, {
-  //   folder: 'beryl',
-  // });
+  const uploadedResponse = await cloudinary.uploader.upload(image, {
+    folder: 'beryl',
+  });
 
   const student = await Student.create({
     firstName,
@@ -144,10 +144,10 @@ const RegisterStudent = asyncHandler(async (req, res) => {
     sponsorRelationship,
     sponsorPhoneNumber,
     sponsorEmail,
-    // image: {
-    //   url: uploadedResponse.url,
-    //   publicId: uploadedResponse.public_id,
-    // },
+    image: {
+      url: uploadedResponse.url,
+      publicId: uploadedResponse.public_id,
+    },
   });
 
   if (student) {
@@ -183,12 +183,15 @@ const getStudentProfile = asyncHandler(async (req, res) => {
       studentId: student.studentId,
       isStudent: student.isStudent,
       image: student.image,
+      isPaid: student.isPaid,
     });
   }
 });
 
 const getStudentResults = asyncHandler(async (req, res) => {
-  const results = await Result.find({ studentId: req.student._id });
+  const results = await Result.find({ studentId: req.student._id }).sort({
+    createdAt: -1,
+  });
   if (!req.student.isPaid) {
     res.status(401);
 
@@ -231,6 +234,7 @@ const getAllStudents = asyncHandler(async (req, res) => {
   const page = Number(req.query.pageNumber) || 1;
   const count = await Student.countDocuments(query);
   const students = await Student.find(query)
+    .sort({ createdAt: -1 })
     .limit(pageSize)
     .skip(pageSize * (page - 1));
 
