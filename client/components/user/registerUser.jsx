@@ -1,4 +1,4 @@
-'use client'
+'use client';
 import { useState } from 'react';
 import { useRegisterMutation } from '@/src/features/auth/usersApiSlice';
 import { toast } from 'react-toastify';
@@ -14,9 +14,10 @@ function AddUser() {
     lastName: '',
     email: '',
     password: '',
+    password2: '',
   });
 
-  const { firstName, lastName, email, password } = formData;
+  const { firstName, lastName, email, password, password2 } = formData;
   const [register, { isLoading }] = useRegisterMutation();
 
   const onChange = (e) => {
@@ -28,28 +29,32 @@ function AddUser() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const res = await register({
-        firstName,
-        lastName,
-        email,
-        password,
-      }).unwrap();
-      if (res) {
-        toast.success(
-          `${res.firstName} ${res.lastName} registered successfully`
-        );
-      }
-      setFormData({
-        firstName: '',
-        lastName: '',
-        email: '',
-        password: '',
-      });
-    } catch (err) {
-      console.log(err?.data?.message || err.error);
-      toast.error(err?.data?.message || err.error);
+    if (password !== password2) {
+      toast.error('Passwords do not match!');
+    } else{
+ try {
+   const res = await register({
+     firstName,
+     lastName,
+     email,
+     password,
+   }).unwrap();
+   if (res) {
+     toast.success(`${res.firstName} ${res.lastName} registered successfully`);
+   }
+   setFormData({
+     firstName: '',
+     lastName: '',
+     email: '',
+     password: '',
+     password2: '',
+   });
+ } catch (err) {
+   console.log(err?.data?.message || err.error);
+   toast.error(err?.data?.message || err.error);
+ }
     }
+   
   };
   const clickedUserForm = () => {
     setIsUserForm(!isUserForm);
@@ -113,6 +118,17 @@ function AddUser() {
               name='password'
               id='userPassword'
               value={password}
+              onChange={onChange}
+            />
+          </div>
+          <div className='flex flex-col '>
+            <label htmlFor='password2'>Confirm Password</label>
+            <input
+              className='bg-gray-300 rounded px-4 py-1'
+              type='password'
+              name='password2'
+              id='password2'
+              value={password2}
               onChange={onChange}
             />
           </div>

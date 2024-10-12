@@ -127,6 +127,7 @@ const RegisterStudent = asyncHandler(async (req, res) => {
   });
 
   const student = await Student.create({
+    user: req.user._id,
     firstName,
     lastName,
     otherName,
@@ -225,10 +226,15 @@ const getAllStudents = asyncHandler(async (req, res) => {
       }
     : {};
 
-  const query =
+  let query =
     level && level !== 'All'
       ? { ...keyword, level: { $regex: level, $options: 'i' } }
       : keyword;
+
+  // Restrict query to the logged-in user's students unless they are an admin
+  if (!req.user.isAdmin) {
+    query = { ...query, user: req.user._id };
+  }
 
   const pageSize = 20;
   const page = Number(req.query.pageNumber) || 1;
@@ -289,7 +295,7 @@ const updateStudent = asyncHandler(async (req, res) => {
     sponsorPhoneNumber,
     sponsorEmail,
     image,
-    password,
+   
     fees,
   } = req.body;
 

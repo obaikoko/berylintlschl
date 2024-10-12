@@ -43,15 +43,20 @@ const subjectResultSchema = new mongoose.Schema({
   grade: {
     type: String,
     required: true,
-    default: '-'
+    default: '-',
   },
 });
 
 const resultSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: true,
+    ref: 'User',
+  },
   studentId: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
-    ref: 'Student', // Assuming you have a Student model
+    ref: 'Student',
   },
   firstName: String,
   lastName: String,

@@ -74,7 +74,7 @@ const UpdateNextTerm = () => {
           <form className='space-y-4' onSubmit={onSubmit}>
             <h2>Upload Details</h2>
             <div className='flex flex-col '>
-              <label htmlFor='nextTermFee'>Next Term Fee</label>
+              <label htmlFor='nextTermFee'>Next Term School Fee</label>
               <input
                 className='bg-gray-300 rounded px-4 py-1'
                 type='number'
@@ -113,7 +113,7 @@ const UpdateNextTerm = () => {
               </select>
             </div>
             <div className='flex flex-col '>
-              <label htmlFor='reOpeningDate'>Date</label>
+              <label htmlFor='reOpeningDate'>Resumption Date</label>
               <input
                 className='bg-gray-300 rounded px-4 py-1'
                 type='date'
@@ -124,7 +124,7 @@ const UpdateNextTerm = () => {
               ></input>
             </div>
             <div className='flex flex-col '>
-              <label htmlFor='busFee'>Bus fee</label>
+              <label htmlFor='busFee'>Bus Fee</label>
               <input
                 className='bg-gray-300 rounded px-4 py-1'
                 type='number'

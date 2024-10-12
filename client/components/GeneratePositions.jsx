@@ -63,7 +63,7 @@ const GeneratePositions = () => {
           } bg-blue-950 text-white px-2 py-2 rounded mt-4 lg:ml-2 w-full`}
           onClick={clickedUserForm}
         >
-          GENERATE POAITIONS
+          PUBLISH RESULTS
         </button>
         <div
           className={`${
@@ -71,7 +71,7 @@ const GeneratePositions = () => {
           } bg-gray-100 p-6 rounded shadow-lg`}
         >
           <form className='space-y-4 ' onSubmit={onSubmit}>
-            <h2>Genrate Positions</h2>
+            <h2>Publish Results</h2>
             <div className='flex flex-col '>
               <label htmlFor='session'>Select session</label>
               <select
@@ -114,7 +114,7 @@ const GeneratePositions = () => {
               >
                 <option value=''>Select Class</option>
                 <option value='Creche'>Creche</option>
-                <option value='Day care'>Day care</option>
+                <option value='Day Care'>Day Care</option>
                 <option value='Reception'>Reception</option>
                 <option value='Pre School'>Pre School</option>
                 <option value='Pre KG'>Pre KG</option>

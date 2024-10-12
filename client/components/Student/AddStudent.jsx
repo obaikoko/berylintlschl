@@ -1020,7 +1020,7 @@ const addStudent = () => {
         <form onSubmit={onSubmit} className='space-y-4'>
           <h2 className='text-lg font-bold'>Register Student</h2>
           <div className='flex flex-col '>
-            <label htmlFor='studentFirstName'>Fisrt Name</label>
+            <label htmlFor='studentFirstName'>First Name</label>
             <input
               className='bg-gray-300 rounded px-4 py-1'
               type='text'
@@ -1044,7 +1044,7 @@ const addStudent = () => {
             />
           </div>
           <div className='flex flex-col '>
-            <label htmlFor='studentOtherName'>otherName</label>
+            <label htmlFor='studentOtherName'>other Name</label>
             <input
               type='text'
               name='otherName'
@@ -1092,6 +1092,7 @@ const addStudent = () => {
               id='subLevel'
               className='bg-gray-300 rounded px-4 py-1'
               onChange={handleInputChange}
+              required
             >
               <option value=''>Select sub class category</option>
               <option value='A'>A</option>

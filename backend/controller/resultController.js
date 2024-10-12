@@ -67,6 +67,7 @@ const createResult = asyncHandler(async (req, res) => {
     }
   } else {
     const result = await Result.create({
+      user: req.user._id,
       studentId: id,
       level,
       subLevel: student.subLevel,
@@ -112,7 +113,6 @@ const createResult = asyncHandler(async (req, res) => {
     }
   }
 });
-
 // @GET ALL RESULT
 // @route GET api/results
 // @privacy Private
@@ -121,6 +121,7 @@ const getResults = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error('Unauthorized User');
   }
+
   const level = req.query.level;
   const keyword = req.query.keyword
     ? {
@@ -131,10 +132,17 @@ const getResults = asyncHandler(async (req, res) => {
         ],
       }
     : {};
-  const query =
+
+  // Create base query, filtered by keyword and level if specified
+  let query =
     level && level !== 'All'
       ? { ...keyword, level: { $regex: level, $options: 'i' } }
       : keyword;
+
+  // Restrict query to the logged-in user's results unless they are an admin
+  if (!req.user.isAdmin) {
+    query = { ...query, user: req.user._id };
+  }
 
   const pageSize = 20;
   const page = Number(req.query.pageNumber) || 1;
@@ -143,6 +151,7 @@ const getResults = asyncHandler(async (req, res) => {
     .sort({ createdAt: -1 })
     .limit(pageSize)
     .skip(pageSize * (page - 1));
+
   if (result) {
     res.status(200);
     res.json({ result, page, totalPages: Math.ceil(count / pageSize) });
@@ -153,7 +162,7 @@ const getResults = asyncHandler(async (req, res) => {
 });
 
 // @GET STUDENT RESULT
-// @route GET api/results
+// @route GET api/results/id
 // @privacy Private
 const getResult = asyncHandler(async (req, res) => {
   const result = await Result.findById(req.params.id);
@@ -168,7 +177,7 @@ const getResult = asyncHandler(async (req, res) => {
 });
 
 // @UPDATE STUDENT RESULT
-// @route PUT api/results
+// @route PUT api/results/id
 // @privacy Private
 const updateResult = asyncHandler(async (req, res) => {
   if (!req.user) {
@@ -192,6 +201,10 @@ const updateResult = asyncHandler(async (req, res) => {
 
   try {
     const result = await Result.findById(req.params.id);
+    if (result.user !== req.user._id) {
+      res.status(401);
+      throw new Error('Unable to update this result, Please contact the class teacher');
+    }
 
     if (!result) {
       res.status(404);
