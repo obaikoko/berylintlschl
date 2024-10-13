@@ -33,9 +33,8 @@ const DeleteUserBtn = ({ userId, isAdmin }) => {
   };
   return (
     <div>
-      {' '}
       <button
-        className='text-red-700'
+        className='bg-red-700 py-1 px-2 m-2 text-white rounded'
         onClick={confirmDeleteUser}
         disabled={isDeleting}
       >

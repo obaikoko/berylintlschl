@@ -5,7 +5,7 @@ const StudentProfile = ({ student }) => {
   
   
   return (
-    <div className='card'>
+    <div className='w-full max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg border border-gray-200 mt-6 md:mt-10'>
       <div className={style.profile}>
         <p>
           <strong>Registration Number:</strong> {student.studentId}

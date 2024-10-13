@@ -40,7 +40,7 @@ const authUser = asyncHandler(async (req, res) => {
 // @Route POST /api/users/
 // @privacy Pivate ADMIN
 const registerUser = asyncHandler(async (req, res) => {
-  const { firstName, lastName, email, password } = req.body;
+  const { firstName, lastName, level, subLevel, email, password } = req.body;
   if (!firstName || !lastName || !email || !password) {
     res.status(400);
     throw new Error('Please add all field');
@@ -52,13 +52,22 @@ const registerUser = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error('User already exist');
   }
-  const user = await User.create({ firstName, lastName, email, password });
+  const user = await User.create({
+    firstName,
+    lastName,
+    level,
+    subLevel,
+    email,
+    password,
+  });
   if (user) {
     res.status(200);
     res.json({
       _id: user._id,
       firstName: user.firstName,
       lastName: user.lastName,
+      level: user.level,
+      subLevel: user.subLevel,
       email: user.email,
     });
   } else {
@@ -159,14 +168,24 @@ const getUserById = asyncHandler(async (req, res) => {
 // @Route POST /api/users/:id
 // @privacy Private ADMIN
 const updateUser = asyncHandler(async (req, res) => {
+  const { firstName, lastName, level, subLevel, email, password } = req.body;
   const user = await User.findById(req.params.id);
 
-  
-
   if (user) {
-    user.isAdmin = req.body.isAdmin;
-    await user.save();
-    res.json(`${user.firstName} has been updated successfully`);
+    try {
+      user.firstName = firstName || user.firstName;
+      user.lastName = lastName || user.lastName;
+      user.level = level || user.level;
+      user.subLevel = subLevel || user.subLevel;
+      user.email = email || user.email;
+      user.password = password || user.password;
+      user.isAdmin = req.body.isAdmin;
+      await user.save();
+      res.json(`${user.firstName} has been updated successfully`);
+    } catch (error) {
+      res.status(500);
+      throw new Error(error);
+    }
   } else {
     res.status(404);
     throw new Error('User not found');
@@ -186,8 +205,6 @@ const sendMails = asyncHandler(async (req, res) => {
   res.status(200);
   res.json('Email sent successfully');
 });
-
-
 
 // Updates Logout User
 // @route POST api/users/profile/:id

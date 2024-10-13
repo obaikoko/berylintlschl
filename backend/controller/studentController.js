@@ -233,7 +233,7 @@ const getAllStudents = asyncHandler(async (req, res) => {
 
   // Restrict query to the logged-in user's students unless they are an admin
   if (!req.user.isAdmin) {
-    query = { ...query, user: req.user._id };
+    query = { ...query, level: req.user.level, subLevel: req.user.subLevel };
   }
 
   const pageSize = 20;
@@ -245,7 +245,7 @@ const getAllStudents = asyncHandler(async (req, res) => {
     .skip(pageSize * (page - 1));
 
   if (!students) {
-    res.status(200);
+    res.status(404);
     res.json({ message: 'No student record found' });
   } else {
     res.status(200);
@@ -295,7 +295,7 @@ const updateStudent = asyncHandler(async (req, res) => {
     sponsorPhoneNumber,
     sponsorEmail,
     image,
-   
+
     fees,
   } = req.body;
 

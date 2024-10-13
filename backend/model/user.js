@@ -9,6 +9,12 @@ const userSchema = mongoose.Schema(
     lastName: {
       type: String,
     },
+    level: {
+      type: String,
+    },
+    subLevel: {
+      type: String,
+    },
     email: {
       type: String,
       require: [true, 'please add an email'],

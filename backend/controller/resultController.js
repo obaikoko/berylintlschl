@@ -141,7 +141,7 @@ const getResults = asyncHandler(async (req, res) => {
 
   // Restrict query to the logged-in user's results unless they are an admin
   if (!req.user.isAdmin) {
-    query = { ...query, user: req.user._id };
+    query = { ...query, level: req.user.level, subLevel: req.user.subLevel };
   }
 
   const pageSize = 20;
@@ -201,9 +201,14 @@ const updateResult = asyncHandler(async (req, res) => {
 
   try {
     const result = await Result.findById(req.params.id);
-    if (result.user !== req.user._id) {
+    if (
+      result.level !== req.user.level ||
+      result.subLevel !== req.user.subLevel
+    ) {
       res.status(401);
-      throw new Error('Unable to update this result, Please contact the class teacher');
+      throw new Error(
+        'Unable to update this result, Please contact the class teacher'
+      );
     }
 
     if (!result) {
@@ -343,10 +348,10 @@ const generatePositions = asyncHandler(async (req, res) => {
 });
 
 const generateBroadsheet = asyncHandler(async (req, res) => {
-  const { level, subLevel } = req.body;
+  const { session, term, level, subLevel } = req.body;
 
   // Fetch results by level and subLevel
-  const results = await Result.find({ level, subLevel });
+  const results = await Result.find({ session, term, level, subLevel });
 
   // Map over the results to extract relevant fields (subject, testScore, examScore)
   const transformedResults = results.map((result) => ({

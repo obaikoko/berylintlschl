@@ -1,17 +1,13 @@
 'use client';
 
-import {
-  useGetUsersQuery,
-  useUpdateUserMutation,
-  useDeleteUserMutation, // Import delete mutation
-} from '@/src/features/auth/usersApiSlice';
+import { useGetUsersQuery } from '@/src/features/auth/usersApiSlice';
 import Spinner from '@/components/Spinner';
-import { toast } from 'react-toastify';
 import DeleteUserBtn from '@/components/DeleteUserBtn';
 import UpdateUserBtn from '@/components/UpdateUserBtn';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 const UserListPage = () => {
   const router = useRouter();
@@ -47,21 +43,36 @@ const UserListPage = () => {
                 <th className='py-3 px-4 text-left'>First Name</th>
                 <th className='py-3 px-4 text-left'>Last Name</th>
                 <th className='py-3 px-4 text-left'>Email</th>
-                <th className='py-3 px-4 text-center'>Actions</th>
+                <th className='py-3 px-4 text-center'>User Type</th>
               </tr>
             </thead>
             <tbody>
               {users &&
                 users.map((user, index) => (
                   <tr key={user._id} className='border-b border-gray-200'>
-                    <td>{index + 1}</td>
+                    <td>
+                      <Link className='text-black' href={`/users/${user._id}`}>
+                        {index + 1}
+                      </Link>
+                    </td>
 
-                    <td className='py-3 px-4'>{user.firstName}</td>
-                    <td className='py-3 px-4'>{user.lastName}</td>
-                    <td className='py-3 px-4'>{user.email}</td>
+                    <td className='py-3 px-4'>
+                      <Link className='text-black' href={`/users/${user._id}`}>
+                        {user.firstName}
+                      </Link>
+                    </td>
+                    <td className='py-3 px-4'>
+                      <Link className='text-black' href={`/users/${user._id}`}>
+                        {user.lastName}
+                      </Link>
+                    </td>
+                    <td className='py-3 px-4'>
+                      <Link className='text-black' href={`/users/${user._id}`}>
+                        {user.email}
+                      </Link>
+                    </td>
                     <td className='py-3 px-4 text-center flex justify-center gap-2'>
-                      <UpdateUserBtn userId={user._id} isAdmin={user.isAdmin} />
-                      <DeleteUserBtn userId={user._id} isAdmin={user.isAdmin} />
+                      {user.isAdmin ? 'Admin' : user.level ? `${user.level}` : ('Not assigned')  }
                     </td>
                   </tr>
                 ))}

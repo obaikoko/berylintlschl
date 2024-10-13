@@ -1,12 +1,15 @@
 'use client';
 import { useState } from 'react';
-import { useRegisterMutation } from '@/src/features/auth/usersApiSlice';
+import {
+  useGetUserDetailsQuery,
+  useUpdateUserMutation,
+} from '@/src/features/auth/usersApiSlice';
 import { toast } from 'react-toastify';
-import style from '../../components/styles/register.module.css';
+import style from './styles/register.module.css';
 import { useRouter } from 'next/navigation';
-import Spinner from '../Spinner';
+import Spinner from './Spinner';
 
-function AddUser() {
+function UpdateUser({ data }) {
   const router = useRouter();
   const [isUserForm, setIsUserForm] = useState(false);
   const [formData, setFormData] = useState({
@@ -21,7 +24,8 @@ function AddUser() {
 
   const { firstName, lastName, level, subLevel, email, password, password2 } =
     formData;
-  const [register, { isLoading }] = useRegisterMutation();
+  const [update, { isLoading }] = useUpdateUserMutation();
+  const { refetch } = useGetUserDetailsQuery( data._id );
 
   const onChange = (e) => {
     setFormData((prev) => ({
@@ -36,7 +40,8 @@ function AddUser() {
       toast.error('Passwords do not match!');
     } else {
       try {
-        const res = await register({
+        const res = await update({
+          userId: data._id,
           firstName,
           lastName,
           level,
@@ -45,10 +50,9 @@ function AddUser() {
           password,
         }).unwrap();
         if (res) {
-          toast.success(
-            `${res.firstName} ${res.lastName} registered successfully`
-          );
+          toast.success(res);
         }
+        refetch();
         setFormData({
           firstName: '',
           lastName: '',
@@ -75,7 +79,7 @@ function AddUser() {
         } bg-blue-950 text-white px-4 py-2 rounded mt-4 mx-auto w-10/12`}
         onClick={clickedUserForm}
       >
-        Register User
+        Update {data.firstName}
       </button>
       <div
         className={`${
@@ -83,7 +87,7 @@ function AddUser() {
         } bg-gray-100 p-6 rounded shadow-lg`}
       >
         <form className='space-y-4' onSubmit={onSubmit}>
-          <h2>Register User</h2>
+          <h2>Update User</h2>
           <div className='flex flex-col '>
             <label htmlFor='userFirstName'>First Name</label>
             <input
@@ -191,7 +195,7 @@ function AddUser() {
                 className='bg-blue-950 text-white px-2 py-1 rounded'
                 type='submit'
               >
-                Register
+                Update
               </button>
               <button
                 onClick={clickedUserForm}
@@ -208,4 +212,4 @@ function AddUser() {
   );
 }
 
-export default AddUser;
+export default UpdateUser;
