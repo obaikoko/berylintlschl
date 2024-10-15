@@ -5,7 +5,6 @@ const SearchBox = () => {
   const router = useRouter();
   const [name, setName] = useState('');
   const [level, setLevel] = useState('All');
-  
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -39,6 +38,12 @@ const SearchBox = () => {
           onChange={(e) => setLevel(e.target.value)}
         >
           <option value='All'>All</option>
+          <option value='Creche'>Creche</option>
+          <option value='Day Care'>Day Care</option>
+          <option value='Reception'>Reception</option>
+          <option value='Pre School'>Pre School</option>
+          <option value='Pre KG'>Pre KG</option>
+          <option value='KG'>KG</option>
           <option value='Grade 1'>Grade 1</option>
           <option value='Grade 2'>Grade 2</option>
           <option value='Grade 3'>Grade 3</option>
@@ -50,7 +55,6 @@ const SearchBox = () => {
           <option value='SSS 1'>SSS 1</option>
           <option value='SSS 2'>SSS 2</option>
           <option value='SSS 3'>SSS 3</option>
-          <option value='Graduated'>Graduated</option>
         </select>
       </div>
 

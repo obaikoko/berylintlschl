@@ -287,6 +287,8 @@ const addStudent = () => {
     } else if (selectedState === 'Cross River') {
       addOption(localGvtSelect, '');
       addOption(localGvtSelect, 'Akpabuyo');
+      addOption(localGvtSelect, 'Abi');
+      addOption(localGvtSelect, 'Akamkpa');
       addOption(localGvtSelect, 'Bekwarra');
       addOption(localGvtSelect, 'Bakassi');
       addOption(localGvtSelect, 'Biase');

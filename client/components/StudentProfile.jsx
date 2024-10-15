@@ -1,7 +1,6 @@
 import style from './styles/profile.module.css';
 import { FaUserAlt } from 'react-icons/fa';
 const StudentProfile = ({ student }) => {
-  console.log(student);
   
   
   return (
@@ -23,7 +22,7 @@ const StudentProfile = ({ student }) => {
           <strong>Gender:</strong> {student.gender}
         </p>
         <p>
-          <strong>Class:</strong> {student.level}
+          <strong>Class:</strong> {student.level} {' '}
           {student.subLevel}
         </p>
         <p>

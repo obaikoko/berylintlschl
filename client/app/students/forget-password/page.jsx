@@ -22,7 +22,6 @@ function studentForgetPassword() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(studentId);
 
     try {
       const res = await studentForgetPassword({ studentId }).unwrap();

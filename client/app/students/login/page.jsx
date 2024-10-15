@@ -32,7 +32,7 @@ function loginPage() {
     try {
       const res = await login({ studentId, password }).unwrap();
       dispatch(setCredentials({ ...res }));
-      toast.success(`Welcome ${res.firstName}`);
+      toast.success(`Welcome Back ${res.firstName} ${res.lastName}`);
       router.push('/');
     } catch (err) {
       console.log(err?.data?.message || err.error);
@@ -40,13 +40,7 @@ function loginPage() {
     }
   };
 
-  if (isLoading) {
-    return (
-      <>
-        <Spinner clip={true} size={150} />
-      </>
-    );
-  }
+
 
   return (
     <>
@@ -60,7 +54,6 @@ function loginPage() {
             <div className='flex flex-col items-center mb-6'>
               <img src='/images/logo.png' alt='logo' className='w-20 h-20' />
               <h1 className='text-3xl font-bold text-blue-950 mb-4'>SIGN IN</h1>
-             
             </div>
 
             <div className='mb-4 w-full'>
@@ -101,7 +94,7 @@ function loginPage() {
               type='submit'
               className='w-full bg-blue-950 text-white py-2 rounded-md hover:bg-blue-900 transition-colors'
             >
-              Login
+              {isLoading ? 'Authenticating...' : 'Login'}
             </button>
 
             <div className='mt-6 flex flex-col items-center'>

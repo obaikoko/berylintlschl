@@ -55,7 +55,7 @@ function PasswordForm({
       try {
         const res = await resetPassword({ newPassword, token }).unwrap();
         toast.success(`${res}`);
-        router.push('/login');
+        router.push('/students/login');
       } catch (err) {
         console.log(err?.data?.message || err.error);
         toast.error(err?.data?.message || err.error);

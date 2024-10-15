@@ -35,7 +35,7 @@ const authStudent = asyncHandler(async (req, res) => {
     });
   } else {
     res.status(400);
-    throw new Error('Invalid Email or Password');
+    throw new Error('Invalid StudentID or Password');
   }
 });
 
@@ -403,48 +403,44 @@ const deleteStudent = asyncHandler(async (req, res) => {
 // @privacy Public
 const forgetPassword = asyncHandler(async (req, res) => {
   const { studentId } = req.body;
+  
 
-  try {
-    // Find user by email
-    const student = await Student.findOne({ studentId });
-    if (!student) {
-      res.status(404);
-      throw new Error('User not found');
-    }
-
-    // Generate reset token
-    const resetToken = crypto.randomBytes(32).toString('hex');
-
-    // Hash the reset token before saving to the database
-    const hashedToken = crypto
-      .createHash('sha256')
-      .update(resetToken)
-      .digest('hex');
-
-    // Set reset token and expiration
-    student.resetPasswordToken = hashedToken;
-    student.resetPasswordExpires = Date.now() + 60 * 60 * 1000; // 1 hour from now
-
-    await student.save();
-
-    // Create reset URL to send in email
-    const resetUrl = `${process.env.PUBLIC_DOMAIN}/students/reset-password?token=${resetToken}`;
-
-    // Send the email
-    await sendSingleMail({
-      email: student.sponsorEmail,
-      subject: 'Password Reset',
-      text: `You requested a password reset. Please go to this link to reset your password: ${resetUrl}`,
-    });
-
-    res.status(200);
-    res.json(
-      `Password reset link has been sent to your registered sponsor/parent email`
-    );
-  } catch (error) {
-    res.status(500);
-    res.json('An error occurred. Please try again later.');
+  // Find user by email
+  const student = await Student.findOne({ studentId });
+  if (!student) {
+    res.status(404);
+    throw new Error('Student not found');
   }
+
+  // Generate reset token
+  const resetToken = crypto.randomBytes(32).toString('hex');
+
+  // Hash the reset token before saving to the database
+  const hashedToken = crypto
+    .createHash('sha256')
+    .update(resetToken)
+    .digest('hex');
+
+  // Set reset token and expiration
+  student.resetPasswordToken = hashedToken;
+  student.resetPasswordExpires = Date.now() + 60 * 60 * 1000; // 1 hour from now
+
+  await student.save();
+
+  // Create reset URL to send in email
+  const resetUrl = `${process.env.PUBLIC_DOMAIN}/students/reset-password?token=${resetToken}`;
+
+  // Send the email
+  await sendSingleMail({
+    email: student.sponsorEmail,
+    subject: 'Password Reset',
+    text: `You requested a password reset. Please go to this link to reset your password: ${resetUrl}`,
+  });
+
+  res.status(200);
+  res.json(
+    `Password reset link has been sent to your registered sponsor/parent email`
+  );
 });
 // @desc Reset password
 // @route PUT api/students/reset-password
@@ -485,11 +481,11 @@ const resetPassword = asyncHandler(async (req, res) => {
   }
 
   // Update the user's password and clear the reset token fields
-  user.password = newPassword;
-  user.resetPasswordToken = undefined;
-  user.resetPasswordExpires = undefined;
+  student.password = newPassword;
+  student.resetPasswordToken = undefined;
+  student.resetPasswordExpires = undefined;
 
-  await user.save();
+  await student.save();
   res.status(200);
   res.json('Password has been reset successfully');
 });

@@ -13,6 +13,7 @@ import { FaArrowLeft, FaPrint } from 'react-icons/fa';
 import GenerateResult from '@/components/GenerateResult';
 import { useSelector } from 'react-redux';
 import Link from 'next/link';
+import ChangePasswordBtn from '@/components/ChangePassword';
 const StudentProfile = React.forwardRef(() => {
   const { id } = useParams();
   const componentRef = useRef();
@@ -42,7 +43,7 @@ const StudentProfile = React.forwardRef(() => {
             <Profile student={data} />
           </div>
           <div className='mb-2'>
-            {user?.isStudent ? '' : <GenerateResult />}
+            {user?.isStudent ? <ChangePasswordBtn /> : <GenerateResult />}
             {user?.isAdmin && (
               <div>
                 <UpdateStudentBtn student={data} />

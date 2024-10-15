@@ -107,7 +107,6 @@ const UpdateResultScore = ({ level }) => {
                   <option value='Scribbling'>Scribbling</option>
                   <option value='Sociability'>Sociability</option>
                   <option value='Responsibility'>Responsibility</option>
-                  <option value='Creative Art'>Creative Art</option>
 
                   <option value='Nursery Rhymes/Poems'>
                     Nursery Rhymes/Poems
@@ -118,7 +117,63 @@ const UpdateResultScore = ({ level }) => {
                   <option value='Singing'>Singing</option>
                   <option value='Games'>Games</option>
                 </select>
+              ) : level === 'Grade 1' ||
+                level === 'Grade 2' ||
+                level === 'Grade 3' ||
+                level === 'Grade 4' ||
+                level === 'Grade 5' ? (
+                <select
+                  className='bg-gray-300 rounded px-4 py-1 '
+                  name='subject'
+                  id='subject'
+                  onChange={onChange}
+                >
+                  <option value=''>Enter Result Score</option>
+                  <option value='English'>English</option>
+                  <option value='Phonetics/Spelling'>Phonetics/Spelling</option>
+                  <option value='Mathematics'>Mathematics</option>
+                  <option value='Computer Science(ICT)'>
+                    Computer Science(ICT)
+                  </option>
+                  <option value='Social Studies'>Social Studies</option>
+                  <option value='Agricultural Science'>Agricultural Science</option>
+                  <option value='Basic Science'>Basic Science</option>
+                  <option value='Basic Technology'>
+                    Basic Technology
+                  </option>
+                  <option value='Christian Religious Knowledge'>Christian Religious Knowledge</option>
+                  <option value='Home Economics'>
+                    Home Economics
+                  </option>
+                  <option value='Physical And Health Education'>Physical And Health Education</option>
+
+                  <option value='Civic Education'>Civic Education</option>
+                  <option value='Quantitative Reasoning'>Quantitative Reasoning</option>
+                  <option value='Verbal Reasoning'>
+                    Verbal Reasoning
+                  </option>
+                  <option value='Creative Composition'>
+                    Creative Composition
+                  </option>
+                  <option value='Music'>
+                    Music
+                  </option>
+                  <option value='Creative Art'>
+                    Creative Art
+                  </option>
+                  <option value='French'>
+                    French
+                  </option>
+                  <option value='Efik'>
+                    Efik
+                  </option>
+                  <option value='History'>
+                    History
+                  </option>
+                </select>
               ) : level === 'JSS 1' || level === 'JSS 2' || level === 'JSS3' ? (
+                <select name='' id=''></select>
+              ) : (
                 <select
                   className='bg-gray-300 rounded px-4 py-1 '
                   name='subject'
@@ -150,44 +205,6 @@ const UpdateResultScore = ({ level }) => {
                   </option>
                   <option value='Physical And Health Education'>
                     Physical And Health Education
-                  </option>
-                </select>
-              ) : (
-                <select name='subject' id='subject' onChange={onChange}>
-                  <option value=''>Enter Result Score</option>
-                  <option value='Mathematics'>Mathematics</option>
-                  <option value='English'>English</option>
-                  <option value='Agricultural Science'>
-                    Agricultural Science
-                  </option>
-                  <option value='Biology'>Biology</option>
-                  <option value='Chemistry'>Chemistry</option>
-                  <option value='Physics'>Physics</option>
-                  <option value='Further Mathematics'>
-                    Further Mathematics
-                  </option>
-                  <option value='Financial Accounting'>
-                    Financial Accounting
-                  </option>
-                  <option value='Christian Religious Knowledge'>
-                    Christian Religious Knowledge
-                  </option>
-                  <option value='Civic Education'>Civic Education</option>
-                  <option value='Computer Science(ICT)'>
-                    Computer Science(ICT)
-                  </option>
-                  <option value='Geography'>Geography</option>
-
-                  <option value='Economics'>Economics</option>
-                  <option value='Government'>Government</option>
-                  <option value='History'>History</option>
-                  <option value='Commerce'>Commerce</option>
-                  <option value='French'>French</option>
-                  <option value='Tourism'>Tourism</option>
-                  <option value='Food And Nutrition'>Food and Nutrition</option>
-                  <option value='Visual Art'>Visual Art</option>
-                  <option value='Literature-In-English'>
-                    Literature-In-English
                   </option>
                 </select>
               )}
