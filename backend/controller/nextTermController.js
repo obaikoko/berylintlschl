@@ -41,6 +41,8 @@ const getNextTermInfo = asyncHandler(async (req, res) => {
   const { level } = req.query;
 
   const nextTermInfo = await NextTerm.findOne({ level });
+  
+  
   if (!nextTermInfo) {
     res.status(404);
     throw new Error('Not found!');

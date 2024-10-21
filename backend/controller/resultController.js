@@ -48,6 +48,7 @@ const createResult = asyncHandler(async (req, res) => {
     level === 'KG'
   ) {
     const result = await Result.create({
+      user: req.user._id,
       studentId: id,
       level,
       subLevel: student.subLevel,
@@ -61,6 +62,7 @@ const createResult = asyncHandler(async (req, res) => {
       teacherRemark: '',
       principalRemark: '',
     });
+    
 
     if (result) {
       res.status(200).json(result);

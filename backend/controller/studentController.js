@@ -236,7 +236,7 @@ const getAllStudents = asyncHandler(async (req, res) => {
     query = { ...query, level: req.user.level, subLevel: req.user.subLevel };
   }
 
-  const pageSize = 20;
+  const pageSize = 50;
   const page = Number(req.query.pageNumber) || 1;
   const count = await Student.countDocuments(query);
   const students = await Student.find(query)

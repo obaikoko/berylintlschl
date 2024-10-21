@@ -158,7 +158,7 @@ const GeneratePositions = () => {
                   className='bg-blue-950 text-white px-2 py-1 rounded'
                   type='submit'
                 >
-                  Generate
+                  Publish
                 </button>
                 <button
                   onClick={clickedUserForm}
