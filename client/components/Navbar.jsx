@@ -5,6 +5,7 @@ import { useLogoutMutation } from '@/src/features/auth/usersApiSlice';
 import { logout } from '@/src/features/auth/authSlice';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { FaArrowRight, FaUserAlt } from 'react-icons/fa';
 
 const Navbar = () => {
   const [open, setIsOpen] = useState(false);
@@ -183,6 +184,10 @@ const Navbar = () => {
             </>
           ) : isLoggedIn ? (
             <>
+              <li>
+                <FaArrowRight className='inline mr-4 mb-2' />
+                {isLoggedIn.firstName} - {isLoggedIn?.level}
+              </li>
               <li>
                 <Link
                   onClick={menuBtnClicked}

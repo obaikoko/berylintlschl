@@ -32,7 +32,6 @@ const UpdateStudentBtn = ({ student }) => {
     sponsorEmail: student.sponsorEmail,
   });
 
-
   const {
     firstName,
     lastName,
@@ -50,7 +49,6 @@ const UpdateStudentBtn = ({ student }) => {
     sponsorPhoneNumber,
     sponsorEmail,
     fees,
-    
   } = formData;
 
   const [updateStudent, { isLoading, isError }] = useUpdateStudentMutation();
@@ -289,6 +287,8 @@ const UpdateStudentBtn = ({ student }) => {
     } else if (selectedState === 'Cross River') {
       addOption(localGvtSelect, '');
       addOption(localGvtSelect, 'Akpabuyo');
+      addOption(localGvtSelect, 'Abi');
+      addOption(localGvtSelect, 'Akamkpa');
       addOption(localGvtSelect, 'Bekwarra');
       addOption(localGvtSelect, 'Bakassi');
       addOption(localGvtSelect, 'Biase');
@@ -968,12 +968,12 @@ const UpdateStudentBtn = ({ student }) => {
         sponsorPhoneNumber,
         sponsorEmail,
         image,
-        fees
+        fees,
       }).unwrap();
       toast.success('student updated successfully');
       refetch();
       setImage(null);
-      
+
       setIsStudentForm(!isStudentForm);
     } catch (err) {
       toast.error(err?.data?.message || err.error);
