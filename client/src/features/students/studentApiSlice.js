@@ -28,8 +28,8 @@ export const studentsApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: 5,
     }),
     searchStudents: builder.query({
-      query: ({ keyword, level }) => ({
-        url: `${STUDENTS_URL}?keyword=${keyword}&level=${level}`,
+      query: ({ keyword, level, page }) => ({
+        url: `${STUDENTS_URL}?keyword=${keyword}&level=${level}&pageNumber=${page}`,
         credentials: 'include',
       }),
       providesTags: ['Students'],

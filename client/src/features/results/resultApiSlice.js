@@ -4,8 +4,8 @@ import { apiSlice } from '../apiSlice';
 export const resultsApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getResults: builder.query({
-      query: () => ({
-        url: `${RESULTS_URL}`,
+      query: (page) => ({
+        url: `${RESULTS_URL}/?pageNumber=${page}`,
         credentials: 'include',
       }),
       providesTags: ['Results'],
@@ -20,8 +20,8 @@ export const resultsApiSlice = apiSlice.injectEndpoints({
       keepUnusedDataFor: 5,
     }),
     searchResults: builder.query({
-      query: ({ keyword, level }) => ({
-        url: `${RESULTS_URL}?keyword=${keyword}&level=${level}`,
+      query: ({ keyword, level, page }) => ({
+        url: `${RESULTS_URL}?keyword=${keyword}&level=${level}&pageNumber=${page}`,
         credentials: 'include',
       }),
       providesTags: ['Results'],
@@ -78,5 +78,5 @@ export const {
   useGenerateResultMutation,
   useDeleteResultMutation,
   useGeneratePositionsMutation,
-  useGenerateBroadsheetMutation
+  useGenerateBroadsheetMutation,
 } = resultsApiSlice;

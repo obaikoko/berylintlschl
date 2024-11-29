@@ -23,6 +23,7 @@ const ResultSearchPage = () => {
   const { data, isLoading, isError } = useSearchResultsQuery({
     keyword: name,
     level: studentClass,
+    page,
   });
 
   const totalPages = data && data.totalPages;

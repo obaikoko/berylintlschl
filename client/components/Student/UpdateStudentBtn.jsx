@@ -1249,19 +1249,7 @@ const UpdateStudentBtn = ({ student }) => {
                 className='bg-gray-300 rounded px-4 py-1'
               />
             </div>
-            <div className='flex flex-col mx-2 '>
-              <label htmlFor='fees'>School Fees</label>
-              <select
-                name='fees'
-                id='fees'
-                className='bg-gray-300 rounded px-4 py-1'
-                onChange={handleInputChange}
-              >
-                <option value=''></option>
-                <option value='paid'>Paid</option>
-                <option value='notPaid'>Not Paid</option>
-              </select>
-            </div>
+          
             <div className='flex flex-col mx-2 '>
               <label htmlFor='studentPassport'>Update Student Passport</label>
               <input

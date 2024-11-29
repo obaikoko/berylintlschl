@@ -145,8 +145,8 @@ const getResults = asyncHandler(async (req, res) => {
   if (!req.user.isAdmin) {
     query = { ...query, level: req.user.level, subLevel: req.user.subLevel };
   }
-
-  const pageSize = 20;
+console.log(req.query.pageNumber);
+  const pageSize = 35;
   const page = Number(req.query.pageNumber) || 1;
   const count = await Result.countDocuments(query);
   const result = await Result.find(query)

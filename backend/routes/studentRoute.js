@@ -30,7 +30,7 @@ router.route('/reset-password').put(userRateLimit, resetPassword);
 router
   .route('/:id')
   .get(protect, getStudent)
-  .put(protect, admin, updateStudent)
+  .put(protect, updateStudent)
   .delete(protect, admin, deleteStudent);
 
 export default router;

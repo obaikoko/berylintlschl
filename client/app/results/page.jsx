@@ -13,7 +13,7 @@ const Results = () => {
   const router = useRouter();
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
-  const { data, isLoading, isError } = useGetResultsQuery();
+  const { data, isLoading, isError } = useGetResultsQuery(page);
   const totalPages = data && data.totalPages;
   const { user } = useSelector((state) => state.auth);
 

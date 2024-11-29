@@ -6,7 +6,10 @@ import UpdateStudentBtn from '@/components/Student/UpdateStudentBtn';
 import { useParams } from 'next/navigation';
 import style from '../../../components/styles/profile.module.css';
 import ReactToPrint from 'react-to-print';
-import { useGetStudentQuery } from '@/src/features/students/studentApiSlice';
+import {
+  useGetStudentQuery,
+  useUpdateStudentMutation,
+} from '@/src/features/students/studentApiSlice';
 import LetterHead from '@/components/LetterHead';
 import Profile from '@/components/StudentProfile';
 import { FaArrowLeft, FaPrint } from 'react-icons/fa';
@@ -14,6 +17,7 @@ import GenerateResult from '@/components/GenerateResult';
 import { useSelector } from 'react-redux';
 import Link from 'next/link';
 import ChangePasswordBtn from '@/components/ChangePassword';
+import { toast } from 'react-toastify';
 const StudentProfile = React.forwardRef(() => {
   const { id } = useParams();
   const componentRef = useRef();
@@ -26,12 +30,28 @@ const StudentProfile = React.forwardRef(() => {
     }
   }, [id]);
 
-  const { data, isLoading, error } = useGetStudentQuery(studentId, {
+  const [updateStudent, { isLoading: loadingUpdateFees }] =
+    useUpdateStudentMutation();
+
+  const { data, isLoading, error, refetch } = useGetStudentQuery(studentId, {
     skip: !studentId,
   });
 
   if (isLoading) return <Spinner clip={true} size={150} />;
   if (error) return <div>Error: {error.message}</div>;
+
+  const handleFees = async () => {
+    try {
+      await updateStudent({
+        studentId: data._id,
+        fees: data.isPaid ? 'notPaid' : 'paid',
+      }).unwrap();
+      refetch();
+      toast.success('Updated Successfully');
+    } catch (error) {
+      toast.error(err?.data?.message || err.error);
+    }
+  };
 
   return (
     <div>
@@ -43,10 +63,16 @@ const StudentProfile = React.forwardRef(() => {
             <Profile student={data} />
           </div>
           <div className='mb-2'>
-            {user?.isStudent ? <ChangePasswordBtn /> : <GenerateResult />}
+            {user?.isStudent ? (
+              <ChangePasswordBtn />
+            ) : (
+              <>
+                <GenerateResult />
+                <UpdateStudentBtn student={data} />
+              </>
+            )}
             {user?.isAdmin && (
               <div>
-                <UpdateStudentBtn student={data} />
                 <ReactToPrint
                   trigger={() => (
                     <button className='border-black border-2 rounded mx-2 px-2'>
@@ -56,6 +82,20 @@ const StudentProfile = React.forwardRef(() => {
                   )}
                   content={() => componentRef.current}
                 />
+                <button
+                  onClick={handleFees}
+                  className={
+                    data.isPaid
+                      ? 'bg-orange-500 text-white px-3 py-2 rounded'
+                      : 'bg-green-500 text-white px-3 py-2 rounded'
+                  }
+                >
+                  {loadingUpdateFees
+                    ? 'Updating...'
+                    : data.isPaid
+                    ? 'Set fees to not paid'
+                    : 'Set fees to paid'}
+                </button>
                 <DeleteStudentBtn student={data} />
               </div>
             )}
