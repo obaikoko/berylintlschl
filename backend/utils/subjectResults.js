@@ -74,6 +74,42 @@ const subjectResults = ({ level }) => {
       { subject: 'Efik' },
       { subject: 'History' },
     ]);
+  } else if (level === 'KG') {
+    return (subjectResults = [
+      { subject: 'English' },
+      { subject: 'Phonetics/Spelling' },
+      { subject: 'Mathematics' },
+      { subject: 'Computer Science(ICT)' },
+      { subject: 'Social Studies' },
+      { subject: 'Agricultural Science' },
+      { subject: 'Basic Science' },
+      { subject: 'Basic Technology' },
+      { subject: 'Christian Religious Knowledge' },
+      { subject: 'Home Economics' },
+      { subject: 'Physical And Health Education' },
+      { subject: 'Civic Education' },
+      { subject: 'Quantitative Reasoning' },
+      { subject: 'Verbal Reasoning' },
+      { subject: 'Creative Composition' },
+      { subject: 'Creative Art' },
+      { subject: 'French' },
+      { subject: 'Handwritting' },
+    ]);
+  } else if (level === 'Pre School' || level === 'Pre KG') {
+    return (subjectResults = [
+      { subject: 'Word Work' },
+      { subject: 'Phonics' },
+      { subject: 'Number Work' },
+      { subject: 'Social Habit' },
+      { subject: 'Science Skill' },
+      { subject: 'C.R.K' },
+      { subject: 'Health Habit' },
+      { subject: 'Quantitative' },
+      { subject: 'Verbal' },
+      { subject: 'Rhyme' }, 
+      { subject: 'Creative' },
+      { subject: 'Handwritting' },
+    ]);
   } else {
     return (subjectResults = [
       { subject: 'Language Practices' },

@@ -44,8 +44,7 @@ const createResult = asyncHandler(async (req, res) => {
     level === 'Day Care' ||
     level === 'Reception' ||
     level === 'Pre School' ||
-    level === 'Pre KG' ||
-    level === 'KG'
+    level === 'Pre KG'
   ) {
     const result = await Result.create({
       user: req.user._id,
@@ -62,7 +61,6 @@ const createResult = asyncHandler(async (req, res) => {
       teacherRemark: '',
       principalRemark: '',
     });
-    
 
     if (result) {
       res.status(200).json(result);
@@ -145,7 +143,7 @@ const getResults = asyncHandler(async (req, res) => {
   if (!req.user.isAdmin) {
     query = { ...query, level: req.user.level, subLevel: req.user.subLevel };
   }
-console.log(req.query.pageNumber);
+
   const pageSize = 35;
   const page = Number(req.query.pageNumber) || 1;
   const count = await Result.countDocuments(query);
@@ -231,8 +229,7 @@ const updateResult = asyncHandler(async (req, res) => {
         result.level === 'Day Care' ||
         result.level === 'Reception' ||
         result.level === 'Pre School' ||
-        result.level === 'Pre KG' ||
-        result.level === 'KG'
+        result.level === 'Pre KG'
       ) {
         const newGrade = (subjectResult.grade = grade || subjectResult.grade);
       } else {

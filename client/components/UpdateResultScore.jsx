@@ -81,10 +81,7 @@ const UpdateResultScore = ({ level }) => {
               <label htmlFor='subject'>Select Subject</label>
               {level === 'Creche' ||
               level === 'Day Care' ||
-              level === 'Reception' ||
-              level === 'Pre School' ||
-              level === 'Pre KG' ||
-              level === 'KG' ? (
+              level === 'Reception' ? (
                 <select
                   className='bg-gray-300 rounded px-4 py-1 '
                   name='subject'
@@ -115,7 +112,28 @@ const UpdateResultScore = ({ level }) => {
                   <option value='Singing'>Singing</option>
                   <option value='Games'>Games</option>
                 </select>
-              ) : level === 'Grade 1' ||
+              ) : level == 'Pre School' || level == 'Pre KG' ? (
+                <select
+                  className='bg-gray-300 rounded px-4 py-1 '
+                  name='subject'
+                  id='subject'
+                  onChange={onChange}
+                >
+                  <option value='Word Work'>Word Work</option>
+                  <option value='Phonics'>Phonics</option>
+                  <option value='Number Work'>Number Work</option>
+                  <option value='Social Habit'>Social Habit</option>
+                  <option value='Science Skill'>Science Skill</option>
+                  <option value='C.R.K'>C.R.K</option>
+                  <option value='Health Habit'>Health Habit</option>
+                  <option value='Quantitative'>Quantitative</option>
+                  <option value='Verbal'>Verbal</option>
+                  <option value='Rhyme'>Rhyme</option>
+                  <option value='Creative'>Creative</option>
+                  <option value='Handwritting'>Handwritting</option>
+                </select>
+              ) : level === 'KG' ||
+                level === 'Grade 1' ||
                 level === 'Grade 2' ||
                 level === 'Grade 3' ||
                 level === 'Grade 4' ||
@@ -160,6 +178,7 @@ const UpdateResultScore = ({ level }) => {
                   <option value='French'>French</option>
                   <option value='Efik'>Efik</option>
                   <option value='History'>History</option>
+                  <option value='Handwritting'>Handwritting</option>
                 </select>
               ) : level === 'JSS 1' ||
                 level === 'JSS 2' ||
@@ -239,7 +258,9 @@ const UpdateResultScore = ({ level }) => {
                   <option value='Tourism'>Tourism</option>
                   <option value='Food And Nutrition'>Food And Nutrition</option>
                   <option value='Visual Art'>Visual Art</option>
-                  <option value='Literature-In-English'>Literature-In-English</option>
+                  <option value='Literature-In-English'>
+                    Literature-In-English
+                  </option>
                 </select>
               )}
             </div>
@@ -247,8 +268,7 @@ const UpdateResultScore = ({ level }) => {
             level === 'Day Care' ||
             level === 'Reception' ||
             level === 'Pre School' ||
-            level === 'Pre KG' ||
-            level === 'KG' ? (
+            level === 'Pre KG' ? (
               <>
                 <select
                   className='bg-gray-300 rounded px-4 py-1 '

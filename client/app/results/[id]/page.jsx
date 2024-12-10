@@ -25,21 +25,19 @@ const StudentResult = () => {
     setResultId(id);
   }, [id]);
 
-  if (isLoading) {
-    return <Spinner clip={true} size={150} />;
-  }
+ 
   if (
     data?.level === 'Creche' ||
     data?.level === 'Day Care' ||
     data?.level === 'Reception' ||
     data?.level === 'Pre School' ||
-    data?.level === 'Pre KG' ||
-    data?.level === 'KG'
+    data?.level === 'Pre KG'
   ) {
     return (
       <div>
         <div className='bg-blue-950 h-20'></div>
         <div className={style.container}>
+        {isLoading && <Spinner clip={true} size={150} />}
           {isError && 'Unable to fetch...'}
           {data && (
             <>
@@ -112,6 +110,7 @@ const StudentResult = () => {
     <div>
       <div className='bg-blue-950 h-20'></div>
       <div className={style.container}>
+        {isLoading && <Spinner clip={true} size={150} />}
         {data && (
           <>
             <div ref={componentRef} className={style.print}>
@@ -128,7 +127,8 @@ const StudentResult = () => {
                   </p>
                   <p className='text-sm'>
                     <strong>STUDENT'S TOTAL SCORE:</strong>
-                    {data?.totalScore} out of {data?.subjectResults?.length * 100}
+                    {data?.totalScore} out of{' '}
+                    {data?.subjectResults?.length * 100}
                   </p>
                 </div>
                 <div className={style.headerContent}>
