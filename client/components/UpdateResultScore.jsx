@@ -267,8 +267,7 @@ const UpdateResultScore = ({ level }) => {
             {level === 'Creche' ||
             level === 'Day Care' ||
             level === 'Reception' ||
-            level === 'Pre School' ||
-            level === 'Pre KG' ? (
+            level === 'Pre School'  ? (
               <>
                 <select
                   className='bg-gray-300 rounded px-4 py-1 '

@@ -1,8 +1,6 @@
 import style from './styles/profile.module.css';
 import { FaUserAlt } from 'react-icons/fa';
 const StudentProfile = ({ student }) => {
-  
-  
   return (
     <div className='w-full max-w-4xl mx-auto p-6 bg-white shadow-lg rounded-lg border border-gray-200 mt-6 md:mt-10'>
       <div className={style.profile}>
@@ -22,8 +20,7 @@ const StudentProfile = ({ student }) => {
           <strong>Gender:</strong> {student.gender}
         </p>
         <p>
-          <strong>Class:</strong> {student.level} {' '}
-          {student.subLevel}
+          <strong>Class:</strong> {student.level} {student.subLevel}
         </p>
         <p>
           <strong>Date of birth:</strong>{' '}
@@ -61,12 +58,37 @@ const StudentProfile = ({ student }) => {
       </div>
 
       {student.isPaid ? (
-        ''
+        <div>
+          {/* <h3>School Fee Account Details</h3>
+          <p>
+            <strong>Account Name:</strong> Beryl International Schools
+          </p>
+          <p>
+            <strong>Bank Name:</strong> First Bank
+          </p>
+          <p>
+            <strong>Account Number:</strong> 2035177616
+          </p> */}
+        </div>
       ) : (
-        <p className='text-rose-600'>
-          <strong>NOTE:</strong> Students who are yet to pay their fees wont
-          have access to their result.
-        </p>
+        <div>
+          <p className='text-rose-600'>
+            <strong>NOTE:</strong> Students who are yet to pay their fees wont
+            have access to their result.
+          </p>
+          {/* <div>
+            <h3>School Fee Account Details</h3>
+            <p>
+              <strong>Account Name:</strong> Beryl International Schools
+            </p>
+            <p>
+              <strong>Bank Name:</strong> First Bank
+            </p>
+            <p>
+              <strong>Account Number:</strong> 2035177616
+            </p>
+          </div> */}
+        </div>
       )}
     </div>
   );

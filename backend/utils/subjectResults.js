@@ -49,7 +49,7 @@ const subjectResults = ({ level }) => {
     level === 'Grade 1' ||
     level === 'Grade 2' ||
     level === 'Grade 3' ||
-    level === 'Grade 5' ||
+    level === 'Grade 4' ||
     level === 'Grade 5'
   ) {
     return (subjectResults = [
