@@ -241,57 +241,84 @@ const updateResult = asyncHandler(async (req, res) => {
       }
 
       // Calculate the new total score and average if required
+
       if (result.level === 'SSS 1') {
-        // Sort the subjectResults by totalScore in descending order
-        const sortedSubjects = result.subjectResults.sort(
+        // Filter English and Mathematics from the subject results
+        const mandatorySubjects = result.subjectResults.filter(
+          (sub) => sub.subject === 'English' || sub.subject === 'Mathematics'
+        );
+
+        // Get the remaining subjects excluding English and Mathematics
+        const remainingSubjects = result.subjectResults.filter(
+          (sub) => sub.subject !== 'English' && sub.subject !== 'Mathematics'
+        );
+
+        // Sort the remaining subjects by totalScore in descending order
+        const sortedSubjects = remainingSubjects.sort(
           (a, b) => b.totalScore - a.totalScore
         );
 
-        // Select the first 14 subjects
-        const topSubjects = sortedSubjects.slice(0, 14);
+        // Combine English, Mathematics, and the top-scoring remaining subjects
+        const selectedSubjects = [
+          ...mandatorySubjects,
+          ...sortedSubjects.slice(0, 14 - mandatorySubjects.length),
+        ];
 
-        // Calculate the total score for the top 14 subjects
-        const totalScore = topSubjects.reduce(
+        // Calculate the total score for the selected subjects
+        const totalScore = selectedSubjects.reduce(
           (acc, sub) => acc + sub.totalScore,
           0
         );
 
-        // Calculate the average score for the top 14 subjects
-        const averageScore = totalScore / topSubjects.length;
+        // Calculate the average score for the selected subjects
+        const averageScore = totalScore / selectedSubjects.length;
 
         // Update result object (optional)
         result.totalScore = totalScore;
         result.averageScore = averageScore;
       } else if (result.level === 'SSS 2' || result.level === 'SSS 3') {
-        // Sort the subjectResults by totalScore in descending order
-        const sortedSubjects = result.subjectResults.sort(
+        // Filter English and Mathematics from the subject results
+        const mandatorySubjects = result.subjectResults.filter(
+          (sub) => sub.subject === 'English' || sub.subject === 'Mathematics'
+        );
+
+        // Get the remaining subjects excluding English and Mathematics
+        const remainingSubjects = result.subjectResults.filter(
+          (sub) => sub.subject !== 'English' && sub.subject !== 'Mathematics'
+        );
+
+        // Sort the remaining subjects by totalScore in descending order
+        const sortedSubjects = remainingSubjects.sort(
           (a, b) => b.totalScore - a.totalScore
         );
 
-        // Select the first 14 subjects
-        const topSubjects = sortedSubjects.slice(0, 9);
+        // Combine English, Mathematics, and the top-scoring remaining subjects
+        const selectedSubjects = [
+          ...mandatorySubjects,
+          ...sortedSubjects.slice(0, 9 - mandatorySubjects.length),
+        ];
 
-        // Calculate the total score for the top 9 subjects
-        const totalScore = topSubjects.reduce(
+        // Calculate the total score for the selected subjects
+        const totalScore = selectedSubjects.reduce(
           (acc, sub) => acc + sub.totalScore,
           0
         );
 
-        // Calculate the average score for the top 9 subjects
-        const averageScore = totalScore / topSubjects.length;
+        // Calculate the average score for the selected subjects
+        const averageScore = totalScore / selectedSubjects.length;
 
         // Update result object (optional)
         result.totalScore = totalScore;
         result.averageScore = averageScore;
       } else {
+        // Calculate totalScore as usual
         const totalScore = result.subjectResults.reduce(
           (acc, sub) => acc + sub.totalScore,
           0
         );
-        const averageScore = totalScore / result.subjectResults.length;
 
         result.totalScore = totalScore;
-        result.averageScore = averageScore;
+        result.averageScore = totalScore / result.subjectResults.length;
       }
     }
     if (affectiveAssessments && affectiveAssessments.length > 0) {

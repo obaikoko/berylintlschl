@@ -61,7 +61,6 @@ const StudentProfile = React.forwardRef(() => {
           <div ref={componentRef}>
             <LetterHead image={data?.image?.url} />
             <Profile student={data} />
-          
           </div>
           <div className='mb-2'>
             {user?.isStudent ? (
