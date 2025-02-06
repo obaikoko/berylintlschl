@@ -8,9 +8,11 @@ import { toast } from 'react-toastify';
 import Link from 'next/link';
 import Spinner from '@/components/Spinner';
 import { FaUserCircle } from 'react-icons/fa';
+import { AiFillEye, AiFillEyeInvisible } from 'react-icons/ai';
 
 function loginPage() {
   const dispatch = useDispatch();
+  const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -32,21 +34,17 @@ function loginPage() {
     try {
       const res = await login({ email, password }).unwrap();
       dispatch(setCredentials({ ...res }));
-    
-      
+
       toast.success(`Welcome ${res.firstName} ${res.lastName}`);
       if (res.isAdmin) {
         router.push('/dashboard');
       } else {
         router.push('/results');
       }
-      
     } catch (err) {
       toast.error(err?.data?.message || err.error);
     }
   };
-
-  
 
   return (
     <>
@@ -72,6 +70,7 @@ function loginPage() {
               <input
                 type='email'
                 name='email'
+                required
                 id='email'
                 value={email}
                 onChange={handleInputChange}
@@ -79,7 +78,7 @@ function loginPage() {
               />
             </div>
 
-            <div className='mb-6 w-full'>
+            <div className='mb-6 w-full relative'>
               <label
                 htmlFor='password'
                 className='block text-blue-950 font-bold mb-2'
@@ -87,13 +86,24 @@ function loginPage() {
                 Password
               </label>
               <input
-                type='password'
+                type={showPassword ? 'text' : 'password'}
                 name='password'
+                required
                 id='password'
                 value={password}
                 onChange={handleInputChange}
                 className='w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-950'
               />
+              <span
+                onClick={() => setShowPassword(!showPassword)}
+                className='absolute right-4 top-10 cursor-pointer text-gray-600'
+              >
+                {showPassword ? (
+                  <AiFillEyeInvisible size={20} />
+                ) : (
+                  <AiFillEye size={20} />
+                )}
+              </span>
             </div>
 
             <button

@@ -5,12 +5,16 @@ import { useGetNextTermInfoQuery } from '@/src/features/nextTerm/nextTermApiSlci
 const ResultTable = ({ data }) => {
   const level = `?level=${data.level}`;
   const { data: nextTerm } = useGetNextTermInfoQuery(level);
+  const filterResult = data?.subjectResults.filter(
+    // filter values greater than 2 to correct mistakenly entered subject scores where necessary
+    (subject) => subject.totalScore > 2
+  );
 
   if (
     data.level === 'Creche' ||
     data.level === 'Day Care' ||
     data.level === 'Reception' ||
-    data.level === 'Pre School' 
+    data.level === 'Pre School'
   ) {
     return (
       <div className='p-6  bg-white rounded-xl shadow-md space-y-4'>
@@ -96,16 +100,37 @@ const ResultTable = ({ data }) => {
             </tr>
           </thead>
           <tbody>
-            {data?.subjectResults &&
-              data?.subjectResults.map((sr, index) => (
-                <tr key={index}>
-                  <td className={style.srColumn}>{sr.subject}</td>
-                  <td>{sr.testScore}</td>
-                  <td>{sr.examScore}</td>
-                  <td>{sr.totalScore}</td>
-                  <td>{sr.grade}</td>
-                </tr>
-              ))}
+            {data &&
+            (data.level === 'SSS 1' ||
+              data.level === 'SSS 2' ||
+              data.level === 'SSS 3') ? (
+              <>
+                {filterResult &&
+                  filterResult.map((sr, index) => (
+                    <tr key={index}>
+                      <td className={style.srColumn}>{sr.subject}</td>
+                      <td>{sr.testScore}</td>
+                      <td>{sr.examScore}</td>
+                      <td>{sr.totalScore}</td>
+                      <td>{sr.grade}</td>
+                    </tr>
+                  ))}
+              </>
+            ) : (
+              <>
+                {data?.subjectResults &&
+                  data?.subjectResults.map((sr, index) => (
+                    <tr key={index}>
+                      <td className={style.srColumn}>{sr.subject}</td>
+                      <td>{sr.testScore}</td>
+                      <td>{sr.examScore}</td>
+                      <td>{sr.totalScore}</td>
+                      <td>{sr.grade}</td>
+                    </tr>
+                  ))}
+              </>
+            )}
+
             <tr>
               <td></td>
             </tr>
