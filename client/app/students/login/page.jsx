@@ -6,10 +6,10 @@ import { setCredentials } from '@/src/features/auth/authSlice';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import Link from 'next/link';
-import Spinner from '@/components/Spinner';
-import { FaUserCircle } from 'react-icons/fa';
+import {AiFillEyeInvisible, AiFillEye} from 'react-icons/ai';
 
 function loginPage() {
+  const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
     studentId: '',
@@ -73,7 +73,7 @@ function loginPage() {
               />
             </div>
 
-            <div className='mb-6 w-full'>
+            <div className='mb-6 w-full relative'>
               <label
                 htmlFor='password'
                 className='block text-blue-950 font-bold mb-2'
@@ -81,13 +81,24 @@ function loginPage() {
                 Password
               </label>
               <input
-                type='password'
+                type={showPassword ? 'text' : 'password'}
                 name='password'
                 id='password'
                 value={password}
                 onChange={handleInputChange}
                 className='w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-950'
               />
+
+              <span
+                onClick={() => setShowPassword(!showPassword)}
+                className='absolute right-4 top-10 cursor-pointer text-gray-600'
+              >
+                {showPassword ? (
+                  <AiFillEyeInvisible size={20} />
+                ) : (
+                  <AiFillEye size={20} />
+                )}
+              </span>
             </div>
 
             <button
