@@ -47,35 +47,40 @@ const subjectResultSchema = new mongoose.Schema({
   },
 });
 
-const resultSchema = new mongoose.Schema({
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: 'User',
+const resultSchema = new mongoose.Schema(
+  {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'User',
+    },
+    studentId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true,
+      ref: 'Student',
+    },
+    firstName: String,
+    lastName: String,
+    otherName: String,
+    image: String,
+    level: String,
+    subLevel: String,
+    term: String,
+    session: String,
+    position: String,
+    totalScore: Number,
+    averageScore: Number,
+    numberInClass: Number,
+    subjectResults: [subjectResultSchema],
+    affectiveAssessment: [affectiveAssessmentSchema],
+    psychomotor: [psychomotorSchema],
+    teacherRemark: String,
+    principalRemark: String,
   },
-  studentId: {
-    type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    ref: 'Student',
-  },
-  firstName: String,
-  lastName: String,
-  otherName: String,
-  image: String,
-  level: String,
-  subLevel: String,
-  term: String,
-  session: String,
-  position: String,
-  totalScore: Number,
-  averageScore: Number,
-  numberInClass: Number,
-  subjectResults: [subjectResultSchema],
-  affectiveAssessment: [affectiveAssessmentSchema],
-  psychomotor: [psychomotorSchema],
-  teacherRemark: String,
-  principalRemark: String,
-});
+  {
+    timestamps: true,
+  }
+);
 
 const Result = mongoose.model('Result', resultSchema);
 export default Result;
