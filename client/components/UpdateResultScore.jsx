@@ -266,7 +266,6 @@ const UpdateResultScore = ({ level }) => {
             </div>
             {level === 'Creche' ||
             level === 'Day Care' ||
-            level === 'Reception' ||
             level === 'Pre School'  ? (
               <>
                 <select

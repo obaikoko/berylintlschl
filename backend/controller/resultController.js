@@ -227,7 +227,6 @@ const updateResult = asyncHandler(async (req, res) => {
       if (
         result.level === 'Creche' ||
         result.level === 'Day Care' ||
-        result.level === 'Reception' ||
         result.level === 'Pre School'
       ) {
         const newGrade = (subjectResult.grade = grade || subjectResult.grade);
@@ -366,6 +365,124 @@ const updateResult = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc removes subjects from all existing results for selected class, term and session
+const manualSubjectRemoval = asyncHandler(async (req, res) => {
+  const { session, term, level, subjectName } = req.body;
+
+  if (!session || !term || !level || !subjectName) {
+    res.status(400);
+    throw new Error(
+      'Please add all field (session, term, level and subjectName)'
+    );
+  }
+
+  const results = await Result.find({ session, term, level });
+
+  if (!results || results.length === 0) {
+    res.status(404);
+    throw new Error('No result found');
+  }
+
+  for (const result of results) {
+    result.subjectResults = result.subjectResults.filter(
+      (sub) => sub.subject !== subjectName
+    );
+
+    // Calculate the new total score and average if required
+    const totalScore = result.subjectResults.reduce(
+      (acc, sub) => acc + sub.totalScore,
+      0
+    );
+
+    const averageScore =
+      result.subjectResults.length > 0
+        ? totalScore / result.subjectResults.length
+        : 0;
+
+    result.totalScore = totalScore;
+    result.averageScore = averageScore;
+
+    await result.save();
+  }
+
+  // Send one response after the loop
+  res
+    .status(200)
+    .json(
+      `${subjectName} removed successfully from ${results.length} result(s)`
+    );
+});
+
+// @desc add subject to all selected results
+const addSubjectToResults = asyncHandler(async (req, res) => {
+  const { session, term, level, subjectName } = req.body;
+  if (!session || !term || !level || !subjectName) {
+    res.status(400);
+    throw new Error(
+      'Please add all field (session, term, level and subjectName)'
+    );
+  }
+
+  // Define a new subject template
+  const newSubject = {
+    subject: subjectName,
+    test1: 0,
+    test2: 0,
+    testScore: 0,
+    examScore: 0,
+    totalScore: 0,
+    grade: '-',
+  };
+
+  // Fetch relevant student results
+  const results = await Result.find({
+    session,
+    term,
+    level,
+  });
+
+  for (const result of results) {
+    const alreadyExists = result.subjectResults.some(
+      (sub) => sub.subject.toLowerCase() === subjectName.toLowerCase()
+    );
+
+    if (!alreadyExists) {
+      result.subjectResults.push(newSubject);
+      // Calculate the new total score and average if required
+      const totalScore = result.subjectResults.reduce(
+        (acc, sub) => acc + sub.totalScore,
+        0
+      );
+
+      const averageScore =
+        result.subjectResults.length > 0
+          ? totalScore / result.subjectResults.length
+          : 0;
+
+      result.totalScore = totalScore;
+      result.averageScore = averageScore;
+    }
+    // Calculate the new total score and average if required
+    const totalScore = result.subjectResults.reduce(
+      (acc, sub) => acc + sub.totalScore,
+      0
+    );
+
+    const averageScore =
+      result.subjectResults.length > 0
+        ? totalScore / result.subjectResults.length
+        : 0;
+
+    result.totalScore = totalScore;
+    result.averageScore = averageScore;
+    await result.save();
+  }
+
+  res.json({
+    message: `${subjectName} added to all ${level} student results for ${term} term.`,
+  });
+});
+
 const deleteResult = asyncHandler(async (req, res) => {
   if (!req.user) {
     res.status(401);
@@ -443,6 +560,8 @@ export {
   getResults,
   getResult,
   updateResult,
+  addSubjectToResults,
+  manualSubjectRemoval,
   deleteResult,
   generatePositions,
   generateBroadsheet,

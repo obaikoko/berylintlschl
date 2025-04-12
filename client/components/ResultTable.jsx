@@ -13,7 +13,6 @@ const ResultTable = ({ data }) => {
   if (
     data.level === 'Creche' ||
     data.level === 'Day Care' ||
-    data.level === 'Reception' ||
     data.level === 'Pre School'
   ) {
     return (

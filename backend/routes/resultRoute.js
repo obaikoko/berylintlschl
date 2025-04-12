@@ -8,6 +8,8 @@ import {
   updateResult,
   generateBroadsheet,
   deleteResult,
+  manualSubjectRemoval,
+  addSubjectToResults,
 } from '../controller/resultController.js';
 
 const router = express.Router();
@@ -15,10 +17,15 @@ const router = express.Router();
 router.route('/positions').post(protect, admin, generatePositions);
 router.route('/broadsheet').post(protect, generateBroadsheet);
 router
+  .route('/subjects')
+  .put(protect, admin, manualSubjectRemoval)
+  .post(protect, admin, addSubjectToResults);
+router
   .route('/:id')
   .post(protect, createResult)
   .get(protect, getResult)
-  .put(protect, updateResult).delete(protect, admin, deleteResult );
+  .put(protect, updateResult)
+  .delete(protect, admin, deleteResult);
 router.route('/').get(protect, getResults);
 
 export default router;

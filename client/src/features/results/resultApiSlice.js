@@ -59,6 +59,22 @@ export const resultsApiSlice = apiSlice.injectEndpoints({
         credentials: 'include',
       }),
     }),
+    addSubject: builder.mutation({
+      query: (data) => ({
+        url: `${RESULTS_URL}/subjects`,
+        method: 'POST',
+        body: data,
+        credentials: 'include',
+      }),
+    }),
+    removeSubject: builder.mutation({
+      query: (data) => ({
+        url: `${RESULTS_URL}/subjects`,
+        method: 'PUT',
+        body: data,
+        credentials: 'include',
+      }),
+    }),
     generateBroadsheet: builder.mutation({
       query: (data) => ({
         url: `${RESULTS_URL}/broadsheet`,
@@ -76,6 +92,8 @@ export const {
   useSearchResultsQuery,
   useUpdateResultMutation,
   useGenerateResultMutation,
+  useAddSubjectMutation,
+  useRemoveSubjectMutation,
   useDeleteResultMutation,
   useGeneratePositionsMutation,
   useGenerateBroadsheetMutation,

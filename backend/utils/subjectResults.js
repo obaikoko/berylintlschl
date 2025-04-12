@@ -106,7 +106,7 @@ const subjectResults = ({ level }) => {
       { subject: 'Health Habit' },
       { subject: 'Quantitative' },
       { subject: 'Verbal' },
-      { subject: 'Rhyme' }, 
+      { subject: 'Rhyme' },
       { subject: 'Creative' },
       { subject: 'Handwritting' },
     ]);
