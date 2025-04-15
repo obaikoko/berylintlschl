@@ -12,8 +12,7 @@ const ResultTable = ({ data }) => {
 
   if (
     data.level === 'Creche' ||
-    data.level === 'Day Care' ||
-    data.level === 'Pre School'
+    data.level === 'Day Care' 
   ) {
     return (
       <div className='p-6  bg-white rounded-xl shadow-md space-y-4'>

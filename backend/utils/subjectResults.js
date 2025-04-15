@@ -95,6 +95,19 @@ const subjectResults = ({ level }) => {
       { subject: 'French' },
       { subject: 'Handwritting' },
     ]);
+  } else if (level === 'Reception') {
+    return (subjectResults = [
+      { subject: 'Phonics' },
+      { subject: 'Moral Instructions' },
+      { subject: 'Health Habit' },
+      { subject: 'Rhyme' },
+      { subject: 'Creative Art' },
+      { subject: 'Science Skills' },
+      { subject: 'Social Norms' },
+      { subject: 'Numeracy' },
+      { subject: 'Literacy' },
+      { subject: 'Handwritting' },
+    ]);
   } else if (level === 'Pre School' || level === 'Pre KG') {
     return (subjectResults = [
       { subject: 'Word Work' },

@@ -136,7 +136,7 @@ const AddSubject = () => {
                 className='bg-gray-300 rounded px-4 py-1 '
                 onChange={onChange}
               >
-                <option value=''>Enter Result Score</option>
+                <option value=''>Select Subject</option>
                 <option value='Mathematics'>Mathematics</option>
                 <option value='English'>English</option>
                 <option value='Agricultural Science'>

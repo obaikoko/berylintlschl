@@ -27,8 +27,7 @@ const StudentResult = () => {
 
   if (
     data?.level === 'Creche' ||
-    data?.level === 'Day Care' ||
-    data?.level === 'Pre School'
+    data?.level === 'Day Care' 
   ) {
     return (
       <div>

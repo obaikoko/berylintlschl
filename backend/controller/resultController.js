@@ -39,13 +39,7 @@ const createResult = asyncHandler(async (req, res) => {
   }
   const addSubjects = subjectResults({ level });
 
-  if (
-    level === 'Creche' ||
-    level === 'Day Care' ||
-    level === 'Reception' ||
-    level === 'Pre School' ||
-    level === 'Pre KG'
-  ) {
+  if (level === 'Creche' || level === 'Day Care' ) {
     const result = await Result.create({
       user: req.user._id,
       studentId: id,
@@ -113,6 +107,7 @@ const createResult = asyncHandler(async (req, res) => {
     }
   }
 });
+
 // @GET ALL RESULT
 // @route GET api/results
 // @privacy Private
@@ -226,8 +221,7 @@ const updateResult = asyncHandler(async (req, res) => {
       }
       if (
         result.level === 'Creche' ||
-        result.level === 'Day Care' ||
-        result.level === 'Pre School'
+        result.level === 'Day Care' 
       ) {
         const newGrade = (subjectResult.grade = grade || subjectResult.grade);
       } else {
@@ -416,6 +410,11 @@ const manualSubjectRemoval = asyncHandler(async (req, res) => {
 // @desc add subject to all selected results
 const addSubjectToResults = asyncHandler(async (req, res) => {
   const { session, term, level, subjectName } = req.body;
+
+  // const session = '2024/2025';
+  // const term = 'First';
+  // const level = 'SSS 3';
+  // const subjectName = 'English';
   if (!session || !term || !level || !subjectName) {
     res.status(400);
     throw new Error(
@@ -423,6 +422,12 @@ const addSubjectToResults = asyncHandler(async (req, res) => {
     );
   }
 
+  console.log({
+    session: session,
+    term: term,
+    level: level,
+    subjectName: subjectName,
+  });
   // Define a new subject template
   const newSubject = {
     subject: subjectName,
@@ -440,6 +445,7 @@ const addSubjectToResults = asyncHandler(async (req, res) => {
     term,
     level,
   });
+  // console.log(results);
 
   for (const result of results) {
     const alreadyExists = result.subjectResults.some(
@@ -478,10 +484,14 @@ const addSubjectToResults = asyncHandler(async (req, res) => {
     await result.save();
   }
 
-  res.json({
-    message: `${subjectName} added to all ${level} student results for ${term} term.`,
-  });
+  // console.log('added');
+
+  res.json(
+    `${subjectName} added to all ${level} student results for ${term} term.`
+  );
 });
+
+// addSubjectToResults();
 
 const deleteResult = asyncHandler(async (req, res) => {
   if (!req.user) {
