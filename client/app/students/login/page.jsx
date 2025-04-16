@@ -6,7 +6,7 @@ import { setCredentials } from '@/src/features/auth/authSlice';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import Link from 'next/link';
-import {AiFillEyeInvisible, AiFillEye} from 'react-icons/ai';
+import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
 
 function loginPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -33,14 +33,12 @@ function loginPage() {
       const res = await login({ studentId, password }).unwrap();
       dispatch(setCredentials({ ...res }));
       toast.success(`Welcome Back ${res.firstName} ${res.lastName}`);
-      router.push('/');
+      router.push('/students/results');
     } catch (err) {
       console.log(err?.data?.message || err.error);
       toast.error(err?.data?.message || err.error);
     }
   };
-
-
 
   return (
     <>
@@ -53,7 +51,9 @@ function loginPage() {
           >
             <div className='flex flex-col items-center mb-6'>
               <img src='/images/logo.png' alt='logo' className='w-20 h-20' />
-              <h1 className='text-3xl font-bold text-blue-950 mb-4'>SIGN IN</h1>
+              <h1 className='text-3xl font-bold text-blue-950 mb-4'>
+                STUDENT SIGN IN
+              </h1>
             </div>
 
             <div className='mb-4 w-full'>
