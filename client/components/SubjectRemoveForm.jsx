@@ -136,114 +136,71 @@ const RemoveSubject = () => {
                 className='bg-gray-300 rounded px-4 py-1 '
                 onChange={onChange}
               >
-                <option value=''>Enter Result Score</option>
-                <option value='Mathematics'>Mathematics</option>
-                <option value='English'>English</option>
+                <option value=''>Select Subject</option>
                 <option value='Agricultural Science'>
                   Agricultural Science
                 </option>
+                <option value='Basic Science'>Basic Science</option>
+                <option value='Basic Technology'>Basic Technology</option>
                 <option value='Biology'>Biology</option>
-                <option value='Chemistry'>Chemistry</option>
-                <option value='Physics'>Physics</option>
-                <option value='Further Mathematics'>Further Mathematics</option>
-                <option value='Financial Accounting'>
-                  Financial Accounting
-                </option>
-
-                <option value='Christian Religious Knowledge'>
-                  Christian Religious Knowledge
-                </option>
-                <option value='Civic Education'>Civic Education</option>
-                <option value='Computer Science(ICT)'>
-                  Computer Science(ICT)
-                </option>
-                <option value='Geography'>Geography</option>
-                <option value='Economics'>Economics</option>
-                <option value='Government'>Government</option>
-                <option value='History'>History</option>
-                <option value='Commerce'>Commerce</option>
-                <option value='French'>French</option>
-                <option value='Tourism'>Tourism</option>
-                <option value='Food And Nutrition'>Food And Nutrition</option>
-                <option value='Visual Art'>Visual Art</option>
-                <option value='Literature-In-English'>
-                  Literature-In-English
-                </option>
-                <option value=''>Enter Result Score</option>
-                <option value='Mathematics'>Mathematics</option>
-                <option value='English'>English</option>
-                <option value='Agricultural Science'>
-                  Agricultural Science
-                </option>
-                <option value='Basic Science'>Basic Science</option>
-                <option value='Basic Technology'>Basic Technology</option>
                 <option value='Business Studies'>Business Studies</option>
+                <option value='C.R.K'>C.R.K</option>
+                <option value='Chemistry'>Chemistry</option>
                 <option value='Christian Religious Knowledge'>
                   Christian Religious Knowledge
                 </option>
                 <option value='Civic Education'>Civic Education</option>
+                <option value='Commerce'>Commerce</option>
                 <option value='Computer Science(ICT)'>
                   Computer Science(ICT)
                 </option>
+                <option value='Creative'>Creative</option>
                 <option value='Creative Art'>Creative Art</option>
-
-                <option value='French'>French</option>
-                <option value='Home Economics'>Home Economics</option>
-                <option value='History'>History </option>
-                <option value='Literature-In-English'>
-                  Literature-In-English
-                </option>
-                <option value='Nigeria Language'>Nigeria Language</option>
-                <option value='Social Studies'>Social Studies</option>
-                <option value='Physical And Health Education'>
-                  Physical And Health Education
-                </option>
-                <option value='English'>English</option>
-                <option value='Phonetics/Spelling'>Phonetics/Spelling</option>
-                <option value='Mathematics'>Mathematics</option>
-                <option value='Computer Science(ICT)'>
-                  Computer Science(ICT)
-                </option>
-                <option value='Social Studies'>Social Studies</option>
-                <option value='Agricultural Science'>
-                  Agricultural Science
-                </option>
-                <option value='Basic Science'>Basic Science</option>
-                <option value='Basic Technology'>Basic Technology</option>
-                <option value='Christian Religious Knowledge'>
-                  Christian Religious Knowledge
-                </option>
-                <option value='Home Economics'>Home Economics</option>
-                <option value='Physical And Health Education'>
-                  Physical And Health Education
-                </option>
-
-                <option value='Civic Education'>Civic Education</option>
-                <option value='Quantitative Reasoning'>
-                  Quantitative Reasoning
-                </option>
-                <option value='Verbal Reasoning'>Verbal Reasoning</option>
                 <option value='Creative Composition'>
                   Creative Composition
                 </option>
-                <option value='Music'>Music</option>
-                <option value='Creative Art'>Creative Art</option>
-                <option value='French'>French</option>
+                <option value='Economics'>Economics</option>
                 <option value='Efik'>Efik</option>
-                <option value='History'>History</option>
+                <option value='English'>English</option>
+                <option value='Financial Accounting'>
+                  Financial Accounting
+                </option>
+                <option value='Food And Nutrition'>Food And Nutrition</option>
+                <option value='French'>French</option>
+                <option value='Further Mathematics'>Further Mathematics</option>
+                <option value='Geography'>Geography</option>
+                <option value='Government'>Government</option>
                 <option value='Handwritting'>Handwritting</option>
-                <option value='Word Work'>Word Work</option>
-                <option value='Phonics'>Phonics</option>
-                <option value='Number Work'>Number Work</option>
-                <option value='Social Habit'>Social Habit</option>
-                <option value='Science Skill'>Science Skill</option>
-                <option value='C.R.K'>C.R.K</option>
                 <option value='Health Habit'>Health Habit</option>
+                <option value='History'>History</option>
+                <option value='Home Economics'>Home Economics</option>
+                <option value='Literature-In-English'>
+                  Literature-In-English
+                </option>
+                <option value='Mathematics'>Mathematics</option>
+                <option value='Music'>Music</option>
+                <option value='Nigeria Language'>Nigeria Language</option>
+                <option value='Number Work'>Number Work</option>
+                <option value='Phonics'>Phonics</option>
+                <option value='Phonetics/Spelling'>Phonetics/Spelling</option>
+                <option value='Physical And Health Education'>
+                  Physical And Health Education
+                </option>
+                <option value='Physics'>Physics</option>
                 <option value='Quantitative'>Quantitative</option>
-                <option value='Verbal'>Verbal</option>
+                <option value='Quantitative Reasoning'>
+                  Quantitative Reasoning
+                </option>
                 <option value='Rhyme'>Rhyme</option>
-                <option value='Creative'>Creative</option>
-                <option value='Handwritting'>Handwritting</option>
+                <option value='Science Skill'>Science Skill</option>
+                <option value='Social Habit'>Social Habit</option>
+                <option value='Social Studies'>Social Studies</option>
+                <option value='Technical Drawing'>Technical Drawing</option>
+                <option value='Tourism'>Tourism</option>
+                <option value='Verbal'>Verbal</option>
+                <option value='Verbal Reasoning'>Verbal Reasoning</option>
+                <option value='Visual Art'>Visual Art</option>
+                <option value='Word Work'>Word Work</option>
               </select>
             </div>
 

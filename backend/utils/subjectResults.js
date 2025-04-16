@@ -21,6 +21,7 @@ const subjectResults = ({ level }) => {
       { subject: 'Commerce' },
       { subject: 'French' },
       { subject: 'Tourism' },
+      { subject: 'Technical Drawing' },
       { subject: 'Food And Nutrition' },
       { subject: 'Visual Art' },
       { subject: 'Literature-In-English' },
