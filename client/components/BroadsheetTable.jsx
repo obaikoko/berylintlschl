@@ -51,7 +51,7 @@ const BroadsheetTable = ({ data }) => {
         <tbody>
           {data.map((student, idx) => (
             <tr key={idx}>
-              <td className='border border-gray-300 px-4 py-2'>{`${student.firstName} ${student.lastName}`}</td>
+              <td className='border border-gray-300 px-4 py-2'>{`${student.firstName} ${student.lastName} (${student.position})`}</td>
               {student.subjectResults.map((subject) => (
                 <React.Fragment key={`${student.firstName}-${subject.subject}`}>
                   <td

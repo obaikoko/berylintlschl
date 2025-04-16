@@ -39,7 +39,7 @@ const createResult = asyncHandler(async (req, res) => {
   }
   const addSubjects = subjectResults({ level });
 
-  if (level === 'Creche' || level === 'Day Care' ) {
+  if (level === 'Creche' || level === 'Day Care') {
     const result = await Result.create({
       user: req.user._id,
       studentId: id,
@@ -219,10 +219,7 @@ const updateResult = asyncHandler(async (req, res) => {
         res.status(404);
         throw new Error('Subject not found in results');
       }
-      if (
-        result.level === 'Creche' ||
-        result.level === 'Day Care' 
-      ) {
+      if (result.level === 'Creche' || result.level === 'Day Care') {
         const newGrade = (subjectResult.grade = grade || subjectResult.grade);
       } else {
         const newTestScore = (subjectResult.testScore =
@@ -548,12 +545,18 @@ const generateBroadsheet = asyncHandler(async (req, res) => {
 
   // Fetch results by level and subLevel
   const results = await Result.find({ session, term, level, subLevel });
+  if (!results || results.length === 0) {
+    res.status(404);
+    throw new Error('Not found');
+  }
 
   // Map over the results to extract relevant fields (subject, testScore, examScore)
   const transformedResults = results.map((result) => ({
     studentId: result.studentId,
     firstName: result.firstName,
     lastName: result.lastName,
+    position: result.position,
+    averageScore: result.averageScore,
     subjectResults: result.subjectResults.map((subject) => ({
       subject: subject.subject,
       testScore: subject.testScore,
@@ -561,7 +564,10 @@ const generateBroadsheet = asyncHandler(async (req, res) => {
     })),
   }));
 
-  // Return the transformed data
+  // Sort the transformed results by position in ascending order
+  transformedResults.sort((a, b) => b.averageScore - a.averageScore);
+
+  // Return the sorted data
   res.json(transformedResults);
 });
 
