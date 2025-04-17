@@ -142,7 +142,7 @@ const StudentResult = () => {
                     ) : (
                       <>
                         <strong>POSITION IN CLASS:</strong>
-                        {/* {data?.position} */}
+                        {data?.position}
                       </>
                     )}
                   </p>
