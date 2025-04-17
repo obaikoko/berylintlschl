@@ -376,6 +376,7 @@ const resetStudentFees = asyncHandler(async (req, res) => {
   res.status(200).json('All student payment status has been set to not paid');
 });
 
+
 // @desc Delete student
 // @route DELETE api/students/:id
 // @privacy Private ADMIN

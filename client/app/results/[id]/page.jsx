@@ -135,8 +135,16 @@ const StudentResult = () => {
                     {data.subLevel}
                   </p>
                   <p className='text-sm'>
-                    <strong>POSITION IN CLASS:</strong>
-                    {data?.position}
+                    {data?.level === 'Creche' ||
+                    data?.level === 'Day Care' ||
+                    data?.level === 'Reception' ? (
+                      ''
+                    ) : (
+                      <>
+                        <strong>POSITION IN CLASS:</strong>
+                        {/* {data?.position} */}
+                      </>
+                    )}
                   </p>
                   <p className='text-sm'>
                     <strong>STUDENT AVERAGE:</strong>
