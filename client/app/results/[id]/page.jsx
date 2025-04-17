@@ -25,10 +25,7 @@ const StudentResult = () => {
     setResultId(id);
   }, [id]);
 
-  if (
-    data?.level === 'Creche' ||
-    data?.level === 'Day Care' 
-  ) {
+  if (data?.level === 'Creche' || data?.level === 'Day Care') {
     return (
       <div>
         <div className='bg-blue-950 h-20'></div>
@@ -161,7 +158,7 @@ const StudentResult = () => {
               </p>{' '}
               <small>
                 ACCOUNT NAME: BERYL INTERNATIONAL SCHOOLS <br /> ACCOUNT NUMBER:
-                xxxxxxxxx <br /> BANK NAME: BANK NAME
+                2035177616 <br /> BANK NAME: FIRST BANK
               </small>
             </div>
             <ReactToPrint

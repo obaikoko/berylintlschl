@@ -5,7 +5,7 @@ import { useGetNextTermInfoQuery } from '@/src/features/nextTerm/nextTermApiSlci
 const ResultTable = ({ data }) => {
   const level = `?level=${data.level}`;
   const { data: nextTerm } = useGetNextTermInfoQuery(level);
-  const filterResult = data?.subjectResults.filter(
+  const filterResult = data?.subjectResults?.filter(
     // filter values greater than 2 to correct mistakenly entered subject scores where necessary
     (subject) => subject.totalScore > 2
   );
