@@ -76,6 +76,10 @@ const resultSchema = new mongoose.Schema(
     psychomotor: [psychomotorSchema],
     teacherRemark: String,
     principalRemark: String,
+    isPaid: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

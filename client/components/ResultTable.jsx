@@ -133,7 +133,7 @@ const ResultTable = ({ data }) => {
               <td></td>
             </tr>
             <tr>
-              <td>NUMBER OF PEOPLE IN CLASS: {data.numberInClass}</td>
+              <td>NUMBER OF STUDENTS IN CLASS: {data.numberInClass}</td>
               <td>PASS/FAIL:{data?.averageScore >= 40 ? 'PASS' : 'FAILED'}</td>
               <td>CONDUCT:________</td>
               <td>SIGNATURE:________</td>

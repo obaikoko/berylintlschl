@@ -14,6 +14,7 @@ import UpdateRemark from '@/components/UpdateRemark';
 import { useSelector } from 'react-redux';
 import { FaPrint } from 'react-icons/fa';
 import DeleteResultBtn from '@/components/DeleteResultBtn';
+import UpdateResultPaymentButton from '@/components/UpdateResultPaymentButton';
 const StudentResult = () => {
   const [resultId, setResultId] = useState(null);
   const { id } = useParams();
@@ -111,7 +112,7 @@ const StudentResult = () => {
               <div className={style.header}>
                 <div className={style.headerContent}>
                   <p className='text-sm'>
-                    <strong>STUDENT NAME:</strong>
+                    <strong>STUDENT'S NAME:</strong>
                     {data?.firstName} {data?.otherName} {data?.lastName}{' '}
                   </p>
                   <p className='text-sm'>
@@ -147,7 +148,7 @@ const StudentResult = () => {
                     )}
                   </p>
                   <p className='text-sm'>
-                    <strong>STUDENT AVERAGE:</strong>
+                    <strong>STUDENT'S AVERAGE:</strong>
                     {data?.averageScore?.toFixed(2)}
                   </p>
                 </div>
@@ -187,6 +188,7 @@ const StudentResult = () => {
                 <UpdatePsychomotor />
                 <UpdateRemark />
                 <DeleteResultBtn result={data._id} />
+                <UpdateResultPaymentButton />
               </>
             )}
           </>

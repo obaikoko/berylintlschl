@@ -75,6 +75,14 @@ export const resultsApiSlice = apiSlice.injectEndpoints({
         credentials: 'include',
       }),
     }),
+    resultPayment: builder.mutation({
+      query: (data) => ({
+        url: `${RESULTS_URL}/payment`,
+        method: 'PUT',
+        body: data,
+        credentials: 'include',
+      }),
+    }),
     generateBroadsheet: builder.mutation({
       query: (data) => ({
         url: `${RESULTS_URL}/broadsheet`,
@@ -96,5 +104,6 @@ export const {
   useRemoveSubjectMutation,
   useDeleteResultMutation,
   useGeneratePositionsMutation,
+  useResultPaymentMutation,
   useGenerateBroadsheetMutation,
 } = resultsApiSlice;

@@ -506,6 +506,34 @@ const deleteResult = asyncHandler(async (req, res) => {
   }
 });
 
+
+// @desc updates result to paid and makes it visible to student
+// @privacy private
+
+const updateResultPayment = asyncHandler(async (req, res) => {
+  const { resultId, resultFee } = req.body;
+
+  if (!resultId) {
+    res.status(400);
+    throw new Error('Bad request! no resultId');
+  }
+  const result = await Result.findById(resultId);
+  if (!result) {
+    res.status(404);
+    throw new Error('Result not found!');
+  }
+  if (resultFee && resultFee === 'paid') {
+    result.isPaid = true;
+  } else if (resultFee && resultFee === 'notPaid') {
+    result.isPaid = false;
+  }
+  await result.save();
+
+  res.status(200);
+  res.json('Payment status updated successfully');
+});
+
+
 const generatePositions = asyncHandler(async (req, res) => {
   if (!req.user) {
     res.status(401);
@@ -576,6 +604,7 @@ export {
   getResults,
   getResult,
   updateResult,
+  updateResultPayment,
   addSubjectToResults,
   manualSubjectRemoval,
   deleteResult,
