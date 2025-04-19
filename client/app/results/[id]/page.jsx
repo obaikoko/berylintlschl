@@ -159,7 +159,22 @@ const StudentResult = () => {
                 <strong> Teachers's Remark: </strong> {data?.teacherRemark}
               </p>
               <p className='text-sm'>
-                <strong> Principal's Remark:</strong> {data?.principalRemark}
+                {data.level === 'JSS 1' ||
+                data.level === 'JSS 2' ||
+                data.level === 'JSS 3' ||
+                data.level === 'SSS 1' ||
+                data.level === 'SSS 2' ||
+                data.level === 'SSS 3' ? (
+                  <>
+                    <strong> Principal's Remark:</strong>{' '}
+                    {data?.principalRemark}
+                  </>
+                ) : (
+                  <>
+                    <strong> Head Teacher's Remark:</strong>{' '}
+                    {data?.principalRemark}
+                  </>
+                )}
               </p>
               <p className='text-sm'>
                 {' '}
