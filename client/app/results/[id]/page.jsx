@@ -21,7 +21,7 @@ const StudentResult = () => {
   const componentRef = useRef();
   const { user } = useSelector((state) => state.auth);
   const { data, isLoading, isError } = useGetResultQuery(resultId);
-  console.log(data);
+
 
   useEffect(() => {
     setResultId(id);
