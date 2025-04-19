@@ -21,6 +21,7 @@ const StudentResult = () => {
   const componentRef = useRef();
   const { user } = useSelector((state) => state.auth);
   const { data, isLoading, isError } = useGetResultQuery(resultId);
+  console.log(data);
 
   useEffect(() => {
     setResultId(id);
@@ -36,7 +37,7 @@ const StudentResult = () => {
           {data && (
             <>
               <div ref={componentRef} className={style.print}>
-                <LetterHead />
+                <LetterHead image={data?.image} />
                 <div className={style.header}>
                   <div className={style.headerContent}>
                     <p className='text-sm'>
@@ -108,7 +109,7 @@ const StudentResult = () => {
         {data && (
           <>
             <div ref={componentRef} className={style.print}>
-              <LetterHead />
+              <LetterHead image={data?.image} />
               <div className={style.header}>
                 <div className={style.headerContent}>
                   <p className='text-sm'>
