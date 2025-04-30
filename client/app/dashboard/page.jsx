@@ -112,8 +112,8 @@ function dashboard() {
               <div>
                 <RemoveSubject />
                 <AddSubject/>
-                <GraduateStudents />
                 <ResetStudentFee />
+                <GraduateStudents />
               </div>
             </div>
           </div>

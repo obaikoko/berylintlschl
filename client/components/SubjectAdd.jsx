@@ -137,9 +137,11 @@ const AddSubject = () => {
                 onChange={onChange}
               >
                 <option value=''>Select Subject</option>
+                <option value=''>Select Subject</option>
                 <option value='Agricultural Science'>
                   Agricultural Science
                 </option>
+                <option value='Awareness'>Awareness</option>
                 <option value='Basic Science'>Basic Science</option>
                 <option value='Basic Technology'>Basic Technology</option>
                 <option value='Biology'>Biology</option>
@@ -174,13 +176,16 @@ const AddSubject = () => {
                 <option value='Health Habit'>Health Habit</option>
                 <option value='History'>History</option>
                 <option value='Home Economics'>Home Economics</option>
+                <option value='Later Works'>Later Works</option>
                 <option value='Literature-In-English'>
                   Literature-In-English
                 </option>
                 <option value='Mathematics'>Mathematics</option>
+                <option value='Moral Instruction'>Moral Instruction</option>
                 <option value='Music'>Music</option>
                 <option value='Nigeria Language'>Nigeria Language</option>
                 <option value='Number Work'>Number Work</option>
+                <option value='Numeracy'>Numeracy</option>
                 <option value='Phonics'>Phonics</option>
                 <option value='Phonetics/Spelling'>Phonetics/Spelling</option>
                 <option value='Physical And Health Education'>

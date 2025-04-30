@@ -34,12 +34,11 @@ const GeneratePositions = () => {
         session,
         term,
         level,
-        subLevel
+        subLevel,
       }).unwrap();
 
-      router.push('/results');
+      toast.success(res);
       refetch();
-      toast.success(` Positions Generated Successfully`);
       setFormData({
         session: '',
         term: '',

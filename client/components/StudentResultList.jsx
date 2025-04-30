@@ -33,11 +33,12 @@ const StudentResultList = ({ data }) => {
                     <td>{index + 1}</td>
                     <td>{rst.level}</td>
                     <td>{`${rst.term} Term`}</td>
-
                     <td>
-                      {1 === 1 ? (
+                      {rst.isPaid ? (
                         <>
-                          {rst.position ? (
+                          {!rst.position || rst.position?.length === 0 ? (
+                            'In Progress'
+                          ) : (
                             <Link
                               className='text-black underline'
                               href={`/results/${rst._id}`}
@@ -47,12 +48,10 @@ const StudentResultList = ({ data }) => {
                                 View
                               </button>
                             </Link>
-                          ) : (
-                            'In Progress'
                           )}
                         </>
                       ) : (
-                        'No Access'
+                        <>No Access</>
                       )}
                     </td>
                   </tr>

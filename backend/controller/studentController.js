@@ -189,17 +189,13 @@ const getStudentProfile = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc Get all student(one student multiple results) results
+// @route GET /students/results
+// @privacy Private
 const getStudentResults = asyncHandler(async (req, res) => {
   const results = await Result.find({ studentId: req.student._id }).sort({
     createdAt: -1,
   });
-  if (!req.student.isPaid) {
-    res.status(401);
-
-    throw new Error(
-      'Unable to access your result due to non payment of fees, Please proceed to the school administration and make your payment '
-    );
-  }
 
   if (results) {
     res.status(200);
@@ -370,10 +366,26 @@ const updateStudent = asyncHandler(async (req, res) => {
   }
 });
 
+// @desc Sets Selected result to paid or not paid
+// @route POST /students/fees
+// @privacy Private Admin
 const resetStudentFees = asyncHandler(async (req, res) => {
-  await Student.updateMany({}, { isPaid: false });
+  const { session, term } = req.body;
+  if (!session || !term) {
+    res.status(400);
+    throw new Error('Please add all fields');
+  }
 
-  res.status(200).json('All student payment status has been set to not paid');
+  const results = await Result.find({ session, term });
+
+  if (!results || results.length === 0) {
+    res.status(404);
+    throw new Error('No result found!');
+  }
+
+  await Result.updateMany({ session, term }, { isPaid: true });
+
+  res.status(200).json(`${session} ${term} results is now accessble`);
 });
 
 
@@ -404,7 +416,6 @@ const deleteStudent = asyncHandler(async (req, res) => {
 // @privacy Public
 const forgetPassword = asyncHandler(async (req, res) => {
   const { studentId } = req.body;
-  
 
   // Find user by email
   const student = await Student.findOne({ studentId });

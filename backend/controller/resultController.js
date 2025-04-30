@@ -156,8 +156,9 @@ const getResults = asyncHandler(async (req, res) => {
   }
 });
 
+
 // @GET STUDENT RESULT
-// @route GET api/results/id
+// @route GET api/results/:id
 // @privacy Private
 const getResult = asyncHandler(async (req, res) => {
   const result = await Result.findById(req.params.id);
@@ -167,8 +168,25 @@ const getResult = asyncHandler(async (req, res) => {
     throw new Error('Result does not exist');
   }
 
-  res.status(200);
-  res.json(result);
+  // If a student is making the request
+  if (req.student) {
+    const isOwner = req.student._id.toString() === result.studentId.toString();
+
+    if (!isOwner) {
+      res.status(401);
+      throw new Error('Unauthorized Access!');
+    }
+
+    if (!result.isPaid) {
+      res.status(401);
+      throw new Error('Unable to access result, Please contact the admin');
+    }
+  }
+
+  // If a teacher (user) is making the request, allow access regardless of isPaid
+  // No additional checks needed unless you want to restrict teachers to only certain results
+
+  res.status(200).json(result);
 });
 
 // @UPDATE STUDENT RESULT
@@ -506,7 +524,6 @@ const deleteResult = asyncHandler(async (req, res) => {
   }
 });
 
-
 // @desc updates result to paid and makes it visible to student
 // @privacy private
 
@@ -533,7 +550,6 @@ const updateResultPayment = asyncHandler(async (req, res) => {
   res.json('Payment status updated successfully');
 });
 
-
 const generatePositions = asyncHandler(async (req, res) => {
   if (!req.user) {
     res.status(401);
@@ -547,7 +563,9 @@ const generatePositions = asyncHandler(async (req, res) => {
 
     if (!results || results.length === 0) {
       res.status(404);
-      throw new Error('No results found for the specified class and session');
+      throw new Error(
+        `No results found for  ${level}${subLevel} ${session} session`
+      );
     }
 
     // Sort results by average score in descending order
@@ -562,7 +580,9 @@ const generatePositions = asyncHandler(async (req, res) => {
     // Save updated results
     await Promise.all(results.map((result) => result.save()));
 
-    res.status(200).send(results);
+    res
+      .status(200)
+      .json(`${level}${subLevel} ${session} Results Published Successfully`);
   } catch (error) {
     res.status(500).send({ message: error.message });
   }

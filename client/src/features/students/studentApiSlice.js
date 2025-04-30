@@ -76,9 +76,10 @@ export const studentsApiSlice = apiSlice.injectEndpoints({
       providesTags: ['Students'],
     }),
     reserStudentsFee: builder.mutation({
-      query: () => ({
+      query: (data) => ({
         url: `${STUDENTS_URL}/fees`,
         method: 'POST',
+        body: data,
         credentials: 'include',
       }),
       providesTags: ['Students'],
