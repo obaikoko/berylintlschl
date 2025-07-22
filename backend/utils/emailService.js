@@ -34,8 +34,8 @@ const sendSingleMail = async ({ email, subject, text }) => {
           <p style="font-weight: bold; color: #004b87;">The Beryl International Schools Team</p>
           <hr style="border: 0; height: 1px; background-color: #e0e0e0; margin: 30px 0;">
           <div style="text-align: center; font-size: 12px; color: #999;">
-            <p>If you have any questions, feel free to contact us at <a href="mailto:admin@berylintlschs.org" style="color: #004b87; text-decoration: none;">admin@berylintlschs.org</a>.</p>
-            <p>&copy; 2024 Beryl International Schools. All rights reserved.</p>
+            <p>If you have any questions, feel free to contact us at <a href="mailto:administrator@berylintlschs.com" style="color: #004b87; text-decoration: none;">administrator@berylintlschs.com</a>.</p>
+            <p>&copy; 2025 Beryl International Schools. All rights reserved.</p>
           </div>
         </div>
       `,

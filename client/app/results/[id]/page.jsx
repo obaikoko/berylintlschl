@@ -22,7 +22,6 @@ const StudentResult = () => {
   const { user } = useSelector((state) => state.auth);
   const { data, isLoading, isError } = useGetResultQuery(resultId);
 
-
   useEffect(() => {
     setResultId(id);
   }, [id]);
@@ -71,7 +70,7 @@ const StudentResult = () => {
                 </p>{' '}
                 <small>
                   ACCOUNT NAME: BERYL INTERNATIONAL SCHOOLS <br /> ACCOUNT
-                  NUMBER: xxxxxxxxx <br /> BANK NAME: BANK NAME
+                  NUMBER: 2035177616 <br /> BANK NAME: FIRST BANK
                 </small>
               </div>
               <ReactToPrint
@@ -139,14 +138,9 @@ const StudentResult = () => {
                   <p className='text-sm'>
                     {data?.level === 'Creche' ||
                     data?.level === 'Day Care' ||
-                    data?.level === 'Reception' ? (
-                      ''
-                    ) : (
-                      <>
-                        <strong>POSITION IN CLASS:</strong>
-                        {data?.position}
-                      </>
-                    )}
+                    data?.level === 'Reception'
+                      ? ''
+                      : ''}
                   </p>
                   <p className='text-sm'>
                     <strong>STUDENT'S AVERAGE:</strong>
