@@ -52,44 +52,7 @@ const StudentProfile = ({ student }) => {
         <p>
           <strong>Sponsor Email:</strong> {student.sponsorEmail}
         </p>
-        <p>
-          <strong>School Fees:</strong> {student.isPaid ? 'Paid' : 'Not Paid'}
-        </p>
       </div>
-
-      {student.isPaid ? (
-        <div>
-          {/* <h3>School Fee Account Details</h3>
-          <p>
-            <strong>Account Name:</strong> Beryl International Schools
-          </p>
-          <p>
-            <strong>Bank Name:</strong> First Bank
-          </p>
-          <p>
-            <strong>Account Number:</strong> 2035177616
-          </p> */}
-        </div>
-      ) : (
-        <div>
-          <p className='text-rose-600'>
-            <strong>NOTE:</strong> Students who are yet to pay their fees wont
-            have access to their result.
-          </p>
-          {/* <div>
-            <h3>School Fee Account Details</h3>
-            <p>
-              <strong>Account Name:</strong> Beryl International Schools
-            </p>
-            <p>
-              <strong>Bank Name:</strong> First Bank
-            </p>
-            <p>
-              <strong>Account Number:</strong> 2035177616
-            </p>
-          </div> */}
-        </div>
-      )}
     </div>
   );
 };

@@ -51,7 +51,21 @@ const StudentResultList = ({ data }) => {
                           )}
                         </>
                       ) : (
-                        <>No Access</>
+                        <>
+                          {!rst.position || rst.position?.length === 0 ? (
+                            'In Progress'
+                          ) : (
+                            <Link
+                              className='text-black underline'
+                              href={`/results/${rst._id}`}
+                            >
+                              <button className='bg-blue-950 text-white hover:bg-blue-800 px-3 rounded'>
+                                <FaArrowRight className='inline mx-2 mb-1' />
+                                View
+                              </button>
+                            </Link>
+                          )}
+                        </>
                       )}
                     </td>
                   </tr>
