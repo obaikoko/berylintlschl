@@ -3,6 +3,11 @@ import AffectiveAssessment from './AffectiveAssessment';
 import { useGetNextTermInfoQuery } from '@/src/features/nextTerm/nextTermApiSlcie';
 
 const ResultTable = ({ data }) => {
+  // console.log(data.subjectResults)
+  const mathScore = data.subjectResults.filter((x) => x.subject === 'Mathematics')
+  const engScore = data.subjectResults.filter((x) => x.subject === 'English')
+  const mathTotalScore = mathScore[0].totalScore;
+  const engTotalScore = engScore[0].totalScore;
   const level = `?level=${data.level}`;
   const { data: nextTerm } = useGetNextTermInfoQuery(level);
   const filterResult = data?.subjectResults?.filter(
@@ -134,7 +139,13 @@ const ResultTable = ({ data }) => {
             </tr>
             <tr>
               <td>NUMBER OF STUDENTS IN CLASS: {data.numberInClass}</td>
-              <td>PASS/FAIL:{data?.averageScore >= 40 ? 'PASS' : 'FAILED'}</td>
+              <td>
+                PASS/FAIL:
+                {(mathTotalScore <= 40 && engTotalScore <= 40) ||
+                data?.averageScore < 40
+                  ? 'FAILED'
+                  : 'PASS'}
+              </td>
               <td>CONDUCT:________</td>
               <td>SIGNATURE:________</td>
             </tr>
