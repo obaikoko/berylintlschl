@@ -133,16 +133,36 @@ const RemoveSubject = () => {
               <select
                 name='subjectName'
                 id='rstSubjectName'
-                className='bg-gray-300 rounded px-4 py-1 '
+                className='bg-gray-300 rounded px-4 py-1'
                 onChange={onChange}
               >
                 <option value=''>Select Subject</option>
+
+                {/* Added subjects */}
+                <option value='Control Of Movement'>Control Of Movement</option>
+                <option value='Drawing And Colouring'>
+                  Drawing And Colouring
+                </option>
+                <option value='Games'>Games</option>
+                <option value='Independence'>Independence</option>
+                <option value='Language Practices'>Language Practices</option>
+                <option value='Nursery Rhymes/Poems'>
+                  Nursery Rhymes/Poems
+                </option>
+                <option value='Object Identification'>
+                  Object Identification
+                </option>
+                <option value='Oral Number Work'>Oral Number Work</option>
+                <option value='Responsibility'>Responsibility</option>
+                <option value='Scribbling'>Scribbling</option>
+                <option value='Singing'>Singing</option>
+                <option value='Sociability'>Sociability</option>
+
+                {/* Existing subjects */}
                 <option value='Agricultural Science'>
                   Agricultural Science
                 </option>
-                <option value='Awareness'>
-                  Awareness
-                </option>
+                <option value='Awareness'>Awareness</option>
                 <option value='Basic Science'>Basic Science</option>
                 <option value='Basic Technology'>Basic Technology</option>
                 <option value='Biology'>Biology</option>
@@ -177,9 +197,7 @@ const RemoveSubject = () => {
                 <option value='Health Habit'>Health Habit</option>
                 <option value='History'>History</option>
                 <option value='Home Economics'>Home Economics</option>
-                <option value='Later Works'>
-                  Later Works
-                </option>
+                <option value='Later Works'>Later Works</option>
                 <option value='Literature-In-English'>
                   Literature-In-English
                 </option>
