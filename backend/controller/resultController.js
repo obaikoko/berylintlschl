@@ -156,7 +156,6 @@ const getResults = asyncHandler(async (req, res) => {
   }
 });
 
-
 // @GET STUDENT RESULT
 // @route GET api/results/:id
 // @privacy Private

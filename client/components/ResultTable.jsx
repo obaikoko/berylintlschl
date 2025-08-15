@@ -6,8 +6,8 @@ const ResultTable = ({ data }) => {
   // console.log(data.subjectResults)
   const mathScore = data.subjectResults.filter((x) => x.subject === 'Mathematics')
   const engScore = data.subjectResults.filter((x) => x.subject === 'English')
-  const mathTotalScore = mathScore[0].totalScore;
-  const engTotalScore = engScore[0].totalScore;
+  const mathTotalScore = mathScore[0]?.totalScore;
+  const engTotalScore = engScore[0]?.totalScore;
   const level = `?level=${data.level}`;
   const { data: nextTerm } = useGetNextTermInfoQuery(level);
   const filterResult = data?.subjectResults?.filter(
